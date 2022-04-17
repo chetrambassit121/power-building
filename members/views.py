@@ -49,9 +49,9 @@
 # import json
                            
 
-# # Create your views here.
+## Create your views here.
 
-# #register view
+# register view
 # def register(request):
 #     if request.method == 'POST':
 #         form = SignUpForm(request.POST)
@@ -107,7 +107,7 @@
 
 
 
-# # loading the dependent dropdown for register form 
+#loading the dependent dropdown for register form 
 # def load_citys(request):
 #     state_id = request.GET.get('state')
 #     citys = City.objects.filter(state_id=state_id).order_by('name')

@@ -34,10 +34,10 @@
             
             {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'register' %}">Register</a>
+                <a class="nav-link" href="{ url 'register' %}">Register</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-link" href="{ url 'login' %}">Login</a>
               </li>
             {% endif %}
           </ul>
@@ -55,7 +55,7 @@
                 <li><a class="dropdown-item" href="{ url 'edit_profile_page' request.user.profile.pk %}">Edit Profile Page</a></li>
                 <li><a class="dropdown-item" href="{ url 'show_profile_page' request.user.profile.pk %}">Show Profile Page</a></li>
              
-                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                <li><a class="dropdown-item" href="{ url 'logout' %}">Logout</a></li>
               </ul>
             </div>              
           {% endif %}
@@ -103,7 +103,7 @@
       </div>
       <div class="nav-item mr-lg-3">
       {% else %}
-        <h5>Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a> to interact with other users</h5>  
+        <h5>Please <a href="{ url 'login' %}">login</a> or <a href="{ url 'register' %}">register</a> to interact with other users</h5>  
       {% endif %}
       
     </div>
