@@ -102,7 +102,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'powerbuilding.wsgi.application'
 
-# AUTH_USER_MODEL = 'members.User'                                                   # added "Django allows you to override the default user model by providing a value for the AUTH_USER_MODEL setting that references a custom model:"
+AUTH_USER_MODEL = 'members.User'                                                   # added "Django allows you to override the default user model by providing a value for the AUTH_USER_MODEL setting that references a custom model:"
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4' # added for cripsy forms its also accessing bootstrap4
@@ -201,15 +201,15 @@ LOGIN_REDIRECT_URL = 'home'                                                     
 LOGOUT_REDIRECT_URL = 'home'                                                       # added will redirect to home page aftr logging out 
 
 
-# # added all email information which connects to the information in .env file .. we do not want our sensative information displayed here rather its displayed in hidden .env file
-# EMAIL_BACKEND = config('EMAIL_BACKEND') 
-# # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
-# EMAIL_USE_TLS = config('EMAIL_USE_TLS')
-# EMAIL_HOST = config('EMAIL_HOST')
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-# EMAIL_PORT = config('EMAIL_PORT')
+# added all email information which connects to the information in .env file .. we do not want our sensative information displayed here rather its displayed in hidden .env file
+EMAIL_BACKEND = config('EMAIL_BACKEND') 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = config('EMAIL_PORT')
 ###########################################
 
 # Default primary key field type
