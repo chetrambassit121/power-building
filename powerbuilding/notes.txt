@@ -1,0 +1,57 @@
+Set up this main application
+
+1.Create a folder called settings:
+
+
+	create .env = While working with web applications often we need to store sensitive data for authentication of different modules such as database credentials and API keys. These sensitive keys should not be hardcoded in the settings.py file instead they should be loaded with Environment variables on runtime:
+	https://djangocentral.com/environment-variables-in-django/ 
+	[
+		*** some sensative data but not limited to ***
+		secert_key = https://docs.djangoproject.com/en/4.0/ref/settings/#secret-key
+		Debug =  Low level system information for debugging purposes  
+		email information 
+	]
+
+	create __init__.py = we will set this file to initiate the prod.py file .. basicailly it will default to all data within prod.py file so when in production mode our prod.py file will be activated 
+
+	move the existing settings.py into settings folder and renae that file base.py = this file will bascally contain data that both the dev.py and prod.py will contain as well so its the common file within dev.py and prod.py.   
+
+	create dev.py = this file will basically contain the data that we need and can adjust for developemnt stages 
+
+	create prod.py = this file will contain contain the data that we need and can adjust for the production stages
+
+	*** when in development stages we default to the dev.py file ***
+	*** to set up for production stages we did the command ..  heroku config:set DJANGO_SETTINGS_MODULE=powerbuilding.settings.prod 
+	use the commands in terminal: 
+		export DJANGO_SETTINGS_MODULE="powerbuilding.settings.dev"
+		export DJANGO_SETTINGS_MODULE="powerbuilding.settings.prod"
+
+
+
+
+
+
+
+from base.py our footer from freedom project 
+<!-- <div class="footer-basic">
+      <footer>
+         <!--  <div class="social">
+            <a href="#"><i class="icon ion-social-instagram"></i></a>
+            <a href="#"><i class="icon ion-social-snapchat"></i></a>
+            <a href="#"><i class="icon ion-social-twitter"></i></a>
+            <a href="#"><i class="icon ion-social-facebook"></i></a>
+          </div> -->
+          <ul class="list-inline">
+              <li class="list-inline-item"><a href="{% url 'home' %}">Home</a></li>
+              <!-- <li class="list-inline-item"><a href="#">Services</a></li> -->
+              <li class="list-inline-item"><a href="{% url 'about' %}">About</a></li>
+              <!-- <li class="list-inline-item"><a href="#">Terms</a></li> -->
+              <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+          </ul>
+          <p class="copyright">Power-Building © 2022</p>
+      </footer>
+    </div> -->
+
+ 
+
+

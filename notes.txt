@@ -1,0 +1,75 @@
+ARCHITCTURE OF THE FILES:
+	power-building is the directory which contains:
+
+		powerbuilding which is the main project which contains: [
+
+			**** auto created files **** [
+
+				db.sqlite3 = our default database stores data such as migrations
+
+				manage.py = file which contains logic for using the command manage.py in command terminal 
+			]
+
+			**** important files / folders to create ****: [
+
+				.gitignore = purpose of this file is to add any file in here that we do not want displayed in our GitHub repository
+				# purpose of this file is to add any file in here that we do not want displayed in our GitHub repository
+				# .env is in our powerbuilding/settings folder and we do not want to upload the data there to Github so the file name is added here to be ignored when uploading 
+
+				runtime.txt = type in the python version being used (this is required when project is in production mode)
+				in command terminal ... type in python --version ... to get current version of python then write code in this file  
+
+				requirements.txt = file that lists all of the modules needed for the Django project to work. link describes how to properly create the file https://medium.com/@wihlarkop/how-to-create-requirements-txt-on-django-project-b774cd3f3471
+				anytime we download a new module must do the command ... pip freeze > requirements.txt .... to update the file 
+
+				Procfile = needed for when we deploy this web application to Heroku web server !! other web servers may not need this 
+				Heroku web applications requires a Procfile.
+				https://devcenter.heroku.com/articles/django-app-configuration
+
+				media folder = this folder will contain the images uploaded by users like profile pictures, uploaded images in posts, videos ... must configure settings.py file and add the root for this media folder 
+
+
+			]
+
+			powerbuilding (auto-created when project is created) = is the main app that contains important files such as: [
+
+				settings.py = coder can adjust sensative information such as installed apps, type of database, static root, media root, template info, EMAIL information ... 
+
+				urls.py =  main url file which contains url's from other apps like members, powerbuilding_information, social
+
+			]
+
+
+			**** when we create a new app within this project (except for the main app powerbuilding) the urls.py file must be created by coder and will contains the urls for the app which we connect back to main urls.py file in powerbuilding/urls.py. A templates folder should also be created as well to store html files for each created app ****
+
+			
+			powerbuilding_information = this app will contain mostly information on the topic of this website which is about powerlifitng / body building:
+				
+			members = this app will contain the logic and information needed for our members (users) such as register, log-in, user profile, user settings:
+				
+			social = this app will contain the logic and informaton for users to interact with each other, like a mini instagram = (posts={text, images, videos}, shareposts, comments, replies, likes, dislikes, follow user, inbox, messages, search for hastags, search for user, notifications):
+
+
+
+
+
+		]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
