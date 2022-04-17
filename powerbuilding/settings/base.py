@@ -102,7 +102,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'powerbuilding.wsgi.application'
 
-AUTH_USER_MODEL = 'members.User'                                                   # added "Django allows you to override the default user model by providing a value for the AUTH_USER_MODEL setting that references a custom model:"
+# AUTH_USER_MODEL = 'members.User'                                                   # added "Django allows you to override the default user model by providing a value for the AUTH_USER_MODEL setting that references a custom model:"
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4' # added for cripsy forms its also accessing bootstrap4
