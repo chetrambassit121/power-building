@@ -39,7 +39,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent               # when we
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-# SECRET_KEY = config('SECRET_KEY')
+
 
 
 
@@ -202,15 +202,18 @@ LOGOUT_REDIRECT_URL = 'home'                                                    
 
 
 # added all email information which connects to the information in .env file .. we do not want our sensative information displayed here rather its displayed in hidden .env file
-EMAIL_BACKEND = config('EMAIL_BACKEND') 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
-EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+# EMAIL_BACKEND = config('EMAIL_BACKEND') 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
 EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
 ###########################################
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
