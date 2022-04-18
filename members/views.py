@@ -54,9 +54,9 @@ import json
 
 
 def register(request):
-    connection = get_connection()
+    # connection = get_connection()
     if request.method == 'POST':
-        connection.open()
+        # connection.open()
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
@@ -77,7 +77,7 @@ def register(request):
             email = mail.EmailMessage(mail_subject, message, to=[to_email])
             email.send()
             return render(request, 'registration/confirm_email.html')  
-            connection.close()
+            # connection.close()
             # return HttpResponse('Please confirm your email address to complete the registration')
     else:
         form = SignUpForm()

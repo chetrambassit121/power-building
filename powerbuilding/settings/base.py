@@ -22,7 +22,7 @@ from decouple import config                                            # added .
                                                                        # https://pypi.org/project/python-decouple/ 
 import django_on_heroku                                                 # added to connect django and heroku 
    
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 # load_dotenv()    
 
 
