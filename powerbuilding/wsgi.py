@@ -15,9 +15,9 @@ from dotenv import load_dotenv
 
 
 
-load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'powerbuilding.settings')     # default
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'powerbuilding.settings.dev')   # edited above line ... added .dev so it will default to our powerbuilding/settings/dev.py
+# load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'powerbuilding.settings')     # default
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'powerbuilding.settings.dev')   # edited above line ... added .dev so it will default to our powerbuilding/settings/dev.py
 
 
 application = get_wsgi_application()

@@ -6,8 +6,8 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'powerbuilding.settings')        # default
-    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'powerbuilding.settings.dev')     # edited above line ... added .dev so it will default to our powerbuilding/settings/dev.py
+    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'powerbuilding.settings')        # default
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'powerbuilding.settings.dev')     # edited above line ... added .dev so it will default to our powerbuilding/settings/dev.py
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
