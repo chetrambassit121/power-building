@@ -63,13 +63,6 @@ ARCHITCTURE OF THE FILES:
 
 
 
-EMAIL_BACKEND = django.core.mail.backends.smtp.EmailBackend
-EMAIL_USE_TLS = True
-EMAIL_HOST = mail.hover.com
-EMAIL_HOST_USER = nyforchoice@nyforchoice.com
-DEFAULT_FROM_EMAIL = nyforchoice@nyforchoice.com
-EMAIL_HOST_PASSWORD = Mrbella10116121!
-EMAIL_PORT = 587
 
 
 
