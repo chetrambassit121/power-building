@@ -8,7 +8,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = False   
 
-ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'power-building.herokuapp.com', '127.0.0.1']  
+ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'power-building.herokuapp.com', 'power-building.herokuapp.com/admin', '127.0.0.1']  
 
 
 
