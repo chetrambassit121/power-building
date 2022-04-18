@@ -1,4 +1,4 @@
-a {
+/*a {
   color: #4CB648;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
@@ -21,9 +21,9 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Roboto", Arial, sans-serif;
   font-weight: 400;
   margin: 0 0 30px 0;
-}
+}*/
 
-figure {
+/*figure {
   margin-bottom: 2em;
 }
 
@@ -41,29 +41,29 @@ figure {
   color: #fcfcfc;
   background: #4CB648;
 }
-
-#fh5co-header {
+*/
+/*#fh5co-header {
   position: relative;
   margin-bottom: 0;
   z-index: 9999999;
 }
-
+*/
 .fh5co-cover,
 .fh5co-hero {
   position: relative;
   height: 380px;
 }
-@media screen and (max-width: 768px) {
+/*@media screen and (max-width: 768px) {
   .fh5co-cover,
   .fh5co-hero {
     height: 700px;
   }
-}
+}*/
 .fh5co-cover.fh5co-hero-2,
 .fh5co-hero.fh5co-hero-2 {
   height: 600px;
 }
-.fh5co-cover.fh5co-hero-2 .fh5co-overlay,
+/*.fh5co-cover.fh5co-hero-2 .fh5co-overlay,
 .fh5co-hero.fh5co-hero-2 .fh5co-overlay {
   position: absolute !important;
   width: 100%;
@@ -73,7 +73,7 @@ figure {
   right: 0;
   z-index: 1;
   background: rgba(0, 0, 0, 0.7);
-}
+}*/
 
 .fh5co-overlay {
   position: absolute !important;
@@ -86,47 +86,47 @@ figure {
   background: rgba(0, 0, 0, 0.3);
 }
 
-.fh5co-cover {
+/*.fh5co-cover {
   background-size: cover;
   position: relative;
-}
-@media screen and (max-width: 768px) {
+}*/
+/*@media screen and (max-width: 768px) {
   .fh5co-cover {
     heifght: inherit;
     padding: 3em 0;
   }
-}
-.fh5co-cover .btn {
+}*/
+/*.fh5co-cover .btn {
   padding: 1em 2em;
   opacity: .9;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
   -ms-border-radius: 30px;
   border-radius: 30px;
-}
-.fh5co-cover.fh5co-cover_2 {
+}*/
+/*.fh5co-cover.fh5co-cover_2 {
   height: 600px;
-}
-@media screen and (max-width: 768px) {
+}*/
+/*@media screen and (max-width: 768px) {
   .fh5co-cover.fh5co-cover_2 {
     heifght: inherit;
     padding: 3em 0;
   }
-}
-.fh5co-cover .desc {
+}*/
+/*.fh5co-cover .desc {
   top: 30%;
   position: absolute;
   width: 100%;
   margin-top: -100px;
   z-index: 2;
   color: #fff;
-}
-@media screen and (max-width: 768px) {
+}*/
+/*@media screen and (max-width: 768px) {
   .fh5co-cover .desc {
     padding-left: 15px;
     padding-right: 15px;
   }
-}
+}*/
 .fh5co-cover .desc h2 {
   color: #fff;
   font-size: 55px;
@@ -135,34 +135,34 @@ figure {
   line-height: 60px;
   letter-spacing: 1px;
 }
-@media screen and (max-width: 768px) {
+/*@media screen and (max-width: 768px) {
   .fh5co-cover .desc h2 {
     font-size: 40px;
     line-height: 50px;
   }
-}
-.fh5co-cover .desc span {
+}*/
+/*.fh5co-cover .desc span {
   display: block;
   margin-bottom: 25px;
   font-size: 24px;
   letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.8);
-}
-.fh5co-cover .desc span i {
+}*/
+/*.fh5co-cover .desc span i {
   color: #DA1212;
-}
-.fh5co-cover .desc span a {
+}*/
+/*.fh5co-cover .desc span a {
   color: rgba(255, 255, 255, 0.8);
-}
-.fh5co-cover .desc span a:hover, .fh5co-cover .desc span a:focus {
+}*/
+/*.fh5co-cover .desc span a:hover, .fh5co-cover .desc span a:focus {
   color: #fff !important;
-}
-.fh5co-cover .desc span a.fh5co-site-name {
+}*/
+/*.fh5co-cover .desc span a.fh5co-site-name {
   padding-bottom: 2px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.7);
 }
-
-/* Superfish Override Menu */
+*/
+/*
 .sf-menu {
   margin: 0 !important;
 }
@@ -265,7 +265,7 @@ figure {
 .sf-arrows ul li:hover > .sf-with-ul:after,
 .sf-arrows ul .sfHover > .sf-with-ul:after {
   border-left-color: #ccc;
-}
+}*/
 
 #fh5co-header-section {
   padding: 0;
@@ -323,7 +323,7 @@ figure {
   color: #fff !important;
 }
 
-#fh5co-menu-wrap {
+/*#fh5co-menu-wrap {
   position: relative;
   z-index: 2;
   display: block;
@@ -342,7 +342,7 @@ figure {
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  /* Better Font Rendering =========== */
+ 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: absolute;
@@ -365,7 +365,7 @@ figure {
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  /* Better Font Rendering =========== */
+  
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: absolute;

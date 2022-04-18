@@ -36,7 +36,7 @@ from django.views.generic.list import ListView
 
 # from django.utils.encoding import force_text
 from django.contrib.auth import login
-from django.core import mail
+
 from django.core.mail import send_mail, BadHeaderError, get_connection
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
@@ -51,7 +51,39 @@ import json
                            
 
 # Create your views here.
+# def register(request):
+#     if request.method=="POST":
+#         username = request.POST["username"]
+#         password = request.POST["password"]
+#         email = request.POST["email"]
+#         state = request.POST["state"]
+#         city = request.POST["city"]
 
+#         user = User.objects.create_user(
+#                 username = username,
+#                 password = password,
+#                 email = email,
+#                 state = state,
+#                 city = city
+#             )
+#         login(request.user)
+#         subject = 'Activate your blog account'
+#         message = render_to_string(
+#                 'registration/email_template.html',
+#                 {
+#                     'user': user,
+#                     'domain': current_site.domain,
+#                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                     'token': account_activation_token.make_token(user),
+#                 }
+#             )
+#         email_from = settings.EMAIL_HOST_USER
+#         recipient_list = [user.email,]
+#         send_mail(subject, message, email_from, recipient_list)
+#         return render(request, 'registration/confirm_email.html') 
+#     else:
+#         form = SignUpForm()
+#     return render(request, 'registration/register.html', {'form': form})
 
 def register(request):
     # connection = get_connection()
