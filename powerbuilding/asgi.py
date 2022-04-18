@@ -12,7 +12,7 @@ import os
 from django.core.asgi import get_asgi_application
 
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'powerbuilding.settings')     # default
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'powerbuilding.settings.dev')   # edited above line ... added .dev so it will default to our powerbuilding/settings/dev.py
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'powerbuilding.settings')   # edited above line ... added .dev so it will default to our powerbuilding/settings/dev.py
 
 
 application = get_asgi_application()
