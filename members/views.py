@@ -37,7 +37,7 @@ from django.views.generic.list import ListView
 # from django.utils.encoding import force_text
 from django.contrib.auth import login
 from django.core import mail
-from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import send_mail, BadHeaderError, get_connection
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.contrib.auth.tokens import default_token_generator
@@ -54,7 +54,9 @@ import json
 
 
 def register(request):
+    connection = get_connection()
     if request.method == 'POST':
+        connection.open()
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
@@ -75,6 +77,7 @@ def register(request):
             email = mail.EmailMessage(mail_subject, message, to=[to_email])
             email.send()
             return render(request, 'registration/confirm_email.html')  
+            connection.close()
             # return HttpResponse('Please confirm your email address to complete the registration')
     else:
         form = SignUpForm()
