@@ -36,6 +36,7 @@ from django.views.generic.list import ListView
 
 # from django.utils.encoding import force_text
 from django.contrib.auth import login
+from django.core import mail
 from django.core.mail import send_mail, BadHeaderError
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
