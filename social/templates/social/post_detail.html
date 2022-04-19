@@ -68,12 +68,12 @@
                     {% if user not in post.likes.all %}
                         <input type="hidden" name="next" value="{{ request.path }}">
                         <button class="remove-default-btn" type="submit">
-                            <i class="far fa-thumbs-up" style="color: white"><span>{{ post.likes.all.count }}</span></i>
+                            <i class="far fa-thumbs-up" ><span>{{ post.likes.all.count }}</span></i>
                         </button>
                     {% else %}
                         <input type="hidden" name="next" value="{{ request.path }}">
                         <button class="remove-default-btn" type="submit">
-                            <i class="far fa-thumbs-up btn-success" style="color: white"><span>{{ post.likes.all.count }}</span></i>
+                            <i class="far fa-thumbs-up btn-success" ><span>{{ post.likes.all.count }}</span></i>
                         </button>
                     {% endif %}
                 </form>
@@ -82,12 +82,12 @@
                     {% if user not in post.dislikes.all %}
                         <input type="hidden" name="next" value="{{ request.path }}">
                         <button class="remove-default-btn" type="submit">
-                            <i class="far fa-thumbs-down" style="color: white"> <span>{{ post.dislikes.all.count }}</span></i>
+                            <i class="far fa-thumbs-down" > <span>{{ post.dislikes.all.count }}</span></i>
                         </button>
                     {% else %}
                         <input type="hidden" name="next" value="{{ request.path }}">
                         <button class="remove-default-btn" type="submit">
-                            <i class="far fa-thumbs-down btn-success" style="color: white"> <span>{{ post.dislikes.all.count }}</span></i>
+                            <i class="far fa-thumbs-down btn-success"> <span>{{ post.dislikes.all.count }}</span></i>
                         </button>
                     {% endif %}
                 </form>

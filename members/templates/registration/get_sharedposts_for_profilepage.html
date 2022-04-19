@@ -12,7 +12,7 @@
   </div>
 
   
-  <div class="row justify-content-center mt-5" style="background-color: #223a5e;">
+  <div class="row justify-content-center mt-5">
     <div class="col-md-8 col-sm-12 border px-5 pt-3">
       <div class="text-center">
         <h1 class="row justify-content-center mt-3">User Profile</h1> 
@@ -140,11 +140,7 @@
     <h4><a href="{% url 'show_profile_page' user.profile.pk %}">{{ user.username }} Posts</a></h4>
     <h5>Click on a Post to View Comments!</h5>
   </div></div></div></div>
-
-
-{% endblock %}
-
-{% for sharedpost in sharedposts %}
+  {% for sharedpost in sharedposts %}
   <div class="row justify-content-center mt-3">
     <div class="col-md-5 col-sm-12 border-bottom position-relative">
     {% if sharedpost.shared_user %}
@@ -192,12 +188,12 @@
         {% if request.user not in sharedpost.likes.all %}
           <input type="hidden"  name="post_id" value="{{ sharedpost.id }}">
           <button class="remove-default-btn like-btn{{sharedpost.id}}" type="submit">
-              <i class="far fa-thumbs-up like-icon{{sharedpost.id}}"  style="color: white"><span class="like_count{{sharedpost.id}}">{{ sharedpost.likes.all.count }}</span></i>
+              <i class="far fa-thumbs-up like-icon{{sharedpost.id}}"  ><span class="like_count{{sharedpost.id}}">{{ sharedpost.likes.all.count }}</span></i>
           </button>
         {% else %}
           <input type="hidden" name="post_id" value="{{ sharedpost.id }}">
           <button class="remove-default-btn like-btn{{sharedpost.id}}" type="submit">
-              <i class="far fa-thumbs-up like-icon{{sharedpost.id}} btn-success"  style="color: white"><span class="like_count{{sharedpost.id}}">{{ sharedpost.likes.all.count }}</span></i>
+              <i class="far fa-thumbs-up like-icon{{sharedpost.id}} btn-success"  ><span class="like_count{{sharedpost.id}}">{{ sharedpost.likes.all.count }}</span></i>
           </button>
         {% endif %}
       </form>
@@ -207,12 +203,12 @@
         {% if request.user not in sharedpost.dislikes.all %}
           <input type="hidden" name="post_id" value="{{ sharedpost.id }}">
           <button class="remove-default-btn dislike-btn{{sharedpost.id}}" type="submit" >
-              <i class="far fa-thumbs-down dislike-icon{{sharedpost.id}}"  style="color: white"> <span class="dislike_count{{sharedpost.id}}">{{ sharedpost.dislikes.all.count }}</span></i>
+              <i class="far fa-thumbs-down dislike-icon{{sharedpost.id}}"  > <span class="dislike_count{{sharedpost.id}}">{{ sharedpost.dislikes.all.count }}</span></i>
           </button>
         {% else %}
           <input type="hidden" name="post_id" value="{{ sharedpost.id }}">
           <button class="remove-default-btn dislike-btn{{sharedpost.id}}" type="submit" >
-              <i class="far fa-thumbs-down dislike-icon{{sharedpost.id}} btn-success"  style="color: white"> <span class="dislike_count{{sharedpost.id}}">{{ sharedpost.dislikes.all.count }}</span></i>
+              <i class="far fa-thumbs-down dislike-icon{{sharedpost.id}} btn-success"  > <span class="dislike_count{{sharedpost.id}}">{{ sharedpost.dislikes.all.count }}</span></i>
           </button>
         {% endif %}
       </form>
@@ -337,6 +333,11 @@
 
   });
 </script>
+
+
+{% endblock %}
+
+
 
 
   <div class="d-flex flex-row">

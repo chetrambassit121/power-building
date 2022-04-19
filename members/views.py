@@ -62,7 +62,7 @@ from .forms import SignUpForm, PasswordChangingForm, EditProfileForm, PasswordCh
 from django.views.generic import DetailView, CreateView, DeleteView                                                                  
 from .models import UserProfile, User, State, City
 # , Branch
-# from social.models import Post 
+from social.models import Post 
 # Follow                                                                                                                                                                         
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -236,9 +236,9 @@ class ShowProfilePageView(DetailView, ListView):
         # sharedposts = Post.objects.filter(shared_user=user)
         followers = profile.followers.all()
         followings = profile.followings.all()
-        # p = Paginator(Post.objects.filter(author=user), 10)
-        # page = request.GET.get('page')
-        # posts = p.get_page(page)
+        p = Paginator(Post.objects.filter(author=user), 10)
+        page = request.GET.get('page')
+        posts = p.get_page(page)
 
         # p = Paginator(Post.objects.filter(author=user), 3)
         # page = request.GET.get('page')
@@ -278,7 +278,7 @@ class ShowProfilePageView(DetailView, ListView):
             'profile': profile,
             # 'date_join': date_join,
             # 'picture': picture,
-            # 'posts': posts,
+            'posts': posts,
             # 'following_count':following_count,
             # 'followers_count':followers_count,
             # 'follow_status':follow_status,

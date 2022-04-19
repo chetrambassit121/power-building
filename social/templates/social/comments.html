@@ -63,12 +63,12 @@
                                 {% if request.user in comment.likes.all %}
                                     <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
                                     <button class="remove-default-btn like-btn{{comment.pk}}" type="submit">
-                                        <i class="far fa-thumbs-up like-icon{{comment.pk}} btn-success" style="color: white;"> <span class="like_count{{comment.pk}}">{{ comment.likes.all.count }}</span></i>
+                                        <i class="far fa-thumbs-up like-icon{{comment.pk}} btn-success" style="color: black;"> <span class="like_count{{comment.pk}}">{{ comment.likes.all.count }}</span></i>
                                     </button>
                                 {% else %}
                                     <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
                                     <button class="remove-default-btn like-btn{{comment.pk}}" type="submit">
-                                        <i class="far fa-thumbs-up like-icon{{comment.pk}}" style="color: white;"> <span class="like_count{{comment.pk}}">{{ comment.likes.all.count }}</span></i>
+                                        <i class="far fa-thumbs-up like-icon{{comment.pk}}" style="color: black;"> <span class="like_count{{comment.pk}}">{{ comment.likes.all.count }}</span></i>
                                     </button>
                                 {% endif %}
                             </form>
@@ -77,12 +77,12 @@
                                 {% if request.user in comment.dislikes.all %}
                                     <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
                                     <button class="remove-default-btn dislike-btn{{comment.pk}}" type="submit">
-                                        <i class="far fa-thumbs-down dislike-icon{{comment.pk}} btn-success" style="color: white;"> <span class="dislike_count{{comment.id}}">{{ comment.dislikes.all.count }}</span></i>
+                                        <i class="far fa-thumbs-down dislike-icon{{comment.pk}} btn-success" style="color: black;"> <span class="dislike_count{{comment.id}}">{{ comment.dislikes.all.count }}</span></i>
                                     </button>
                                 {% else %}
                                     <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
                                     <button class="remove-default-btn dislike-btn{{comment.pk}}" type="submit">
-                                        <i class="far fa-thumbs-down dislike-icon{{comment.pk}}" style="color: white;"> <span class="dislike_count{{comment.pk}}">{{ comment.dislikes.all.count }}</span></i>
+                                        <i class="far fa-thumbs-down dislike-icon{{comment.pk}}" style="color: black;"> <span class="dislike_count{{comment.pk}}">{{ comment.dislikes.all.count }}</span></i>
                                     </button>
                                 {% endif %}
                             </form>

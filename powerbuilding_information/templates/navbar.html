@@ -83,7 +83,7 @@
       </ul>
     
       {% if user.is_authenticated %}
-      <form class="d-flex" method="GET" action="{ url 'profile-search' %}">
+      <form class="d-flex" method="GET" action="{% url 'profile-search' %}">
         <div class="input-group">
           <!-- <span class="" id="basic-addon1">@</span> -->
           <input type="text" class="form-control1" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ request.GET.query }}">
@@ -98,8 +98,8 @@
         </ul> -->
       </div>
       <div class="nav-item inbox-icon-container">
-      	<a class="inbox-icon" href="{ url 'explore' %}">#</a>
-        <a href="{ url 'inbox' %}" class="inbox-icon"><i class="far fa-paper-plane"></i></a>
+      	<a class="inbox-icon" href="{% url 'explore' %}">#</a>
+        <a href="{% url 'inbox' %}" class="inbox-icon"><i class="far fa-paper-plane"></i></a>
       </div>
       <div class="nav-item mr-lg-3">
       {% else %}

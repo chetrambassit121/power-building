@@ -105,12 +105,12 @@
                             {% if user not in post.likes.all %}
                                 <input type="hidden"  name="post_id" value="{{ post.id }}">
                                 <button class="remove-default-btn like-btn{{post.id}}" type="submit">
-                                    <i class="far fa-thumbs-up like-icon{{post.id}}"  style="color: white"><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
+                                    <i class="far fa-thumbs-up like-icon{{post.id}}" ><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
                                 </button>
                             {% else %}
                                 <input type="hidden" name="post_id" value="{{ post.id }}">
                                 <button class="remove-default-btn like-btn{{post.id}}" type="submit">
-                                    <i class="far fa-thumbs-up like-icon{{post.id}} btn-success"  style="color: white"><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
+                                    <i class="far fa-thumbs-up like-icon{{post.id}} btn-success"><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
                                 </button>
                             {% endif %}
                         </form>
@@ -120,12 +120,12 @@
                             {% if user not in post.dislikes.all %}
                                 <input type="hidden" name="post_id" value="{{ post.id }}">
                                 <button class="remove-default-btn dislike-btn{{post.id}}" type="submit" >
-                                    <i class="far fa-thumbs-down dislike-icon{{post.id}}"  style="color: white"> <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
+                                    <i class="far fa-thumbs-down dislike-icon{{post.id}}" > <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
                                 </button>
                             {% else %}
                                 <input type="hidden" name="post_id" value="{{ post.id }}">
                                 <button class="remove-default-btn dislike-btn{{post.id}}" type="submit" >
-                                    <i class="far fa-thumbs-down dislike-icon{{post.id}} btn-success"  style="color: white"> <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
+                                    <i class="far fa-thumbs-down dislike-icon{{post.id}} btn-success" > <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
                                 </button>
                             {% endif %}
                         </form>

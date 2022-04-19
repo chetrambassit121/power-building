@@ -18,7 +18,7 @@
         <h6>
 
 
-          <a href="{ url 'list-followers' profile.pk %}" class="post-link">Followers: {{ number_of_followers }}</a>&nbsp;&nbsp; 
+          <a href="{% url 'list-followers' profile.pk %}" class="post-link">Followers: {{ number_of_followers }}</a>&nbsp;&nbsp; 
           <a href="{ url 'list-followings' profile.pk %}" class="post-link">Following: {{ number_of_followings }}</a>&nbsp;&nbsp;
           <!-- <a href="#" class="post-link">Following: {{ number_of_followings }}</a>&nbsp;&nbsp; -->
 
@@ -138,6 +138,211 @@
     <h4><a href="{% url 'show_shared_profile_page' user.profile.pk %}">{{ user.username }} Shared Posts</a></h4>
     <h5>Click on a Post to View Comments!</h5>
   </div></div></div></div>
+  <div class="infinite-container">
+  {% for post in posts %}
+    <div class="infinite-item">
+      <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 border-bottom position-relative">
+          {% if post.shared_user %}
+            <div>
+              <a href="{% url 'show_profile_page' post.shared_user.profile.pk %}">
+                  <img class="round-circle post-img" height="45" width="45" src="{{ post.shared_user.profile.picture.url }}" />
+              </a>
+              <p class="post-text">
+                  <a class="text-primary post-link" href="{% url 'show_profile_page' post.shared_user.profile.pk %}">@{{ post.shared_user }}</a> shared a post on {{ post.created_on }}
+              </p>
+            </div>
+          {% else %}
+            <div>
+              <a href="{% url 'show_profile_page' post.author.profile.pk %}">
+                  <img class="round-circle post-img" height="45" width="45" src="{{ post.author.profile.picture.url }}" />
+              </a>
+              <p class="post-text">
+                  <a class="text-primary post-link" href="{% url 'show_profile_page' post.author.profile.pk %}">@{{ post.author }}</a> {{ post.created_on }}
+                  
+              </p>
+            </div>
+          {% endif %}
+          {% if post.shared_body %}
+            <div class="position-relative mb-3 body">
+                <p>{{ post.shared_body }}</p>
+                <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a>
+            </div>
+            <div class="shared-post">
+              <a href="{% url 'show_profile_page' post.author.profile.pk %}">
+                  <img class="round-circle post-img" height="45" width="45" src="{{ post.author.profile.picture.url }}" />
+              </a>
+              <p class="post-text">
+                  <a class="text-primary post-link" href="{% url 'show_profile_page' post.author.profile.pk %}">@{{ post.author }}</a> {{ post.shared_on }}
+              </p>
+            </div>
+          {% endif %}
+          <div class="shared-post position-relative pt-3">
+            <div class="position-relative">
+              <div class="body">
+                <p>{{ post.body }}</p>
+              </div>
+              {% if post.image %}
+                <img src="{{ post.image.url }}" class="post-image"/>
+              {% endif %}
+              <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a>
+            </div>
+          </div>
+
+
+          <div class="d-flex flex-row">
+            <form method="POST" action="{% url 'profile-like' profile.pk post.id   %}" class="like-form" id="{{post.id}}">
+              {% csrf_token %}
+              {% if request.user not in post.likes.all %}
+                <input type="hidden"  name="post_id" value="{{ post.id }}">
+                <button class="remove-default-btn like-btn{{post.id}}" type="submit">
+                    <i class="far fa-thumbs-up like-icon{{post.id}}" ><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
+                </button>
+              {% else %}
+                <input type="hidden" name="post_id" value="{{ post.id }}">
+                <button class="remove-default-btn like-btn{{post.id}}" type="submit">
+                    <i class="far fa-thumbs-up like-icon{{post.id}} btn-success" ><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
+                </button>
+              {% endif %}
+            </form>
+            
+            <form method="POST" action="{% url 'profile-dislike' profile.pk post.id  %}" class="dislike-form" id='{{post.id}}'>
+              {% csrf_token %}
+              {% if request.user not in post.dislikes.all %}
+                  <input type="hidden" name="post_id" value="{{ post.id }}">
+                  <button class="remove-default-btn dislike-btn{{post.id}}" type="submit" >
+                      <i class="far fa-thumbs-down dislike-icon{{post.id}}"> <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
+                  </button>
+              {% else %}
+                  <input type="hidden" name="post_id" value="{{ post.id }}">
+                  <button class="remove-default-btn dislike-btn{{post.id}}" type="submit" >
+                      <i class="far fa-thumbs-down dislike-icon{{post.id}} btn-success"> <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
+                  </button>
+              {% endif %}
+            </form>
+
+            <p>Comments: {{ comment.count }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-5 col-sm-12 position-relative">
+      {% if posts.has_previous %}
+        <a href="?page=1">&laquo First</a>
+        <a href="?page={{ posts.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+
+      {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}">Next</a>
+        <a href="?page={{ posts.paginator.num_pages }}">Last &raquo</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    //like ajax call
+    $('.like-form').submit(function(e){
+      e.preventDefault();
+      // const post_id=$(`.like-btn${post_id}`).val();
+      // const post_id=$('.like-btn').val();
+
+      const post_id=$(this).attr('id')
+      const likeText = $(`.like-btn${post_id}`).text()
+      const trim = $.trim(likeText)
+      const url=$(this).attr('action') 
+      let res;
+      const like = $(`.like_count${post_id}`).text()
+      // const trimCount = parseInt(like)
+      // const token=$('input[name=csrfmiddlewaretoken]').val();
+      $.ajax({
+        method:"POST",
+        url:url,
+        // headers:{'X-CSRFToken': token},
+        data:{
+          'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+          // 'profile':profile,
+          'post_id':post_id,
+        },
+        success:function(response){
+          if(response.liked===true){
+            $(`.like-icon${post_id}`).addClass('btn-success')
+          }else{
+            $(`.like-icon${post_id}`).removeClass('btn-success')
+          }
+          if(response.disliked===true){
+            $(`.dislike-icon${post_id}`).addClass("btn-success")
+          }else{
+            $(`.dislike-icon${post_id}`).removeClass("btn-success")
+          }
+          likes=$(`.like_count${post_id}`).text(response.likes_count)
+          parseInt(likes)
+          dislikes=$(`.dislike_count${post_id}`).text(response.dislikes_count)
+          parseInt(dislikes)
+        },
+        error:function(response){
+          console.log("Failed ", response)
+        }
+      })
+    });
+
+
+    //dislike ajax call
+
+    $('.dislike-form').submit(function(e){
+      e.preventDefault();
+      // const post_id=$(".dislike-btn").val();
+      const token=$('input[name=csrfmiddlewaretoken]').val();
+      const post_id = $(this).attr('id')
+      const dislikeText = $(`.dislike-btn${post_id}`).text()
+      const trim = $.trim(dislikeText)
+      const url =$(this).attr('action') 
+      let res;
+      const dislike = $(`.dislike_count${post_id}`).text()
+      const trimCount = parseInt(dislike)
+      $.ajax({
+        method:"POST",
+        url:url,
+        // headers:{"X-CSRFToken": token},
+        data:{
+          'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+          // 'profile':profile,
+          'post_id':post_id,
+        },
+        success:function(response){
+          if(response.disliked===true){
+            $(`.dislike-icon${post_id}`).addClass("btn-success")
+          }else{
+            $(`.dislike-icon${post_id}`).removeClass("btn-success")
+          }
+
+          if(response.liked===true){
+            $(`.like-icon${post_id}`).addClass('btn-success')
+          }else{
+            $(`.like-icon${post_id}`).removeClass('btn-success')
+          }
+          likes=$(`.like_count${post_id}`).text(response.likes_count)
+          parseInt(likes)
+          dislikes=$(`.dislike_count${post_id}`).text(response.dislikes_count)
+          parseInt(dislikes)
+        },
+        error:function(response){
+          console.log('failed', response)
+        }
+      }) 
+    });
+
+  });
+</script>
 
 
 {% endblock %}
