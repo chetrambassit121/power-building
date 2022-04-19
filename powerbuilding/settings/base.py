@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django_extensions',               # added 
     'powerbuilding_information',       # added this app we created 
     'members',                         # added this app we created 
+    'social',                         # added this app we created 
     'crispy_forms',                    # added this app we downloaded ... this helps with any forms we want to create like login form, register form ... etc 
                                        # https://django-crispy-forms.readthedocs.io/en/latest/install.html#installing-django-crispy-forms 
     'ckeditor',                        # added this app we downloaded ... will help upload photos more easily
