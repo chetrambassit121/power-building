@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'django_extensions',               # added 
     'powerbuilding_information',       # added this app we created 
     'members',                         # added this app we created 

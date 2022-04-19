@@ -27,7 +27,6 @@ urlpatterns = [
     path('', include('powerbuilding_information.urls')),    
     path('members/', include('django.contrib.auth.urls')),       
     path('members/', include('members.urls')),     
+    path('social/', include('social.urls')),          
     path('ckeditor/', include('ckeditor_uploader.urls')),     
-
-
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)            # added too access our media folder       
