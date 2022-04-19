@@ -57,7 +57,7 @@ from django.views import generic
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm, PasswordResetForm                      
 from django.contrib.auth.views import PasswordChangeView                                                                      
 from django.urls import reverse_lazy                       
-from .forms import SignUpForm, PasswordChangingForm
+from .forms import SignUpForm, PasswordChangingForm, EditProfileForm, PasswordChangingForm, ProfilePageForm
 # get_state_strings, get_city_strings         
 from django.views.generic import DetailView, CreateView, DeleteView                                                                  
 from .models import UserProfile, User, State, City
@@ -217,3 +217,172 @@ class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangingForm                                           
     success_url = reverse_lazy('password_success')   
 
+
+
+
+
+# user profile 
+class ShowProfilePageView(DetailView, ListView):    
+    def get(self, request, pk, *args, **kwargs):
+        # date_joined = User.objects.filter(date_joined=date_joined)
+        profile = UserProfile.objects.get(pk=pk)
+        # date_join = User.objects.get_field(date_joined)
+        user = profile.user
+        # following_count = Follow.objects.filter(follower=user).count()
+        # followers_count = Follow.objects.filter(following=user).count()
+        # follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
+        # userProfile = UserProfile.objects.get(user=user)
+        # posts = Post.objects.filter(author=user)
+        # sharedposts = Post.objects.filter(shared_user=user)
+        followers = profile.followers.all()
+        followings = profile.followings.all()
+        # p = Paginator(Post.objects.filter(author=user), 10)
+        # page = request.GET.get('page')
+        # posts = p.get_page(page)
+
+        # p = Paginator(Post.objects.filter(author=user), 3)
+        # page = request.GET.get('page')
+        # posts = p.get_page(page)
+
+        
+        if len(followers) == 0:
+            is_following = False
+
+        for follower in followers:
+            if follower == request.user:
+                is_following = True
+                break
+            else:
+                is_following = False
+
+        number_of_followers = len(followers)
+
+
+
+        # if len(followings) == 0:
+        #   is_follower = False
+
+        # for following in followings:
+        #   if following == request.user:
+        #       is_follower = True
+        #       break
+        #   else:
+        #       is_follower = False
+
+        number_of_followings = len(followings)
+
+            
+        context = {
+            'user': user,
+            # 'author': userProfile,
+            'profile': profile,
+            # 'date_join': date_join,
+            # 'picture': picture,
+            # 'posts': posts,
+            # 'following_count':following_count,
+            # 'followers_count':followers_count,
+            # 'follow_status':follow_status,
+            # 'sharedposts': sharedposts,
+            'number_of_followers': number_of_followers,
+            'is_following': is_following,
+            'number_of_followings': number_of_followings,
+            # 'is_follower': is_follower,
+        }
+
+        return render(request, 'registration/user_profile.html', context)
+
+
+class ShowSharedProfilePageView(DetailView):    
+    def get(self, request, pk, *args, **kwargs):
+        profile = UserProfile.objects.get(pk=pk)
+        user = profile.user
+        posts = Post.objects.filter(author=user)
+        sharedposts = Post.objects.filter(shared_user=user)
+        followers = profile.followers.all()
+        followings = profile.followings.all()
+
+        p = Paginator(Post.objects.filter(shared_user=user), 10)
+        page = request.GET.get('page')
+        sharedposts = p.get_page(page)
+
+        if len(followers) == 0:
+            is_following = False
+
+        for follower in followers:
+            if follower == request.user:
+                is_following = True
+                break
+            else:
+                is_following = False
+
+        number_of_followers = len(followers)
+
+
+        if len(followings) == 0:
+            is_follower = False
+
+        for following in followings:
+            if following == request.user:
+                is_follower = True
+                break
+            else:
+                is_follower = False
+
+        number_of_followings = len(followings)
+
+        context = {
+            'user': user,
+            'profile': profile,
+            # 'picture': picture,
+            'posts': posts,
+            'sharedposts': sharedposts,
+            'number_of_followers': number_of_followers,
+            'is_following': is_following,
+            'number_of_followings': number_of_followings,
+            'is_follower': is_follower,
+        }
+
+        return render(request, 'registration/get_sharedposts_for_profilepage.html', context)
+
+
+# edit profile page
+class EditProfilePageView(generic.UpdateView):
+    model = UserProfile
+    fields = ['first_name', 'last_name', 'birth_date', 'location', 'bio', 'picture', 'website_url', 'facebook_url', 'twitter_url', 'instagram_url']
+    template_name = 'registration/edit_profile_page.html'
+
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        return reverse_lazy('show_profile_page', kwargs={'pk': pk})
+
+    def test_func(self):
+        profile = self.get_object()
+        return self.request.user == profile.user
+
+
+# edit user settings 
+class UserEditView(generic.UpdateView):                                             
+    model = UserProfile
+    # date_joined = User.date_joined
+    form_class = EditProfileForm    
+    # fields = ['username', 'email', 'password1', 'password2']                                                  
+    template_name = 'registration/edit_profile.html'                                          
+    # success_url = reverse_lazy('home')        
+    # date_joined = User.objects.all()                                      
+
+    def get_object(self):                                                           
+        return self.request.user     
+
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        return reverse_lazy('show_profile_page', kwargs={'pk': pk})
+
+    def test_func(self):
+        profile = self.get_object()
+        return self.request.user == profile.user
+
+
+#delete users account
+class UserDeleteView(DeleteView):
+    model = User
+    success_url = reverse_lazy('login')

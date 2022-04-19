@@ -44,16 +44,16 @@
 
           {% if user.is_authenticated %}
             <div class="dropdown">
-              <a href="{ url 'show_profile_page' request.user.profile.pk %}"><img class="round-circle post-img" height="35" width="35" src="{{ request.user.profile.picture.url }}" /></a>
+              <a href="{% url 'show_profile_page' request.user.profile.pk %}"><img class="round-circle post-img" height="35" width="35" src="{{ request.user.profile.picture.url }}" /></a>
               <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <!-- Current User: {{ user.username }} -->
                 User Settings
               </button>
               <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="{ url 'edit_profile' request.user.profile.pk %}">Edit User Settings</a></li>
+                <li><a class="dropdown-item" href="{% url 'edit_profile' request.user.profile.pk %}">Edit User Settings</a></li>
                 
-                <li><a class="dropdown-item" href="{ url 'edit_profile_page' request.user.profile.pk %}">Edit Profile Page</a></li>
-                <li><a class="dropdown-item" href="{ url 'show_profile_page' request.user.profile.pk %}">Show Profile Page</a></li>
+                <li><a class="dropdown-item" href="{% url 'edit_profile_page' request.user.profile.pk %}">Edit Profile Page</a></li>
+                <li><a class="dropdown-item" href="{% url 'show_profile_page' request.user.profile.pk %}">Show Profile Page</a></li>
              
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
               </ul>

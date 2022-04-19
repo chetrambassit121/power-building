@@ -1,5 +1,5 @@
 from django.urls import path         
-from .views import register, load_citys, PasswordsChangeView
+from .views import register, load_citys, PasswordsChangeView, ShowProfilePageView, ShowSharedProfilePageView, EditProfilePageView, UserEditView, UserDeleteView
 from django.contrib.auth import views as auth_views
 from . import views 
 
@@ -10,6 +10,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),                         # url for register view .. user will be directed to register.html whih contains register form 
     path('ajax/load-citys/', views.load_citys, name='ajax_load_citys'),         # url which will load our dropdown dependent list which is in register form
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),        # url for the activation email sent to user 
+
 
 	#password reset
     path('password/', PasswordsChangeView.as_view(template_name='registration/change_password.html')), 
@@ -28,7 +29,27 @@ urlpatterns = [
     path('password_success/', views.password_success, name='password_success'),  
 
 
-     
+    #user profile with posts
+    path('<int:pk>/profile/', ShowProfilePageView.as_view(), name='show_profile_page'),
+
+    #user profile for shard posts
+    path('<int:pk>/profile/shared/', ShowSharedProfilePageView.as_view(), name='show_shared_profile_page'),  
+
+    # user edit profile page 
+    path('<int:pk>/edit_profile_page/', EditProfilePageView.as_view(), name='edit_profile_page'),            
+
+
+    # user edit settings 
+    path('<int:pk>/edit_profile/', UserEditView.as_view(), name='edit_profile'),                  
+
+    # user delete 
+    path('<int:pk>/delete/', UserDeleteView.as_view(template_name='registration/delete.html'), name="account_delete"),
+
+
+
+
+
+
 
 
 ]
