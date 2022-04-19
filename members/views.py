@@ -1,22 +1,63 @@
-from django.shortcuts import render                                  # default 
-from django.shortcuts import render, get_object_or_404, redirect	 # added for returning files, objects, data 
+# from django.shortcuts import render                                  # default 
+# from django.shortcuts import render, get_object_or_404, redirect	 # added for returning files, objects, data 
 
-# from .models import UserProfile, User, State, City                   # added importing our created models 
-# from .forms import SignUpForm										 # importing signup form for register view 
+# # from .models import UserProfile, User, State, City                   # added importing our created models 
+# # from .forms import SignUpForm										 # importing signup form for register view 
 
-# from members.tokens import account_activation_token                  		# for register / activate view 
-# from django.core import mail                                                # for register view 
-# from django.template.loader import render_to_string                         # for register view 
-# from django.contrib.sites.shortcuts import get_current_site          		# for activate view
-# from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  # for activate view 
-# from django.http import HttpResponse                                        # for activate view 
-# from django.utils.encoding import force_bytes, force_str                  # for activate view 
-# from members.tokens import account_activation_token                         # for activate view 
-# from django.contrib.auth import login                                       # activate view 
+# # from members.tokens import account_activation_token                  		# for register / activate view 
+# # from django.core import mail                                                # for register view 
+# # from django.template.loader import render_to_string                         # for register view 
+# # from django.contrib.sites.shortcuts import get_current_site          		# for activate view
+# # from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  # for activate view 
+# # from django.http import HttpResponse                                        # for activate view 
+# # from django.utils.encoding import force_bytes, force_str                  # for activate view 
+# # from members.tokens import account_activation_token                         # for activate view 
+# # from django.contrib.auth import login                                       # activate view 
 
 
-from .forms import SignUpForm
-# , EditProfileForm, PasswordChangingForm, ProfilePageForm
+# from .forms import SignUpForm, PasswordChangingForm
+# # get_state_strings, get_city_strings         
+# from django.views.generic import DetailView, CreateView, DeleteView                                                                  
+# from .models import UserProfile, User, State, City
+# # , Branch
+# # from social.models import Post 
+# # Follow                                                                                                                                                                         
+# from django.contrib.sites.shortcuts import get_current_site
+# from django.template.loader import render_to_string
+# from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+# from django.http import HttpResponse
+# from django.utils.encoding import force_bytes, force_str
+# from members.tokens import account_activation_token
+# from django.core import mail
+# from django.views.generic.list import ListView
+# # from django.contrib.auth.models import User
+# # from members.models import User 
+
+# # from django.utils.encoding import force_text
+# from django.contrib.auth import login
+
+# from django.core.mail import send_mail, BadHeaderError, get_connection
+# from django.template.loader import render_to_string
+# from django.db.models.query_utils import Q
+# from django.contrib.auth.tokens import default_token_generator
+# from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+# from django.core.paginator import Paginator   
+# from django.http import HttpResponseRedirect
+# from django.urls import reverse_lazy, reverse
+# # from django_conf import base 
+# from powerbuilding.settings import base 
+# import json
+
+
+
+
+
+from django.shortcuts import render, get_object_or_404, redirect                                                    
+from django.views import generic                            
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm, PasswordResetForm                      
+from django.contrib.auth.views import PasswordChangeView                                                                      
+from django.urls import reverse_lazy                       
+from .forms import SignUpForm, PasswordChangingForm
 # get_state_strings, get_city_strings         
 from django.views.generic import DetailView, CreateView, DeleteView                                                                  
 from .models import UserProfile, User, State, City
@@ -36,8 +77,7 @@ from django.views.generic.list import ListView
 
 # from django.utils.encoding import force_text
 from django.contrib.auth import login
-
-from django.core.mail import send_mail, BadHeaderError, get_connection
+from django.core.mail import send_mail, BadHeaderError
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.contrib.auth.tokens import default_token_generator
@@ -45,8 +85,6 @@ from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.core.paginator import Paginator   
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
-# from django_conf import base 
-from powerbuilding.settings import base 
 import json
                            
 
@@ -167,3 +205,15 @@ def activate(request, uidb64, token):
 		return render(request, 'registration/successful_registration.html') 
 	else:
 		return HttpResponse('Activation link is invalid!')    
+
+
+
+
+# reset password 
+def password_success(request):                                                  
+    return render(request, 'registration/password_success.html', {})  
+
+class PasswordsChangeView(PasswordChangeView):                                                                           
+    form_class = PasswordChangingForm                                           
+    success_url = reverse_lazy('password_success')   
+
