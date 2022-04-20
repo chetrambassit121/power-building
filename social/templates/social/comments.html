@@ -9,9 +9,10 @@
                 <button class="btn btn-success mt-3">Submit!</button>
             </div>
         </form>
+        <h4 class="row justify-content-center">Total Comments: {{comment_count}}</h4>
     </div>
 </div>
-{{comment_count}}
+
 {% if comments.0 %}
     <div class="row justify-content-center mt-3">
         <div class="col-md-5 col-sm-12 position-relative">
@@ -106,7 +107,6 @@
                     </div> 
                     <div class="row justify-content-center mt-3 mb-5 d-none" id="n{{ comment.pk }}">
                         <div class="col-md-5 col-sm-12">
-                           
                             <form method="POST" class="reply-form" action="{% url 'comment-reply' post.pk comment.pk %}">
                                 {% csrf_token %}
                                 {{ form | crispy }}

@@ -5,7 +5,7 @@
 
   <div class="row mt-5">
     <div class="col-md-3 col-sm-6">
-      <a href="{ url 'post-list' %}" class="btn btn-light">Back to Posts</a>
+      <a href="{% url 'post-list' %}" class="btn btn-light">Back to Posts</a>
     </div>
   </div>
 
@@ -19,7 +19,7 @@
 
 
           <a href="{% url 'list-followers' profile.pk %}" class="post-link">Followers: {{ number_of_followers }}</a>&nbsp;&nbsp; 
-          <a href="{ url 'list-followings' profile.pk %}" class="post-link">Following: {{ number_of_followings }}</a>&nbsp;&nbsp;
+          <!-- <a href="{ url 'list-followings' profile.pk %}" class="post-link">Following: {{ number_of_followings }}</a>&nbsp;&nbsp; -->
           <!-- <a href="#" class="post-link">Following: {{ number_of_followings }}</a>&nbsp;&nbsp; -->
 
 

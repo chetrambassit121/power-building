@@ -196,6 +196,10 @@ body {
   background-color: red;
 }
 
+.stroke {
+  color: darkred;
+}
+
 .sent-message {
   background-color: darkblue;
   border-radius: 30px;
