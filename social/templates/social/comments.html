@@ -86,7 +86,7 @@
                                         <i class="far fa-thumbs-down dislike-icon{{comment.pk}}" > <span class="dislike_count{{comment.pk}}">{{ comment.dislikes.all.count }}</span></i>
                                     </button>
                                 {% endif %}
-                            </form>
+                            </form> &nbsp;&nbsp;
                            
                            
                             <div>
@@ -94,14 +94,15 @@
                                     <button class="remove-default-btn" style="color: white">Replies {{comment.children.all.count}}</button>
                                 {% endif %} -->
                                 {% if comment.children %}
-                                    <a href="{% url 'view-comment-reply' comment.pk %}"><button class="remove-default-btn" style="color: white">Replies: {{comment.children.all.count}}</button></a>
+                                    <a href="{% url 'view-comment-reply' comment.pk %}"><button class="remove-default-btn" style="color: black">Replies: {{comment.children.all.count}}</button></a>
                                 {% else %}
                                     <p>Replies: 0</p>
                                 {% endif %}
                             </div>
+                            &nbsp;&nbsp;
                             <div>
                                 <!-- <button class="remove-default-btn"><i class="far fa-comment-dots" style="color: white" onclick="commentReplyToggle('{{ comment.pk }}')"></i></button> -->
-                                <button class="remove-default-btn"><i class="far fa-comment-dots" style="color: white" onclick="commentReplyToggle('n{{ comment.pk }}')"></i></button>
+                                <button class="remove-default-btn"><i class="far fa-comment-dots" style="color: black" onclick="commentReplyToggle('n{{ comment.pk }}')"></i></button>
                             </div>
                         </div>
                     </div> 

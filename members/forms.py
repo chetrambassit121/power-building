@@ -55,19 +55,12 @@ class PasswordChangingForm(PasswordChangeForm):
 class EditProfileForm(UserChangeForm):                                  										
 	email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))                              																						
 	username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))   
-	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))                                                                    
-	# last_name = forms.DateField(widget=forms.TextInput(attrs={'class': 'form-control'}))  
+	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))                                                                     
 	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))                                                                    
-	# state = forms.ChoiceField() # id_state
-	# city = forms.ChoiceField() # id_city                           																						
-	# last_login = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))                                                                             
-	# date_joined = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))    
-      
+
 	class Meta:                                                                                         
 		model = User                                                                                    
 		fields = ('username', 'email', 'first_name', 'last_name', 'state', 'city', 'password')   
-		# fields = ('username', 'email', 'first_name', 'last_name', 'password', 'date_joined')   
-		# fields = ('username', 'email', 'state', 'city', 'password', 'last_login', 'date_joined')   
 
 	def __init__(self, *args, **kwargs):                                    
 		super(EditProfileForm, self).__init__(*args, **kwargs)   
@@ -89,8 +82,7 @@ class ProfilePageForm(forms.ModelForm):
 	class Meta:																							
 		model = UserProfile 
 		fields = ('first_name', 'last_name', 'bio', 'picture', 'website_url', 'birth_date', 'location', 'facebook_url', 'twitter_url', 'instagram_url')
-		widgets = {
-			# 'username': forms.TextInput(attrs={'class': 'form-control'}),                                                                                                                                                                                                         
+		widgets = {                                                                                                                                                                                                        
 			'first_name': forms.TextInput(attrs={'placeholder': 'optional', 'class': 'form-control'}),                                                                                                                                                                                                         
 			'last_name': forms.TextInput(attrs={'class': 'form-control'}),       
 			'bio': forms.Textarea(attrs={'class': 'form-control'}),  

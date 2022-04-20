@@ -11,9 +11,18 @@
 }
 
 body {
-  background-image: url(static/powerbuilding_information/images/home-image.jpg);
+  /*background-image: url(static/powerbuilding_information/images/home-image-3.jpg);*/
 }
 
+.navbar-light .navbar-toggler-icon {
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+
+.dropdown-toggle {
+  background-color: darkred;
+}
 
 .not-visible {
   display: none;
@@ -32,7 +41,7 @@ body {
   color: white; 
 }
 
-.shared-post {
+.shared-post, .child-comment {
   margin-left: 45px;
   /*background-color: navy;*/
 
@@ -48,7 +57,7 @@ body {
 }
 
 .container a:not(.jumpinglink) { 
-  color: #87CEFA;
+  color: skyblue;
 }
 
 .container a:not(.jumpinglink):hover { 
