@@ -72,7 +72,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: darkred;">
   <div class="container-fluid">
-    <h4 id="fh5co-logo"><a href="{% url 'post-list' %}">Power-<span>Building Social</span></a></h4>
+    <h4 id="fh5co-logo"><a href="{% url 'post-list' %}">Power-<span>Building Social</span></a></h4> &nbsp;&nbsp;&nbsp;
     {% if user.is_authenticated %}
       <a href="{% url 'notifications' %}" class="badge bg-primary notification-badge">{% show_notifications %}</a>
     {% endif %}
@@ -88,7 +88,7 @@
         <form class="d-flex" method="GET" action="{% url 'profile-search' %}">
           <div class="input-group">
             <!-- <span class="" id="basic-addon1">@</span> -->
-            <input type="text" class="form-control1" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ request.GET.query }}">
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ request.GET.query }}">
             <button class="remove-default-btn" type="submit"><i class="fas fa-search"></i></button>
           </div>
         </form>
