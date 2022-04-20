@@ -1,69 +1,12 @@
-# from django.shortcuts import render                                  # default 
-# from django.shortcuts import render, get_object_or_404, redirect	 # added for returning files, objects, data 
-
-# # from .models import UserProfile, User, State, City                   # added importing our created models 
-# # from .forms import SignUpForm										 # importing signup form for register view 
-
-# # from members.tokens import account_activation_token                  		# for register / activate view 
-# # from django.core import mail                                                # for register view 
-# # from django.template.loader import render_to_string                         # for register view 
-# # from django.contrib.sites.shortcuts import get_current_site          		# for activate view
-# # from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  # for activate view 
-# # from django.http import HttpResponse                                        # for activate view 
-# # from django.utils.encoding import force_bytes, force_str                  # for activate view 
-# # from members.tokens import account_activation_token                         # for activate view 
-# # from django.contrib.auth import login                                       # activate view 
-
-
-# from .forms import SignUpForm, PasswordChangingForm
-# # get_state_strings, get_city_strings         
-# from django.views.generic import DetailView, CreateView, DeleteView                                                                  
-# from .models import UserProfile, User, State, City
-# # , Branch
-# # from social.models import Post 
-# # Follow                                                                                                                                                                         
-# from django.contrib.sites.shortcuts import get_current_site
-# from django.template.loader import render_to_string
-# from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-# from django.http import HttpResponse
-# from django.utils.encoding import force_bytes, force_str
-# from members.tokens import account_activation_token
-# from django.core import mail
-# from django.views.generic.list import ListView
-# # from django.contrib.auth.models import User
-# # from members.models import User 
-
-# # from django.utils.encoding import force_text
-# from django.contrib.auth import login
-
-# from django.core.mail import send_mail, BadHeaderError, get_connection
-# from django.template.loader import render_to_string
-# from django.db.models.query_utils import Q
-# from django.contrib.auth.tokens import default_token_generator
-# from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
-# from django.core.paginator import Paginator   
-# from django.http import HttpResponseRedirect
-# from django.urls import reverse_lazy, reverse
-# # from django_conf import base 
-# from powerbuilding.settings import base 
-# import json
-
-
-
-
-
 from django.shortcuts import render, get_object_or_404, redirect                                                    
 from django.views import generic                            
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm, PasswordResetForm                      
 from django.contrib.auth.views import PasswordChangeView                                                                      
 from django.urls import reverse_lazy                       
-from .forms import SignUpForm, PasswordChangingForm, EditProfileForm, PasswordChangingForm, ProfilePageForm
-# get_state_strings, get_city_strings         
+from .forms import SignUpForm, PasswordChangingForm, EditProfileForm, PasswordChangingForm, ProfilePageForm 
 from django.views.generic import DetailView, CreateView, DeleteView                                                                  
 from .models import UserProfile, User, State, City
-# , Branch
-from social.models import Post 
-# Follow                                                                                                                                                                         
+from social.models import Post                                                                                                                                                                
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -72,10 +15,6 @@ from django.utils.encoding import force_bytes, force_str
 from members.tokens import account_activation_token
 from django.core import mail
 from django.views.generic.list import ListView
-# from django.contrib.auth.models import User
-# from members.models import User 
-
-# from django.utils.encoding import force_text
 from django.contrib.auth import login
 from django.core.mail import send_mail, BadHeaderError
 from django.template.loader import render_to_string
@@ -224,27 +163,13 @@ class PasswordsChangeView(PasswordChangeView):
 # user profile 
 class ShowProfilePageView(DetailView, ListView):    
     def get(self, request, pk, *args, **kwargs):
-        # date_joined = User.objects.filter(date_joined=date_joined)
         profile = UserProfile.objects.get(pk=pk)
-        # date_join = User.objects.get_field(date_joined)
         user = profile.user
-        # following_count = Follow.objects.filter(follower=user).count()
-        # followers_count = Follow.objects.filter(following=user).count()
-        # follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
-        # userProfile = UserProfile.objects.get(user=user)
-        # posts = Post.objects.filter(author=user)
-        # sharedposts = Post.objects.filter(shared_user=user)
         followers = profile.followers.all()
         followings = profile.followings.all()
         p = Paginator(Post.objects.filter(author=user), 10)
         page = request.GET.get('page')
         posts = p.get_page(page)
-
-        # p = Paginator(Post.objects.filter(author=user), 3)
-        # page = request.GET.get('page')
-        # posts = p.get_page(page)
-
-        
         if len(followers) == 0:
             is_following = False
 
@@ -256,8 +181,6 @@ class ShowProfilePageView(DetailView, ListView):
                 is_following = False
 
         number_of_followers = len(followers)
-
-
 
         # if len(followings) == 0:
         #   is_follower = False
@@ -274,10 +197,8 @@ class ShowProfilePageView(DetailView, ListView):
             
         context = {
             'user': user,
-            # 'author': userProfile,
+           
             'profile': profile,
-            # 'date_join': date_join,
-            # 'picture': picture,
             'posts': posts,
             # 'following_count':following_count,
             # 'followers_count':followers_count,
@@ -333,7 +254,6 @@ class ShowSharedProfilePageView(DetailView):
         context = {
             'user': user,
             'profile': profile,
-            # 'picture': picture,
             'posts': posts,
             'sharedposts': sharedposts,
             'number_of_followers': number_of_followers,
@@ -363,12 +283,8 @@ class EditProfilePageView(generic.UpdateView):
 # edit user settings 
 class UserEditView(generic.UpdateView):                                             
     model = UserProfile
-    # date_joined = User.date_joined
-    form_class = EditProfileForm    
-    # fields = ['username', 'email', 'password1', 'password2']                                                  
+    form_class = EditProfileForm                                     
     template_name = 'registration/edit_profile.html'                                          
-    # success_url = reverse_lazy('home')        
-    # date_joined = User.objects.all()                                      
 
     def get_object(self):                                                           
         return self.request.user     
@@ -380,7 +296,6 @@ class UserEditView(generic.UpdateView):
     def test_func(self):
         profile = self.get_object()
         return self.request.user == profile.user
-
 
 #delete users account
 class UserDeleteView(DeleteView):

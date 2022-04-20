@@ -63,13 +63,8 @@ class User(AbstractBaseUser, PermissionsMixin):
   username = models.CharField(max_length=45, unique=True)
   first_name = models.CharField(max_length=60, blank=True)
   last_name = models.CharField(max_length=60, blank=True)
-
   state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True)
   city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
-
-  # college = models.ForeignKey(College, on_delete=models.SET_NULL, null=True)
-  # branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True)
-  
   date_joined = models.DateTimeField(verbose_name='date_joined', default=timezone.now)
   last_login = models.DateTimeField(verbose_name='last_login', default=timezone.now)
   is_staff = models.BooleanField(default=False)
@@ -114,10 +109,6 @@ class UserProfile(models.Model):
 
   def get_absolute_url(self):	                                               			                    
 	  return reverse('home')
-
-  # def get_picture(self):
-  #   if profile.picture == None:
-  #     return 'operationfreedom/images/profile_pictures/default_pic.jpg'
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

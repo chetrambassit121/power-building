@@ -1,7 +1,5 @@
 from django.db import models
 from django.utils import timezone
-# from django.contrib.auth.models import User
-# from members.models import User 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from members.models import UserProfile, User
@@ -13,14 +11,11 @@ class Post(models.Model):
     image = models.ImageField(upload_to='uploads/post_photos', blank=True, null=True)
     created_on = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-
     shared_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='+')
     shared_body = models.TextField(blank=True, null=True)
     shared_on = models.DateTimeField(blank=True, null=True)
-
     likes = models.ManyToManyField(User, blank=True, related_name='likess')
     dislikes = models.ManyToManyField(User, blank=True, related_name='dislikess')
-    # liked = models.ManyToManyField(User, blank=True, related_name='liked')
     tags = models.ManyToManyField('Tag', blank=True)
 
     def create_tags(self):
@@ -47,26 +42,9 @@ class Post(models.Model):
                         self.tags.add(tag.pk)
                     self.save()
 
-    # def num_liked(self):
-    #     return self.liked.all().count()
-
     class Meta:
         ordering = ['-created_on']
 
-
-# LIKE_CHOICES = (
-#     ('Like', 'Like'),
-#     ('Unlike', 'Unlike'),
-# )
-# class Like(models.Model): 
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-#     value = models.CharField(choices=LIKE_CHOICES, max_length=8)
-#     updated = models.DateTimeField(auto_now=True)
-#     created = models.DateTimeField(auto_now_add=True)
-    
-#     def __str__(self):
-#         return f"{self.user}-{self.post}-{self.value}"
 
 class Comment(models.Model):
     comment = models.TextField()
