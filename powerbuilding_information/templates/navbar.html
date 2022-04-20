@@ -5,42 +5,30 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: black;">
   <div class="container-fluid">
     <!-- <a class="navbar-brand" href="{% url 'home' %}">NY for Choice</a> -->
-    <a style="text-decoration: none;" href="{% url 'home' %}"><h4 id="fh5co-logo"><b style="color: darkred;">Power-</b><span style="color: white;">Building</span></h4></a>
+    <a style="text-decoration: none;" href="{% url 'home' %}"><h4 id="fh5co-logo"><b style="color: darkred;">Power-</b><span style="color: white;">Building</span></h4></a>  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
     <button class="navbar-toggler" style="background-color: darkred;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
-        <!-- <li class="nav-item">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-nav-bar"> 
+        <li class="nav-item">
           <a class="nav-link" href="{ url 'about' %}">About</a>
         </li>   
-        <li class="nav-item">
-          <a class="nav-link" href="{ url 'the_plan' %}">The Plan</a>
-        </li> 
-        <li class="nav-item">
-          <a class="nav-link" href="{ url 'promote_the_petitions' %}">Promote the Petitions</a>
-        </li>  
         <li class="nav-item">
           <a class="nav-link" href="{ url 'surveys' %}">Surveys</a>
         </li>     
         <li class="nav-item">
-          <a class="nav-link" href="{ url 'executive_orders' %}">Executive Orders</a>
-        </li>    
-        <li class="nav-item">
-          <a class="nav-link" href="{ url 'vaccine_percentages' %}">Vaccine Percentages</a>
+          <a class="nav-link" href="{% url 'post-list' %}">Posts</a>
         </li>  
-        <li class="nav-item">
-          <a class="nav-link" href="{ url 'post-list' %}">Posts</a>
-        </li>  -->
         {% if user.is_authenticated %}
         
         {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Register</a>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="{ url 'register' %}">Register</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Login</a>
-          </li>
+            <a class="nav-link" href="{ url 'login' %}">Login</a>
+          </li> -->
         {% endif %}
       </ul>
 
@@ -105,7 +93,7 @@
         </div>
         <div class="nav-item mr-lg-3">
       {% else %}
-        <h5>Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a> to interact with other users</h5>  
+        <h7>Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a> to interact with other users</h7>  
       {% endif %}
       
     </div>

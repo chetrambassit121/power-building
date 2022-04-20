@@ -32,7 +32,7 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
   display: inline;
 }
 
-.fa-thumbs-down, .fa-thumbs-up {
+.fa-thumbs-down, .fa-thumbs-up,  {
   color: black;
 }
 
@@ -45,6 +45,10 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
   margin-left: 45px;
   /*background-color: navy;*/
 
+}
+
+.top-nav-bar .nav-item .nav-link{
+  color: darkred;
 }
 
 .share-btn {
@@ -205,7 +209,7 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
   background-color: red;
 }
 
-.stroke {
+.stroke, {
   color: darkred;
 }
 
