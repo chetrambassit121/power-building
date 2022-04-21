@@ -60,6 +60,11 @@
                 {% if post.image %}
                   <img src="{{ post.image.url }}" class="post-image" />
                 {% endif %}
+                {% if post.video %}
+                    <video class="embed-responsive embed-responsive-16by9 post-image" controls="controls" >
+                        <source src="{{post.video.url}}" type="video/mp4" />
+                    </video>
+                {% endif %}
             </div>
 
             <div class="d-flex flex-row">
