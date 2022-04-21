@@ -168,7 +168,6 @@ class SharedPostView(View):
                 shared_on=original_post.created_on,
                 shared_user=request.user,
                 created_on=timezone.now(),
-
             )
             new_post.save()
             new_post.create_tags()

@@ -17,7 +17,7 @@ from .validators import file_size
 class Post(models.Model):
     body = models.TextField()
     image = models.ImageField(upload_to='uploads/post_photos', blank=True, null=True)
-    video=models.FileField(upload_to="uploads/post_videos", validators=[file_size], blank=True, null=True)
+    video = models.FileField(upload_to="uploads/post_videos", validators=[file_size], blank=True, null=True)
     created_on = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     shared_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='+')
