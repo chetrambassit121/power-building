@@ -13,7 +13,7 @@ urlpatterns = [
 
 
 	#password reset
-    path('password/', PasswordsChangeView.as_view(template_name='registration/change_password.html')), 
+    path('<int:pk>/password/', PasswordsChangeView.as_view(template_name='registration/change_password.html'), name="change_password"), 
     path('reset_password/',
       auth_views.PasswordResetView.as_view(template_name="accounts/password_reset_form.html"),
       name="password_reset"),
@@ -44,7 +44,6 @@ urlpatterns = [
 
     # user delete 
     path('<int:pk>/delete/', UserDeleteView.as_view(template_name='registration/delete.html'), name="account_delete"),
-
 
 
 

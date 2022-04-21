@@ -148,13 +148,15 @@ def activate(request, uidb64, token):
 
 
 
-# reset password 
+# reset password while logged in 
+class PasswordsChangeView(PasswordChangeView):                                                                           
+    form_class = PasswordChangingForm                                           
+    success_url = reverse_lazy('password_success')  
+
 def password_success(request):                                                  
     return render(request, 'registration/password_success.html', {})  
 
-class PasswordsChangeView(PasswordChangeView):                                                                           
-    form_class = PasswordChangingForm                                           
-    success_url = reverse_lazy('password_success')   
+ 
 
 
 
@@ -282,7 +284,7 @@ class EditProfilePageView(generic.UpdateView):
 
 # edit user settings 
 class UserEditView(generic.UpdateView):                                             
-    model = UserProfile
+    model = User
     form_class = EditProfileForm                                     
     template_name = 'registration/edit_profile.html'                                          
 

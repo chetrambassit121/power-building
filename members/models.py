@@ -65,6 +65,7 @@ class User(AbstractBaseUser, PermissionsMixin):
   last_name = models.CharField(max_length=60, blank=True)
   state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True)
   city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+  password = models.CharField(max_length=100)
   date_joined = models.DateTimeField(verbose_name='date_joined', default=timezone.now)
   last_login = models.DateTimeField(verbose_name='last_login', default=timezone.now)
   is_staff = models.BooleanField(default=False)
