@@ -162,6 +162,7 @@ class SharedPostView(View):
             new_post = Post(
                 shared_body=self.request.POST.get('body'),
                 image=original_post.image,
+                video=original_post.video,
                 body=original_post.body,
                 author=original_post.author,
                 shared_on=original_post.created_on,
