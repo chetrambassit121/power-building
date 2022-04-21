@@ -73,7 +73,7 @@
                     {% if post.shared_body %}
                         <div class="position-relative mb-3 body">
                             <p>{{ post.shared_body }}</p>
-                            <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a>
+                            <!-- <a href="{ url 'post-detail' post.pk %}" class="stretched-link"></a> -->
                         </div>
                         
                         <div class="shared-post">
@@ -91,6 +91,7 @@
                             <div class="body">
                                 <p>{{ post.body }}</p>
                             </div>
+                            <!-- <a href="{ url 'post-detail' post.pk %}" class="stretched-link"></a> -->
                             {% if post.image %}
                                 <div class="">
                                     <img src="{{ post.image.url }}" class="post-image"/>
@@ -101,7 +102,6 @@
                                     <source src="{{post.video.url}}" type="video/mp4" />
                                 </video>
                             {% endif %}
-                            <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a>
                         </div>
                     </div> 
 
@@ -136,7 +136,7 @@
                             {% endif %}
                         </form>
 
-                        <p>Comments: {{ comment.count }}</p>
+                        <a href="{% url 'post-detail' post.pk %}">Comments: {{ comment.count }}</a>
                     </div>
 
                 </div>
