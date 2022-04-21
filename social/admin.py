@@ -9,6 +9,8 @@ from .models import Post, Comment, Notification, ThreadModel
 
 admin.site.register(Notification)
 admin.site.register(ThreadModel)
+# admin.site.register(Video)
+
 
 class CommentAdmin(admin.ModelAdmin):
     model = Comment

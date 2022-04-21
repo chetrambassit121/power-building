@@ -81,6 +81,8 @@ class PostListView(View):
     def get(self, request, *args, **kwargs):
         form = PostForm()
         share_form = ShareForm()
+        # video_form = VideoForm()
+        # all_video = Video.objects.all()
         post = Post.objects.all()
         post_count = post.count()
         comment = Comment.objects.filter(post=post)
@@ -89,6 +91,7 @@ class PostListView(View):
         posts = p.get_page(page)
         context = {
           'posts': posts,
+          # 'all_video': all_video,
           'shareform': share_form,
           'form': form,
           'post_count': post_count,
@@ -98,10 +101,12 @@ class PostListView(View):
 
     def post(self, request, *args, **kwargs):
         post = Post.objects.all()
+        # all_video = Video.objects.all()
         post_count = post.count()
         form = PostForm(request.POST, request.FILES)
         # files = request.FILES.getlist('image')
         share_form = ShareForm()
+        # video_form = VideoForm(request.POST, request.FILES)
         p = Paginator(Post.objects.all(), 10)
         page = request.GET.get('page')
         posts = p.get_page(page)
@@ -129,6 +134,7 @@ class PostListView(View):
 
         context = {
             'posts': posts,
+          	# 'all_video': all_video,
             'shareform': share_form,
             'form': form,
             'post_count': post_count,

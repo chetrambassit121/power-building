@@ -5,10 +5,19 @@ from django.dispatch import receiver
 from members.models import UserProfile, User
 from django.urls import reverse_lazy, reverse
 
+from .validators import file_size
+
+# class Video(models.Model):
+# 	caption=models.CharField(max_length=100)
+# 	video=models.FileField(upload_to="video/%y",validators=[file_size])
+# 	def __str__(self):
+# 		return self.caption
+
 
 class Post(models.Model):
     body = models.TextField()
     image = models.ImageField(upload_to='uploads/post_photos', blank=True, null=True)
+    video=models.FileField(upload_to="uploads/post_videos", validators=[file_size], blank=True, null=True)
     created_on = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     shared_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='+')
