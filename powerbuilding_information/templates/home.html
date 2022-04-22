@@ -33,71 +33,140 @@
 		</div>
 		<a class="" target="_blank" href="https://commons.wikimedia.org/wiki/File:Ronnie_Coleman_8_x_Mr_Olympia_-_2009_-_6.png">Ronnie Coleman, Editor, Public domain, via Wikimedia Commons</a>
 		<div class="header-info2">	
+
 		</div>
 	</div>
 </div>
-<div class="flexbox-container1">
-	<div class="flexbox-item-99">
-	
+{% if user.is_authenticated %}
+	<div class="flexbox-container">
+		{% if survey.0 %}
+			<div class="flexbox-item flexbox-item-121">
+				<div class="header-info2">
+					<h3>{{ survey.0.question }}</h3>
+					<center>
+		        <div class="flex space-x-8 font-medium text-gray-700 text-xl">
+		          <form action="{%url 'likes' survey.0.id%}" method="POST" class="like-form0">
+		            {%csrf_token%}
+		            {%if user not in survey.0.likes.all %}
+		              <button type="submit"  class="like-btn0 like-icon0" name="video_id" value="{{survey.0.id}}">	                              
+		                <span viewBox="0 0 20 20" width="24" height="24">
+		                  Yes
+		                </span>
+		              </button>
+		            {%else%}
+		            	<button type="submit"  class="like-btn0 like-icon0 btn-success" name="video_id" value="{{survey.0.id}}" padding-bottom="10">
+		                <span viewBox="0 0 20 20" width="24" height="24">
+		                  Yes
+		                </span>
+		              </button>
+		            {%endif%}
+		            <span class="like_count" id="like_count0">{{survey.0.num_likes}}</span>
+		          </form>
+		      	</div>
+		      </center>
+		    </div>
+			</div>		
+		{% endif %}
+
+		{% if survey.1 %}
+			<div class="flexbox-item flexbox-item-121">
+				<div class="header-info2">
+					<h3>{{ survey.1.question }}</h3>
+					<center>
+		        <div class="flex space-x-8 font-medium text-gray-700 text-xl">
+		          <form action="{%url 'likes' survey.1.id%}" method="POST" class="like-form1">
+		            {%csrf_token%}
+		            {%if user not in survey.1.likes.all %}
+		              <button type="submit"  class="like-btn1 like-icon1" name="video_id" value="{{survey.1.id}}">	                                     
+		                <span viewBox="0 0 20 20" width="24" height="24">
+		                  Yes
+		                </span>
+		              </button>
+		            {%else%}
+		            	<button type="submit"  class="like-btn1 like-icon1 btn-success" name="video_id" value="{{survey.1.id}}">
+		                <span viewBox="0 0 20 20" width="24" height="24">
+		                  Yes
+		                </span>
+		              </button>
+		            {%endif%}
+		            <span class="like_count" id="like_count1">{{survey.1.num_likes}}</span>
+		          </form>
+		      	</div>
+		      </center>
+		    </div>
+			</div>		
+		{% endif %}
+		{% if survey.2 %}
+			<div class="flexbox-item flexbox-item-121">
+				<div class="header-info2">
+					<h3>{{ survey.2.question }}</h3>
+					<center>
+		        <div class="flex space-x-8 font-medium text-gray-700 text-xl">
+		          <form action="{%url 'likes' survey.2.id%}" method="POST" class="like-form2">
+		            {%csrf_token%}
+		            {%if user not in survey.2.likes.all %}
+		              <button type="submit"  class="like-btn2 like-icon2" name="video_id" value="{{survey.2.id}}">                            
+		                <span viewBox="0 0 20 20" width="24" height="24">
+		                  Yes
+		                </span>
+		              </button>
+		            {%else%}
+		            	<button type="submit"  class="like-btn2 like-icon2 btn-success" name="video_id" value="{{survey.2.id}}">
+		                <span viewBox="0 0 20 20" width="24" height="24">
+		                  Yes
+		                </span>
+		              </button>
+		            {%endif%}
+		            <span class="like_count" id="like_count2">{{survey.2.num_likes}}</span>
+		          </form>
+		      	</div>
+		      </center>
+		    </div>
+		  </div>		
+		{% endif %}
 	</div>
-</div>
-<div class="flexbox-container">
-				{% if survey.9 %}
-					<div class="flexbox-item flexbox-item-121">
-						<div class="header-info2">
+{% else %}
+	<div class=""><div class="flexbox-item-99"><h5>Only Users can answer survey questions! Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register!</a></h5></div></div>
+	<div class="flexbox-container">
+		{% if survey.0 %}
+			<div class="flexbox-item flexbox-item-121">
+				<div class="header-info2">
+					<h3>{{ survey.0.question }}</h3>
+					<center>
+		        <div class="flex space-x-8 font-medium text-gray-700 text-xl">
+		        	<p>{{ survey.0.num_likes }} &nbsp; Yes</p>
+		      	</div>
+		      </center>
+		    </div>
+			</div>		
+		{% endif %}
 
-						<h2>Do you consider the above statement as coercion to take the covid-19 vaccine?</h2>
-							<center>
-								{% if user.is_authenticated %}
-                  <div class="flex space-x-8 font-medium text-gray-700 text-xl">
-                    <form action="{%url 'likes' survey.9.id%}" method="POST" class="like-form9">
-                        {%csrf_token%}
-                        {%if user not in survey.9.likes.all %}
-                          <button type="submit"  class="like-btn9 like-icon9" name="video_id" value="{{survey.9.id}}">	                                   			                                    
-                              <span viewBox="0 0 20 20" width="24" height="24">
-                                  Yes
-                              </span>
-                          </button>
-                        {%else%}
-                        	<button type="submit"  class="like-btn9 like-icon9 btn-success" name="video_id" value="{{survey.9.id}}" padding-bottom="10">
-                              <span viewBox="0 0 20 20" width="24" height="24">
-                                  Yes
-                              </span>
-                          </button>
-                        {%endif%}
-                        <span class="like_count" id="like_count9">{{survey.9.num_likes}}</span>
-                     </form>
-
-                    <form action="{% url 'dislikes' survey.9.id%}" method="POST" class="dislike-form9">
-                        {% csrf_token %}
-                        {%if user not in survey.9.dislikes.all %}
-                          <button type="submit" class="dislike-btn9 dislike-icon9" name="video_id" value="{{survey.9.id}}">	                         			                                    
-                              <span viewBox="0 0 20 20" width="24" height="24">
-                                  No
-                              </span>
-                          </button>
-                        {%else%}
-                        	<button type="submit" class="dislike-btn9 dislike-icon9 btn-success" name="video_id" value="{{survey.9.id}}">	   
-                              <span viewBox="0 0 20 20" width="24" height="24">
-                                  No
-                              </span>
-                            </button>
-                        {%endif%}			                                
-                        <span class="dislike_count" id="dislike_count9">{{survey.9.num_dislikes}}</span>
-                    </form>
-               		</div>
-                {% else %}
-									<p>{{ survey.9.num_likes }} &nbsp; Yes</p>
-									<p>{{ survey.9.num_dislikes }} &nbsp; No</p>
-									<h5>Only Users can answer survey questions! Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register!</a></h5>
-								{% endif %}
-               </center>
-            </div>
-        </div>	
-
-    {% endif %}
-</div>
-
+		{% if survey.1 %}
+			<div class="flexbox-item flexbox-item-121">
+				<div class="header-info2">
+					<h3>{{ survey.1.question }}</h3>
+					<center>
+		        <div class="flex space-x-8 font-medium text-gray-700 text-xl">
+		        	<p>{{ survey.1.num_likes }} &nbsp; Yes</p>
+		      	</div>
+		      </center>
+		    </div>
+			</div>		
+		{% endif %}
+		{% if survey.2 %}
+			<div class="flexbox-item flexbox-item-121">
+				<div class="header-info2">
+					<h3>{{ survey.2.question }}</h3>
+					<center>
+		        <div class="flex space-x-8 font-medium text-gray-700 text-xl">
+		          <p>{{ survey.2.num_likes }} &nbsp; Yes</p>
+		      	</div>
+		      </center>
+		    </div>
+		  </div>		
+		{% endif %}
+	</div>  
+{% endif %}
 
 
 {% endblock %} 
