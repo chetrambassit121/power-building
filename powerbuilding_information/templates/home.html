@@ -101,6 +101,34 @@
 		    </div>
 		  </div>		
 		{% endif %}
+		{% if survey.3 %}
+			<div class="flexbox-item flexbox-item-121">
+				<div class="header-info2">
+					<h3>{{ survey.3.question }}</h3>
+					<center>
+		        <div class="flex space-x-8 font-medium text-gray-700 text-xl">
+		          <form action="{%url 'likes' survey.3.id%}" method="POST" class="like-form3">
+		            {%csrf_token%}
+		            {%if user not in survey.3.likes.all %}
+		              <button type="submit"  class="like-btn3 like-icon3" name="video_id" value="{{survey.3.id}}">                            
+		                <span viewBox="0 0 20 20" width="24" height="24">
+		                  Yes
+		                </span>
+		              </button>
+		            {%else%}
+		            	<button type="submit"  class="like-btn3 like-icon3 btn-success" name="video_id" value="{{survey.3.id}}">
+		                <span viewBox="0 0 20 20" width="24" height="24">
+		                  Yes
+		                </span>
+		              </button>
+		            {%endif%}
+		            <span class="like_count" id="like_count3">{{survey.3.num_likes}}</span>
+		          </form>
+		      	</div>
+		      </center>
+		    </div>
+		  </div>		
+		{% endif %}
 	</div>
 {% else %}
 	<div class=""><div class="flexbox-item-99"><h5>Only Users can answer survey questions! Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register!</a></h5></div></div>
@@ -117,7 +145,6 @@
 		    </div>
 			</div>		
 		{% endif %}
-
 		{% if survey.1 %}
 			<div class="flexbox-item flexbox-item-121">
 				<div class="header-info2">
@@ -142,9 +169,20 @@
 		    </div>
 		  </div>		
 		{% endif %}
+		{% if survey.3 %}
+			<div class="flexbox-item flexbox-item-121">
+				<div class="header-info2">
+					<h3>{{ survey.3.question }}</h3>
+					<center>
+		        <div class="flex space-x-8 font-medium text-gray-700 text-xl">
+		          <p>{{ survey.3.num_likes }} &nbsp; Yes</p>
+		      	</div>
+		      </center>
+		    </div>
+		  </div>		
+		{% endif %}
 	</div>  
 {% endif %}
-
 
 {% endblock %} 
 
