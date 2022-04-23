@@ -12,14 +12,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-nav-bar"> 
         <li class="nav-item">
-          <a class="nav-link" href="{ url 'about' %}">About</a>
+          <a class="nav-link" href="{% url 'about' %}">About</a>
         </li>   
         <li class="nav-item">
-          <a class="nav-link" href="{ url 'surveys' %}">Surveys</a>
+          <a class="nav-link" href="{% url 'surveys' %}">Surveys</a>
         </li>     
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'post-list' %}">Posts</a>
-        </li>  
+          <a class="nav-link" href="{% url 'powerbuilding' %}">Powerbuilding</a>
+        </li>   
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'bodybuilding' %}">Bodybuilding</a>
+        </li>     
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'powerbuilding' %}">Powerbuilding</a>
+        </li> 
         {% if user.is_authenticated %}
         
         {% else %}

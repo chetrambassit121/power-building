@@ -14,6 +14,23 @@ def HomeView(request):                       # defining the homeview function ..
 	return render(request, 'home.html', {'survey':survey})      # render gets an HTML template as a response .. we want to return this html template as the response 
 											 # https://www.geeksforgeeks.org/render-a-html-template-as-response-django-views/
 
+def SurveyView(request):
+  survey = Survey.objects.all()
+  return render(request, 'surveys.html', {'survey':survey})
+
+def AboutView(request):
+	return render(request, 'about.html')
+
+
+def Powerlifting(request):
+  return render(request, 'powerlifting.html')
+
+def Bodybuilding(request):
+  return render(request, 'bodybuilding.html')
+
+def Powerbuilding(request):
+  return render(request, 'powerbuilding.html')  
+
 
 # @login_required
 def like(request, id):
