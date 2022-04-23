@@ -56,8 +56,6 @@
                             {% endif %}
                         </p>
                         <p>{{ comment.comment }}</p>
-
-
                         <div class="d-flex flex-row">
                             <form method="POST" action="{% url 'comment-like' post.pk comment.pk %}" class="like-form" id="{{comment.pk}}">
                                 {% csrf_token %}
@@ -87,12 +85,7 @@
                                     </button>
                                 {% endif %}
                             </form> &nbsp;&nbsp;
-                           
-                           
                             <div>
-                              <!--   {if comment.children %}
-                                    <button class="remove-default-btn" style="color: white">Replies {{comment.children.all.count}}</button>
-                                {endif %} -->
                                 {% if comment.children %}
                                     <button class="remove-default-btn reply-button"><a href="{% url 'view-comment-reply' comment.pk %}">Replies: {{comment.children.all.count}}</a></button>
                                 {% else %}

@@ -27,12 +27,12 @@ body {
 }
 
 .container a:not(.jumpinglink) { 
-  color: #87CEFA;
+  color: navyblue;
 }
 
-.container a:not(.jumpinglink):hover { 
-  color: #098bdc;
-}
+/*.container a:not(.jumpinglink):hover { 
+  color: lightblue;
+}*/
 
 
 /*navbar styling*/
@@ -64,6 +64,12 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
   background-color: black;
 }
 
+.dropdown-item {
+  color: red;
+}
+
+
+
 .dropdown {
   position: relative;
   display: inline-block;
@@ -85,9 +91,9 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
   display: block;
 }
 
-.dropdown-content a:hover {
+/*.dropdown-content a:hover {
   background-color: #ddd;
-}
+}*/
 
 .dropdown-item-parent {
   position: relative;
@@ -103,11 +109,11 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
   transition: 0.3s
 }
 
-.dropdown-item-close:hover {
+/*.dropdown-item-close:hover {
   color: rgb(180, 25, 25);
   transition: 0.3s;
   cursor: pointer;
-}
+}*/
 
 
 
@@ -131,15 +137,7 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
   margin-right: 15px;
 }
 
-.inbox-icon {
-  margin-left: 12px;
-  margin-right: 12px;
-}
 
-.inbox-icon {
-  color: #333;
-  transition: 0.5s;
-}
 
 .inbox-icon:hover {
   transition: 0.5s;
@@ -184,10 +182,6 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
   border-radius: 10px;
   max-width: 35%;
   height: auto;
-}
-
-.inbox-icon {
-  margin-right: 5px;
 }
 
 
@@ -335,6 +329,15 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
 
 /* buttons / icons (like / dislike / edit )  */
 
+.hashtag-icon {
+  margin-left: 15px;
+  margin-right: 15px;
+  font-size: 25px;
+  color: skyblue;
+  transition: 0.5s;
+  text-decoration: none;
+}
+
 .like_dislike_buttons {
   display: inline;
 }
@@ -350,7 +353,7 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
 }
 
 .edit-color {
-  color: #333;
+  color: red;
 }
 
 .btn {
@@ -359,6 +362,18 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
 
 .far {
   color: white;
+}
+
+.btn-light {
+  color: white;
+  background-color: darkred;
+  border-color: black;
+}
+
+.btn-light:hover {
+  color: black;
+  background-color: red;
+  border-color: darkred;
 }
 
 
