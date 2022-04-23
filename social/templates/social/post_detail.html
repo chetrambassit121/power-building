@@ -92,7 +92,7 @@
                     {% else %}
                         <input type="hidden" name="next" value="{{ request.path }}">
                         <button class="remove-default-btn" type="submit">
-                            <i class="far fa-thumbs-down btn-success"> <span>{{ post.dislikes.all.count }}</span></i>
+                            <i class="far fa-thumbs-down btn-danger"> <span>{{ post.dislikes.all.count }}</span></i>
                         </button>
                     {% endif %}
                 </form>
@@ -194,9 +194,9 @@
                         $(`.like-icon${comment_pk}`).removeClass('btn-success')
                     }
                     if(response.disliked===true){
-                        $(`.dislike-icon${comment_pk}`).addClass("btn-success")
+                        $(`.dislike-icon${comment_pk}`).addClass("btn-danger")
                     }else{
-                        $(`.dislike-icon${comment_pk}`).removeClass("btn-success")
+                        $(`.dislike-icon${comment_pk}`).removeClass("btn-danger")
                     }
                     likes=$(`.like_count${comment_pk}`).text(response.likes_count)
                     parseInt(likes)
@@ -228,9 +228,9 @@
                 },
                 success:function(response){
                     if(response.disliked===true){
-                      $(`.dislike-icon${comment_pk}`).addClass("btn-success")
+                      $(`.dislike-icon${comment_pk}`).addClass("btn-danger")
                     }else{
-                      $(`.dislike-icon${comment_pk}`).removeClass("btn-success")
+                      $(`.dislike-icon${comment_pk}`).removeClass("btn-danger")
                     }
 
                     if(response.liked===true){
@@ -253,34 +253,54 @@
 </script>
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  <form method="POST" action="{% url 'comment-like' post.pk comment.id %}" class="like-form" id={{comment.id}}>
-                                {% csrf_token %}
-                                {% if request.user in comment.likes.all %}
-                                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                                    <button class="remove-default-btn like-btn{{comment.id}}" type="submit">
-                                        <i class="far fa-thumbs-up like-icon{{comment.id}} btn-success" style="color: white;"> <span class="like_count{{comment.id}}">{{ comment.likes.all.count }}</span></i>
-                                    </button>
-                                {% else %}
-                                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                                    <button class="remove-default-btn like-btn{{comment.id}}" type="submit">
-                                        <i class="far fa-thumbs-up like-icon{{comment.id}}" style="color: white;"> <span class="like_count{{comment.id}}">{{ comment.likes.all.count }}</span></i>
-                                    </button>
-                                {% endif %}
-                            </form>
-                            <form method="POST" action="{% url 'comment-dislike' post.pk comment.id %}" class="dislike-form" id={{comment.id}}>
-                                {% csrf_token %}
-                                {% if request.user in comment.dislikes.all %}
-                                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                                    <button class="remove-default-btn dislike-btn{{comment.id}}" type="submit">
-                                        <i class="far fa-thumbs-down dislike-icon{{comment.id}} btn-success" style="color: white;"> <span class="dislike_count{{comment.id}}">{{ comment.dislikes.all.count }}</span></i>
-                                    </button>
-                                {% else %}
-                                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                                    <button class="remove-default-btn dislike-btn{{comment.id}}" type="submit">
-                                        <i class="far fa-thumbs-down dislike-icon{{comment.id}}" style="color: white;"> <span class="dislike_count{{comment.id}}">{{ comment.dislikes.all.count }}</span></i>
-                                    </button>
-                                {% endif %}
-                            </form>
+                            {% csrf_token %}
+                            {% if request.user in comment.likes.all %}
+                                <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                <button class="remove-default-btn like-btn{{comment.id}}" type="submit">
+                                    <i class="far fa-thumbs-up like-icon{{comment.id}} btn-success" style="color: white;"> <span class="like_count{{comment.id}}">{{ comment.likes.all.count }}</span></i>
+                                </button>
+                            {% else %}
+                                <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                <button class="remove-default-btn like-btn{{comment.id}}" type="submit">
+                                    <i class="far fa-thumbs-up like-icon{{comment.id}}" style="color: white;"> <span class="like_count{{comment.id}}">{{ comment.likes.all.count }}</span></i>
+                                </button>
+                            {% endif %}
+                        </form>
+                        <form method="POST" action="{% url 'comment-dislike' post.pk comment.id %}" class="dislike-form" id={{comment.id}}>
+                            {% csrf_token %}
+                            {% if request.user in comment.dislikes.all %}
+                                <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                <button class="remove-default-btn dislike-btn{{comment.id}}" type="submit">
+                                    <i class="far fa-thumbs-down dislike-icon{{comment.id}} btn-success" style="color: white;"> <span class="dislike_count{{comment.id}}">{{ comment.dislikes.all.count }}</span></i>
+                                </button>
+                            {% else %}
+                                <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                <button class="remove-default-btn dislike-btn{{comment.id}}" type="submit">
+                                    <i class="far fa-thumbs-down dislike-icon{{comment.id}}" style="color: white;"> <span class="dislike_count{{comment.id}}">{{ comment.dislikes.all.count }}</span></i>
+                                </button>
+                            {% endif %}
+                        </form>
 
 
 

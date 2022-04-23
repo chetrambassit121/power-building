@@ -78,7 +78,7 @@
                                 {% if request.user in comment.dislikes.all %}
                                     <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
                                     <button class="remove-default-btn dislike-btn{{comment.pk}}" type="submit">
-                                        <i class="far fa-thumbs-down dislike-icon{{comment.pk}} btn-success" > <span class="dislike_count{{comment.id}}">{{ comment.dislikes.all.count }}</span></i>
+                                        <i class="far fa-thumbs-down dislike-icon{{comment.pk}} btn-danger" > <span class="dislike_count{{comment.id}}">{{ comment.dislikes.all.count }}</span></i>
                                     </button>
                                 {% else %}
                                     <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
@@ -90,11 +90,11 @@
                            
                            
                             <div>
-                              <!--   {% if comment.children %}
+                              <!--   {if comment.children %}
                                     <button class="remove-default-btn" style="color: white">Replies {{comment.children.all.count}}</button>
-                                {% endif %} -->
+                                {endif %} -->
                                 {% if comment.children %}
-                                    <a href="{% url 'view-comment-reply' comment.pk %}"><button class="remove-default-btn" style="color: black">Replies: {{comment.children.all.count}}</button></a>
+                                    <button class="remove-default-btn reply-button"><a href="{% url 'view-comment-reply' comment.pk %}">Replies: {{comment.children.all.count}}</a></button>
                                 {% else %}
                                     <p>Replies: 0</p>
                                 {% endif %}
@@ -102,7 +102,7 @@
                             &nbsp;&nbsp;
                             <div>
                                 <!-- <button class="remove-default-btn"><i class="far fa-comment-dots" style="color: white" onclick="commentReplyToggle('{{ comment.pk }}')"></i></button> -->
-                                <button class="remove-default-btn"><i class="far fa-comment-dots" style="color: black" onclick="commentReplyToggle('n{{ comment.pk }}')"></i></button>
+                                <button class="remove-default-btn"><i class="far fa-comment-dots" onclick="commentReplyToggle('n{{ comment.pk }}')"></i></button>
                             </div>
                         </div>
                     </div> 

@@ -413,6 +413,11 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
 
 
 
+/* replies icon  */
+.reply-button {
+  color: white;
+}
+
 /* footer  */
 
 .footer-basic {
