@@ -18,6 +18,9 @@
           <a class="nav-link" href="{% url 'surveys' %}">Surveys</a>
         </li>     
         <li class="nav-item">
+          <a class="nav-link" href="{% url 'post-list' %}">Social</a>
+        </li> 
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'powerlifting' %}">Powerlifting</a>
         </li>   
         <li class="nav-item">
@@ -41,7 +44,7 @@
       {% if user.is_authenticated %}
         <div class="dropdown">
           <a href="{% url 'show_profile_page' request.user.profile.pk %}"><img class="round-circle post-img" height="35" width="35" src="{{ request.user.profile.picture.url }}" /></a>
-          <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             <!-- Current User: {{ user.username }} -->
             User Settings
           </button>

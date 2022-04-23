@@ -155,9 +155,9 @@
                             $(`.like-icon${post_id}`).removeClass('btn-success')
                         }
                         if(response.disliked===true){
-                            $(`.dislike-icon${post_id}`).addClass("btn-success")
+                            $(`.dislike-icon${post_id}`).addClass("btn-danger")
                         }else{
-                            $(`.dislike-icon${post_id}`).removeClass("btn-success")
+                            $(`.dislike-icon${post_id}`).removeClass("btn-danger")
                         }
                         likes=$(`.like_count${post_id}`).text(response.likes_count)
                         parseInt(likes)
@@ -189,9 +189,9 @@
                     },
                     success:function(response){
                         if(response.disliked===true){
-                          $(`.dislike-icon${post_id}`).addClass("btn-success")
+                          $(`.dislike-icon${post_id}`).addClass("btn-danger")
                         }else{
-                          $(`.dislike-icon${post_id}`).removeClass("btn-success")
+                          $(`.dislike-icon${post_id}`).removeClass("btn-danger")
                         }
 
                         if(response.liked===true){
