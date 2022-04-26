@@ -17,9 +17,9 @@
                </div></div></div></div>
             </div>
             
-           <div class="main-post-section">
+            <div class="main-post-section">
                 {% include 'social/posts.html' %}
-           </div>
+            </div>
         {% else %}
             <div class="row justify-content-center mt-3">
                 <div class="col-md-5 col-sm-12 border-bottom">
@@ -104,9 +104,9 @@
        
     </div>
 
+
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-
     <!-- AJAX for when user makes a post page doesnt refresh ... problem is when user clicks like/dislike button data returned not html page -->
    <!--  <script type="text/javascript">
         $(document).on('submit', '.post-form', function(event){
@@ -117,9 +117,13 @@
                 url: $(this).attr('action'),
                 data: $(this).serialize(),
                 dataType: 'json',
+                // contentType: 'multipart/form-data',
                 success: function(response) {
                     $('.main-post-section').html(response['form']);
-                    $('textarea').val('');
+                    // $('.image_video_section').html(response['form']);
+                    // $('.ajax_image').html(response['form']);
+
+                    // $('textarea').val('');
                    
                 },
                 error: function(rs, e) {
@@ -128,6 +132,29 @@
             });
         });
        
+    </script> -->
+
+
+    <!-- # Ajax jQuery
+    <script type="text/javascript">
+        function upload(event) {
+            event.preventDefault();
+            var data = new FormData($('#ajax').get(0));
+            console.log(data)
+
+            $.ajax({
+                url: '/image_load/', // same url 'action' in form
+                type: 'POST',
+                data: data,
+                contentType: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    alert('success');
+                }
+            });
+            return false;
+        }
     </script> -->
 
     <script type="text/javascript">

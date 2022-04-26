@@ -4,20 +4,46 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from members.models import UserProfile, User
 from django.urls import reverse_lazy, reverse
-
 from .validators import file_size
 
-# class Video(models.Model):
-# 	caption=models.CharField(max_length=100)
-# 	video=models.FileField(upload_to="video/%y",validators=[file_size])
-# 	def __str__(self):
-# 		return self.caption
+
+class Notification(models.Model):
+    # 1 = Like, 2 = Comment, 3 = Follow, #4 = DM
+    notification_type = models.IntegerField()
+    to_user = models.ForeignKey(User, related_name='notification_to', on_delete=models.CASCADE, null=True)
+    from_user = models.ForeignKey(User, related_name='notification_from', on_delete=models.CASCADE, null=True)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    comment = models.ForeignKey('Comment', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    thread = models.ForeignKey('ThreadModel', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    date = models.DateTimeField(default=timezone.now)
+    user_has_seen = models.BooleanField(default=False)
+
+class ThreadModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
+
+
+class MessageModel(models.Model):
+    thread = models.ForeignKey('ThreadModel', related_name='+', on_delete=models.CASCADE, blank=True, null=True)
+    sender_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
+    receiver_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
+    body = models.CharField(max_length=1000)
+    image = models.ImageField(upload_to='media/uploads/message_photos', blank=True, null=True)
+    date = models.DateTimeField(default=timezone.now)
+    is_read = models.BooleanField(default=False)
+    created_on = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['-created_on']
+
+class Tag(models.Model):
+    name = models.CharField(max_length=255)
 
 
 class Post(models.Model):
     body = models.TextField()
-    image = models.ImageField(upload_to='uploads/post_photos', blank=True, null=True)
-    video = models.FileField(upload_to="uploads/post_videos", validators=[file_size], blank=True, null=True)
+    image = models.ImageField(upload_to='media/uploads/post_photos', blank=True, null=True)
+    video = models.FileField(upload_to="media/uploads/post_videos", validators=[file_size], blank=True, null=True)
     created_on = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     shared_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='+')
@@ -91,37 +117,7 @@ class Comment(models.Model):
     class Meta:
         ordering = ['-created_on']
 
-class Notification(models.Model):
-    # 1 = Like, 2 = Comment, 3 = Follow, #4 = DM
-    notification_type = models.IntegerField()
-    to_user = models.ForeignKey(User, related_name='notification_to', on_delete=models.CASCADE, null=True)
-    from_user = models.ForeignKey(User, related_name='notification_from', on_delete=models.CASCADE, null=True)
-    post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
-    comment = models.ForeignKey('Comment', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
-    thread = models.ForeignKey('ThreadModel', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
-    date = models.DateTimeField(default=timezone.now)
-    user_has_seen = models.BooleanField(default=False)
 
-class ThreadModel(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
-
-
-class MessageModel(models.Model):
-    thread = models.ForeignKey('ThreadModel', related_name='+', on_delete=models.CASCADE, blank=True, null=True)
-    sender_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
-    receiver_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
-    body = models.CharField(max_length=1000)
-    image = models.ImageField(upload_to='uploads/message_photos', blank=True, null=True)
-    date = models.DateTimeField(default=timezone.now)
-    is_read = models.BooleanField(default=False)
-    created_on = models.DateTimeField(default=timezone.now)
-
-    class Meta:
-        ordering = ['-created_on']
-
-class Tag(models.Model):
-    name = models.CharField(max_length=255)
 
 # class Follow(models.Model):
 #     follower = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='follower')

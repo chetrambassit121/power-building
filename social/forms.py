@@ -1,6 +1,16 @@
 from django import forms
 from .models import Post, Comment, MessageModel
 
+
+class ExploreForm(forms.Form):
+    query = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Explore tags'
+        })
+    )
+
+
 class PostForm(forms.ModelForm):
     body = forms.CharField(
         label='',
@@ -100,10 +110,3 @@ class ShareForm(forms.Form):
         fields = ['body']
 
 
-class ExploreForm(forms.Form):
-    query = forms.CharField(
-        label='',
-        widget=forms.TextInput(attrs={
-            'placeholder': 'Explore tags'
-        })
-    )

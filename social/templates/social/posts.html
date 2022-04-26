@@ -3,7 +3,7 @@
 
 <div class="row justify-content-center mt-3 mb-5">
     <div class="col-md-5 col-sm-12 border-bottom">
-        <form method="POST" class="post-form" enctype="multipart/form-data">
+        <form method="POST" id="" class="post-form" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form | crispy }}
             {{ video_form | crispy }}
@@ -11,6 +11,22 @@
                 <button class="btn btn-success mt-3">Submit!</button>
             </div>
         </form>
+       <!--  <form method="POST" id="" class="post-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <input type="text" name="name" id="inputName">
+            <input type="file" name="image" id="inputFile">
+            {{ video_form | crispy }}
+            <div class="d-grid gap-2">
+                <button class="btn btn-success mt-3">Submit!</button>
+            </div>
+        </form> -->
+      <!--   <form  method="POST" action='.' id="ajax" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="name" id="inputName">
+            <input type="file" name="image" id="inputFile">
+            <button id="submit"  type="submit">Add</button>
+        </form> -->
         <h6 class="row justify-content-center">Click on a Users Post to view Comments! <br> &nbsp;&nbsp;&nbsp; View, Edit, or Delete Posts in your <a class="row justify-content-center" href="{% url 'show_profile_page' request.user.profile.pk %}">Profile</a></h6></p>
     </div>
 </div>
@@ -88,13 +104,13 @@
                     {% endif %}
 
                     <div class="shared-post position-relative pt-3">
-                        <div class="position-relative">
+                        <div class="position-relative ">
                             <div class="body">
                                 <p>{{ post.body }}</p>
                             </div>
                             <!-- <a href="{ url 'post-detail' post.pk %}" class="stretched-link"></a> -->
                             {% if post.image %}
-                                <div class="">
+                                <div class="ajax_image">
                                     <img src="{{ post.image.url }}" class="post-image"/>
                                 </div>
                             {% endif %}
@@ -145,3 +161,5 @@
         </div>
     {% endfor %}
 </div>
+
+
