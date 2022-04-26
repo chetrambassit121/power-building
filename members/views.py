@@ -86,7 +86,7 @@ def register(request):
             )
             to_email = form.cleaned_data.get('email')
             email = mail.EmailMessage(mail_subject, message, to=[to_email])
-            email.send_mail()
+            email.send()
             # connection.close()
             return render(request, 'registration/confirm_email.html')  
             # connection.close()
