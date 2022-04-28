@@ -210,13 +210,14 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
 /* flexbox and elements within it */
 
 .flexbox-item-99 {
-  border: 5px solid #F8F8FF;
+  border: 5px solid darkred;
   text-align: center;
   margin: 10px;
 }
 
 .flexbox-item-98 h2 {
   padding-bottom: 15px;
+  border: darkred;
 }
 
 .flexbox-item-90, .post_body {
@@ -227,6 +228,7 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
   padding: 10px;
   margin: auto;
   text-align: center;
+  border: darkred;
 }
 
 .flexbox-item-0 h1 {
@@ -246,7 +248,7 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
 .flexbox-item {
   width: 400px;
   margin: 10px;
-  border: 3px solid #F8F8FF;
+  border: 3px solid darkred;
 }
 
 .flexbox-item ul li {
@@ -288,6 +290,10 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
   display: block;
   text-align: center;
   background-color: #22495e;
+}
+
+.border-bottom {
+  border-bottom: 1px solid darkred!important;
 }
 
 
