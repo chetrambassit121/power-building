@@ -56,18 +56,23 @@ class PostDetailSerializer(ModelSerializer):               # serializer for the 
 		fields = [
 			'id',
 			'author',
+			'shared_user',
 			'body',
+			'shared_body',
 			'image',
 			'video',
-			'created_on'
-			# 'shared_user',
+			'created_on',
+			'shared_on',
+			'likes',
+			'dislikes',
+			'tags'
 		]
 
 class PostListSerializer(ModelSerializer):                   # serialzer for the post list (1) 
 	class Meta:
 		model = Post 
 		fields = [
-			# 'id',
+			'id',
 			'author',
 			'shared_user',
 			'body',

@@ -20,7 +20,7 @@ urlpatterns = [
 
     path('', PostListAPIView.as_view(), name='list'),                             # url to display posts similar to  url(r'^$', post_list, name='list')     
     path('create/', PostCreateAPIView.as_view(), name='create'),                  # url to create post    
-	# path(r'^(?P<slug>[\w-]+)/$', PostDetailAPIView.as_view(), name='detail'),        # url to display post detail .... url(r'^(?P<slug>[\w-]+)/$', post_detail, name='detail'),
+	path('post/<int:id>/', PostDetailAPIView.as_view(), name='detail'),        # url to display post detail .... url(r'^(?P<slug>[\w-]+)/$', post_detail, name='detail'),
 	# path(r'^(?P<slug>[\w-]+)/edit/$', PostUpdateAPIView.as_view(), name='update'),   # url to update a post 
  #    path(r'^(?P<slug>[\w-]+)/delete/$', PostDeleteAPIView.as_view(), name='delete'), # url to delete 
 

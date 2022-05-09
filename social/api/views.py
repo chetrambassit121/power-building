@@ -360,12 +360,12 @@ class PostCreateAPIView(CreateAPIView):
 class PostDeleteAPIView(DestroyAPIView):                                           
 	queryset = Post.objects.all()
 	serializer_class = PostDetailSerializer
-	lookup_field = 'slug' 
+	lookup_field = 'id' 
 
 class PostDetailAPIView(RetrieveAPIView):                                
 	queryset = Post.objects.all()
 	serializer_class = PostDetailSerializer
-	lookup_field = 'slug' 
+	lookup_field = 'id' 
 
 class PostListAPIView(ListAPIView):                               
 	queryset = Post.objects.all()
@@ -377,7 +377,7 @@ class PostUpdateAPIView(RetrieveUpdateAPIView):
 	permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]  # added IsAuthenticatedOrReadOnly .. user must be logged in to update post now if not error
 																		 # added IsOwnerOrReadOnly we created in permissions.py
 																		 # so now only the user who created the post can edit is or else error
-	lookup_field = 'slug' 
+	lookup_field = 'id' 
 
 	def perform_update(self, serializer):                
-		serializer.save(user=self.request.user)
+		serializer.save(author=self.request.user)
