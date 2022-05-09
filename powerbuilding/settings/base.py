@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'django_ckeditor_5',               # added this version of ck editior as well 
                                        # https://pypi.org/project/django-ckeditor-5/
     'ckeditor_uploader',               # added this since we downloaded ckeditor this is required for app to work 
+    'rest_framework',
 ]
 
 
