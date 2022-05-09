@@ -3,7 +3,7 @@ from rest_framework.permissions import BasePermission
 class IsOwnerOrReadOnly(BasePermission):                          # creating our own permission class 
 	message = 'You must be the owner of this object.'
 	def has_object_permission(self, request, view, obj):
-		return obj.user == request.user                           # user who created that object (post) must be the request.user 
+		return obj.author == request.user                           # user who created that object (post) must be the request.user 
 																  # if not owner of object the message will be displayed 
 # ..............................................................................
 
