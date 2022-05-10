@@ -1,8 +1,14 @@
 # notes .. put classes in alphebetical order .. easier for other coders to find a class .. created order will be mark with a number 
 
-from rest_framework.serializers import ModelSerializer
 
-from social.models import Post
+
+
+
+
+
+# from rest_framework.serializers import ModelSerializer
+
+# from social.models import Post
 
 # class PostCreateUpdateSerializer(ModelSerializer):                   # serialzer for the post create (3) 
 # 	class Meta:
@@ -39,8 +45,204 @@ from social.models import Post
 # 			'publish'
 # 		]
 
+#NOTES !!!!!!!!!!!!!!!1
+# these fields are based on his Post model not mines 
 
-class PostCreateUpdateSerializer(ModelSerializer):                   # serialzer for the post create (3) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# LOGIC .... adding Hyperlinked Identity Field for URL
+
+# from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField               # added hyperlink 
+
+# from social.models import Post
+
+# class PostCreateUpdateSerializer(ModelSerializer):                   
+# 	class Meta:
+# 		model = Post 
+# 		fields = [
+# 			'body',
+# 			'image',
+# 			'video'	
+# 		]
+
+
+# class PostDetailSerializer(ModelSerializer):               
+# 	class Meta:
+# 		model = Post 
+# 		fields = [
+# 			'id',
+# 			'author',
+# 			'shared_user',
+# 			'body',
+# 			'shared_body',
+# 			'image',
+# 			'video',
+# 			'created_on',
+# 			'shared_on',
+# 			'likes',
+# 			'dislikes',
+# 			'tags'
+# 		]
+
+# class PostListSerializer(ModelSerializer):        
+# 	url = HyperlinkedIdentityField(                                     # added .. this url will lead to the post-detail page
+# 		# view_name='social-api:detail',                                # name from powerbuilding.urls the api/social path 
+# 																		# : along with DETAIL name from api.urls detail path 
+# 		view_name='detail',                                             # had to remove social-api name was getting an error ... 
+# 																		# just detail name from detail url works as well    
+#  		lookup_field='id'                                               # id as lookupfield 
+# 	)           
+
+# 	delete_url = HyperlinkedIdentityField(                              # added .. this url will lead to the post delete page 
+# 		# view_name='social-api:delete',                                # name from powerbuilding.urls the api/social path 
+# 																		# : along with DELETE name from api.urls delete path 
+# 		view_name='delete',                                             # had to remove social-api name was getting an error ... 
+# 																		# just delete name from delete url works as well    
+#  		lookup_field='id'                                               # id as lookupfield 
+# 	)           
+# 	class Meta:
+# 		model = Post 
+# 		fields = [
+# 			'url',                                                      # added url as field now 
+# 			'id',
+# 			'author',
+# 			'shared_user',
+# 			'body',
+# 			'shared_body',
+# 			'image',
+# 			'video',
+# 			'created_on',
+# 			'shared_on',
+# 			'likes',
+# 			'dislikes',
+# 			'tags',
+# 			'delete_url'                                                 # added delete_url 
+# 		]
+
+
+
+# # NOTES !!!!!!!!!!!!!!
+# # url links to view DETAIL AND DELETE pages are now added to our post-list page 
+# ........................................................................................
+
+
+
+
+
+# # LOGIC .... cleaner way of creating detail and delete hyperlinks 
+
+# from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField                
+
+# from social.models import Post
+
+# class PostCreateUpdateSerializer(ModelSerializer):                   
+# 	class Meta:
+# 		model = Post 
+# 		fields = [
+# 			'body',
+# 			'image',
+# 			'video'	
+# 		]
+
+
+# post_detail_url = HyperlinkedIdentityField(view_name='detail', lookup_field='id')      # added ... CV = the logic for post-detail hyperlink 
+
+# class PostDetailSerializer(ModelSerializer):       
+# 	url = post_detail_url                                                              # added ... CV = postdetailurl variable 
+# 	class Meta:
+# 		model = Post 
+# 		fields = [
+# 			'url',                                                                    # added the url variable 
+# 			'id',
+# 			'author',
+# 			'shared_user',
+# 			'body',
+# 			'shared_body',
+# 			'image',
+# 			'video',
+# 			'created_on',
+# 			'shared_on',
+# 			'likes',
+# 			'dislikes',
+# 			'tags'
+# 		]
+
+# class PostListSerializer(ModelSerializer):        
+# 	url = post_detail_url                                                           # added .. url varible 
+# 	delete_url = HyperlinkedIdentityField(                             
+# 		view_name='delete',                                             													
+#  		lookup_field='id'                                               
+# 	)           
+# 	class Meta:
+# 		model = Post 
+# 		fields = [
+# 			'url',                                                       
+# 			'id',
+# 			'author',
+# 			'shared_user',
+# 			'body',
+# 			'shared_body',
+# 			'image',
+# 			'video',
+# 			'created_on',
+# 			'shared_on',
+# 			'likes',
+# 			'dislikes',
+# 			'tags',
+# 			'delete_url'                                                 
+# 		]
+
+
+
+# # NOTES !!!!!!!!!!!!!!
+# # this is a cleaner way to display our post-detail hyperlink ..... in tutoiral he removed the delete hyperlink i will keep it.
+# # ...............................................................................................
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# LOGIC .... Serializer Method Field
+
+from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField, SerializerMethodField          # added serializer methodfield                
+
+from social.models import Post
+from members.models import User
+
+class PostCreateUpdateSerializer(ModelSerializer):                   
 	class Meta:
 		model = Post 
 		fields = [
@@ -50,10 +252,14 @@ class PostCreateUpdateSerializer(ModelSerializer):                   # serialzer
 		]
 
 
-class PostDetailSerializer(ModelSerializer):               # serializer for the post detial (2)
+post_detail_url = HyperlinkedIdentityField(view_name='detail', lookup_field='id')      
+
+class PostDetailSerializer(ModelSerializer):       
+	url = post_detail_url                                                              
 	class Meta:
 		model = Post 
 		fields = [
+			'url',                                                                     
 			'id',
 			'author',
 			'shared_user',
@@ -68,12 +274,21 @@ class PostDetailSerializer(ModelSerializer):               # serializer for the 
 			'tags'
 		]
 
-class PostListSerializer(ModelSerializer):                   # serialzer for the post list (1) 
+class PostListSerializer(ModelSerializer):   
+	author = SerializerMethodField     
+	url = post_detail_url                                                           
+	delete_url = HyperlinkedIdentityField(                             
+		view_name='delete',                                             													
+ 		lookup_field='id'                                               
+	)           
 	class Meta:
-		model = Post 
+		model = Post
+		model = User
 		fields = [
+			'url',                                                       
 			'id',
 			'author',
+			# 'user',
 			'shared_user',
 			'body',
 			'shared_body',
@@ -83,6 +298,16 @@ class PostListSerializer(ModelSerializer):                   # serialzer for the
 			'shared_on',
 			'likes',
 			'dislikes',
-			'tags'
+			'tags',
+			'delete_url'                                                 
 		]
+
+	def get_author(self, obj):
+		return str(obj.username)
+
+
+
+# NOTES !!!!!!!!!!!!!!
+# 
+# ...............................................................................................
 

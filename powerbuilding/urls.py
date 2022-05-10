@@ -30,7 +30,7 @@ urlpatterns = [
     path('social/', include('social.urls')),          
     path('ckeditor/', include('ckeditor_uploader.urls')),     
 
-    path('api/social/', include("social.api.urls")),
+    path('api/social/', include("social.api.urls"), name='social-api'),
     # path(r'^api/social/', include("social.api.urls")),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)            # added too access our media folder       

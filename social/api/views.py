@@ -332,7 +332,7 @@
 
 
 
-# LOGIC ..... custom user permissions 
+# LOGIC ..... query searching 
 
 # from rest_framework.generics import ( 
 # 	CreateAPIView,                    
@@ -406,7 +406,201 @@
 
 
 
-#  LOGIC .... another way to filter querys 
+# #  LOGIC .... another way to filter querys 
+
+# from rest_framework.generics import ( 
+# 	CreateAPIView,                    
+# 	DestroyAPIView, 
+# 	ListAPIView, 
+# 	RetrieveAPIView, 
+# 	RetrieveUpdateAPIView,             
+# 	UpdateAPIView
+# 	)     
+# from social.models import Post
+# from social.api.serializers import (PostCreateUpdateSerializer, PostDetailSerializer, PostListSerializer)
+
+# from rest_framework.permissions import (AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)    
+# from social.api.permissions import IsOwnerOrReadOnly      
+
+# from django.db.models import Q                                                                     
+
+# from rest_framework.filters import SearchFilter, OrderingFilter                      # added these types of filters for getting querys 
+
+# class PostCreateAPIView(CreateAPIView):                                              
+# 	queryset = Post.objects.all()
+# 	serializer_class = PostCreateUpdateSerializer
+# 	permission_classes = [IsAuthenticated]       
+															  
+# 	def perform_create(self, serializer):               
+# 		serializer.save(author=self.request.user)         
+	
+# class PostDeleteAPIView(DestroyAPIView):                                           
+# 	queryset = Post.objects.all()
+# 	serializer_class = PostDetailSerializer
+# 	lookup_field = 'id' 
+
+# class PostDetailAPIView(RetrieveAPIView):                                
+# 	queryset = Post.objects.all()
+# 	serializer_class = PostDetailSerializer
+# 	lookup_field = 'id' 
+
+# class PostListAPIView(ListAPIView):                               
+# 	# queryset = Post.objects.all()
+# 	serializer_class = PostListSerializer
+# 	filter_backends = [SearchFilter, OrderingFilter]                               # added .. CV = searchfilter , orderingfilter
+# 	search_fields = ['body', 'first_name', 'last_name', 'author']                  # added .. fields we can search by 
+
+# 	def get_queryset(self, *args, **kwargs):                                           
+# 		# queryset_list = super(PostListAPIView, self).get_queryset(*args, **kwargs)
+# 		queryset_list = Post.objects.all()                                             
+# 		query = self.request.GET.get("q")                                              
+# 		if query:
+# 			queryset_list = queryset_list.filter(                                      
+# 				Q(body__icontains=query)|     
+# 				# Q(author__icontains=query)|                                                                                       
+# 				# Q(image__icontains=query)|
+# 				# Q(video__icontains=query)|
+# 				Q(author__first_name__icontains=query) |                               
+# 				Q(author__last_name__icontains=query)                                   
+# 				).distinct()
+# 		return queryset_list															
+
+# class PostUpdateAPIView(RetrieveUpdateAPIView):                                              
+# 	queryset = Post.objects.all()
+# 	serializer_class = PostCreateUpdateSerializer
+# 	permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]  
+# 	lookup_field = 'id' 
+
+# 	def perform_update(self, serializer):                
+# 		serializer.save(author=self.request.user)
+
+
+
+# NOTES !!!!!!!!!!!
+# we can do same concept as previous coding with the search filter
+# http://localhost:7000/api/social/?q=chetram&q=bassit  .. we can do a double search now .. and this is with the searchfilter
+# with orderingfilter we can do http://localhost:7000/api/social/?q=chetram&ordering=body .. will show posts in order based on body 
+# with orderingfilter we can do http://localhost:7000/api/social/?q=chetram&ordering=-body .. will show posts in reverse order based on body
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# #  LOGIC .... Pagination with Rest Framework .... create pagination.py file in api folder 
+
+# from rest_framework.generics import ( 
+# 	CreateAPIView,                    
+# 	DestroyAPIView, 
+# 	ListAPIView, 
+# 	RetrieveAPIView, 
+# 	RetrieveUpdateAPIView,             
+# 	UpdateAPIView
+# 	)     
+# from social.models import Post
+# from social.api.serializers import (PostCreateUpdateSerializer, PostDetailSerializer, PostListSerializer)
+
+# from rest_framework.permissions import (AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)    
+# from social.api.permissions import IsOwnerOrReadOnly      
+
+# from django.db.models import Q                                                                     
+
+# from rest_framework.filters import SearchFilter, OrderingFilter   
+
+# from .pagination import PostLimitOffsetPagination, PostPageNumberPagination                  # added
+                 
+
+# class PostCreateAPIView(CreateAPIView):                                              
+# 	queryset = Post.objects.all()
+# 	serializer_class = PostCreateUpdateSerializer
+# 	permission_classes = [IsAuthenticated]       
+															  
+# 	def perform_create(self, serializer):               
+# 		serializer.save(author=self.request.user)         
+	
+# class PostDeleteAPIView(DestroyAPIView):                                           
+# 	queryset = Post.objects.all()
+# 	serializer_class = PostDetailSerializer
+# 	permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]           # also added this to delete so user must be owner of post to delete 
+# 	lookup_field = 'id' 
+
+# class PostDetailAPIView(RetrieveAPIView):                                
+# 	queryset = Post.objects.all()
+# 	serializer_class = PostDetailSerializer
+# 	lookup_field = 'id' 
+
+# class PostListAPIView(ListAPIView):                               
+# 	# queryset = Post.objects.all()
+# 	serializer_class = PostListSerializer
+# 	filter_backends = [SearchFilter, OrderingFilter]                              
+# 	search_fields = ['body', 'first_name', 'last_name', 'author']       
+# 	pagination_class = PostPageNumberPagination                                     
+																	  
+# 	def get_queryset(self, *args, **kwargs):                                           
+# 		# queryset_list = super(PostListAPIView, self).get_queryset(*args, **kwargs)
+# 		queryset_list = Post.objects.all()                                             
+# 		query = self.request.GET.get("q")                                              
+# 		if query:
+# 			queryset_list = queryset_list.filter(                                      
+# 				Q(body__icontains=query)|     
+# 				# Q(author__icontains=query)|                                                                                       
+# 				# Q(image__icontains=query)|
+# 				# Q(video__icontains=query)|
+# 				Q(author__first_name__icontains=query) |                               
+# 				Q(author__last_name__icontains=query)                                   
+# 				).distinct()
+# 		return queryset_list															
+
+# class PostUpdateAPIView(RetrieveUpdateAPIView):                                              
+# 	queryset = Post.objects.all()
+# 	serializer_class = PostCreateUpdateSerializer
+# 	permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]  
+# 	lookup_field = 'id' 
+
+# 	def perform_update(self, serializer):                
+# 		serializer.save(author=self.request.user) 
+
+
+
+# NOTES !!!!!!!!!!!!!11
+# pagination set up using pagination.py and importing those classes into our Post list api view 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# LOGIC .... Hyperlinked Identity Field for URL 
 
 from rest_framework.generics import ( 
 	CreateAPIView,                    
@@ -424,7 +618,10 @@ from social.api.permissions import IsOwnerOrReadOnly
 
 from django.db.models import Q                                                                     
 
-from rest_framework.filters import SearchFilter, OrderingFilter                      # added these types of filters for getting querys 
+from rest_framework.filters import SearchFilter, OrderingFilter   
+
+from .pagination import PostLimitOffsetPagination, PostPageNumberPagination                  
+                 
 
 class PostCreateAPIView(CreateAPIView):                                              
 	queryset = Post.objects.all()
@@ -437,6 +634,7 @@ class PostCreateAPIView(CreateAPIView):
 class PostDeleteAPIView(DestroyAPIView):                                           
 	queryset = Post.objects.all()
 	serializer_class = PostDetailSerializer
+	permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]           
 	lookup_field = 'id' 
 
 class PostDetailAPIView(RetrieveAPIView):                                
@@ -447,9 +645,10 @@ class PostDetailAPIView(RetrieveAPIView):
 class PostListAPIView(ListAPIView):                               
 	# queryset = Post.objects.all()
 	serializer_class = PostListSerializer
-	filter_backends = [SearchFilter, OrderingFilter]                               # added .. CV = searchfilter , orderingfilter
-	search_fields = ['body', 'first_name', 'last_name', 'author']                  # added .. fields we can search by 
-
+	filter_backends = [SearchFilter, OrderingFilter]                              
+	search_fields = ['body', 'first_name', 'last_name', 'author']       
+	pagination_class = PostPageNumberPagination                                     
+																	  
 	def get_queryset(self, *args, **kwargs):                                           
 		# queryset_list = super(PostListAPIView, self).get_queryset(*args, **kwargs)
 		queryset_list = Post.objects.all()                                             
@@ -472,12 +671,4 @@ class PostUpdateAPIView(RetrieveUpdateAPIView):
 	lookup_field = 'id' 
 
 	def perform_update(self, serializer):                
-		serializer.save(author=self.request.user)
-
-
-
-# NOTES !!!!!!!!!!!
-# we can do same concept as previous coding with the search filter
-# http://localhost:7000/api/social/?q=chetram&q=bassit  .. we can do a double search now .. and this is with the searchfilter
-# with orderingfilter we can do http://localhost:7000/api/social/?q=chetram&ordering=body .. will show posts in order based on body 
-# with orderingfilter we can do http://localhost:7000/api/social/?q=chetram&ordering=-body .. will show posts in reverse order based on body 
+		serializer.save(author=self.request.user) 
