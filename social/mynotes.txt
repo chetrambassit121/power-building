@@ -20,6 +20,7 @@ POSTS APP SETUP
 4. serializers.py,                                        # this basically is like our forms.py files but called serializers for api logic ...
 														    import the serializer into api/views.py as well ... 
 5. permissions.py                                         # this file is for user permission logic 
+6. pagination.py                                          # this file is for pagination logic 
 
 
 POWERSHELL COMMANDS START AND IMPORTS FOR POST 

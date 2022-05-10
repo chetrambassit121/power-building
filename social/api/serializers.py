@@ -237,7 +237,7 @@
 
 # LOGIC .... Serializer Method Field
 
-from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField, SerializerMethodField          # added serializer methodfield                
+from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField, SerializerMethodField          # added serializer methodfield               
 
 from social.models import Post
 from members.models import User
@@ -275,7 +275,9 @@ class PostDetailSerializer(ModelSerializer):
 		]
 
 class PostListSerializer(ModelSerializer):   
-	author = SerializerMethodField     
+	author = SerializerMethodField()                          # CV = to the method  ...  will help us retrive author string name  
+	# image = SerializerMethodField()                          # CV = to the method  ... for image .... not needed for our posts ...
+	html = SerializerMethodField()                            # CV = method ... for getting the html code of the posts body 
 	url = post_detail_url                                                           
 	delete_url = HyperlinkedIdentityField(                             
 		view_name='delete',                                             													
@@ -287,12 +289,12 @@ class PostListSerializer(ModelSerializer):
 			'url',                                                       
 			'id',
 			'author',
-			# 'user',
 			'shared_user',
 			'body',
 			'shared_body',
 			'image',
 			'video',
+			'html',
 			'created_on',
 			'shared_on',
 			'likes',
@@ -301,12 +303,22 @@ class PostListSerializer(ModelSerializer):
 			'delete_url'                                                 
 		]
 
-	def get_author(self, obj):
-		return str(obj.username)
+	def get_author(self, obj):                       # added this function to return author string instead of id number 
+		return str(obj.author.username)              # so this will get the actual authors string name 
+
+	# def get_image(self, obj):                        # we did not need this for our image hyperlink .. this is another way to return image field and link 
+	# 	try:
+	# 		image = obj.image.url 
+	# 	except:
+	# 		image = None 
+	# 	return image 
+
+	def get_html(self, obj):                          # added function get get the html code of the body of that post 
+		return obj.get_markdown()
 
 
 
 # NOTES !!!!!!!!!!!!!!
-# 
+# basically returned author name instead of id number , image coding not needed for our posts,  and implemeted getting the hmtl (markdown) code of the posts body 
 # ...............................................................................................
 

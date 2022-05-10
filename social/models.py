@@ -7,6 +7,10 @@ from django.urls import reverse_lazy, reverse
 from .validators import file_size
 from django.conf import settings
 
+# markdown 
+from django.utils.safestring import mark_safe
+from markdown_deux import markdown
+
 class Notification(models.Model):
     # 1 = Like, 2 = Comment, 3 = Follow, #4 = DM
     notification_type = models.IntegerField()
@@ -46,7 +50,6 @@ class Post(models.Model):
     video = models.FileField(upload_to="media/uploads/post_videos", validators=[file_size], blank=True, null=True)
     created_on = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user')
     shared_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='+')
     shared_body = models.TextField(blank=True, null=True)
     shared_on = models.DateTimeField(blank=True, null=True)
@@ -80,6 +83,14 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-created_on']
+
+
+    def get_markdown(self):
+        body = self.body
+        markdown_text = markdown(body)
+        return mark_safe(markdown_text)
+
+
 
 
 class Comment(models.Model):
