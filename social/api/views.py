@@ -334,6 +334,80 @@
 
 # LOGIC ..... custom user permissions 
 
+# from rest_framework.generics import ( 
+# 	CreateAPIView,                    
+# 	DestroyAPIView, 
+# 	ListAPIView, 
+# 	RetrieveAPIView, 
+# 	RetrieveUpdateAPIView,             
+# 	UpdateAPIView
+# 	)     
+# from social.models import Post
+# from social.api.serializers import (PostCreateUpdateSerializer, PostDetailSerializer, PostListSerializer)
+
+# from rest_framework.permissions import (AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)    
+# from social.api.permissions import IsOwnerOrReadOnly      
+
+# from django.db.models import Q                                          # added                           
+
+
+# class PostCreateAPIView(CreateAPIView):                                              
+# 	queryset = Post.objects.all()
+# 	serializer_class = PostCreateUpdateSerializer
+# 	permission_classes = [IsAuthenticated]       
+															  
+# 	def perform_create(self, serializer):               
+# 		serializer.save(author=self.request.user)         
+	
+# class PostDeleteAPIView(DestroyAPIView):                                           
+# 	queryset = Post.objects.all()
+# 	serializer_class = PostDetailSerializer
+# 	lookup_field = 'id' 
+
+# class PostDetailAPIView(RetrieveAPIView):                                
+# 	queryset = Post.objects.all()
+# 	serializer_class = PostDetailSerializer
+# 	lookup_field = 'id' 
+
+# class PostListAPIView(ListAPIView):                               
+# 	# queryset = Post.objects.all()
+# 	serializer_class = PostListSerializer
+
+# 	def get_queryset(self, *args, **kwargs):                                          # added function 
+# 		# queryset_list = super(PostListAPIView, self).get_queryset(*args, **kwargs)
+# 		queryset_list = Post.objects.all()                                             # CV = to all post objects
+# 		query = self.request.GET.get("q")                                              # CV = self.request getting q ... use q for searching for a query
+# 		if query:
+# 			queryset_list = queryset_list.filter(                                      
+# 				Q(body__icontains=query)|                                               # can search query by body 
+# 				# Q(image__icontains=query)|
+# 				# Q(video__icontains=query)|
+# 				Q(author__first_name__icontains=query) |                                # can search by query by authors(User) first name
+# 				Q(author__last_name__icontains=query)                                   # can search by query by authors(User) last name
+# 				).distinct()
+# 		return queryset_list															# will return all objects related to the query we searched 
+
+# class PostUpdateAPIView(RetrieveUpdateAPIView):                                              
+# 	queryset = Post.objects.all()
+# 	serializer_class = PostCreateUpdateSerializer
+# 	permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]  
+# 	lookup_field = 'id' 
+
+# 	def perform_update(self, serializer):                
+# 		serializer.save(author=self.request.user)
+
+
+
+# NOTES !!!!!!!!!!!!!!!!!!!!
+# we can go to http://localhost:7000/api/social/?q=chetram     ... this will search for posts with the authors first name chetram, last name, or body of the post 
+# .....................................................................................
+
+
+
+
+
+#  LOGIC .... another way to filter querys 
+
 from rest_framework.generics import ( 
 	CreateAPIView,                    
 	DestroyAPIView, 
@@ -345,14 +419,17 @@ from rest_framework.generics import (
 from social.models import Post
 from social.api.serializers import (PostCreateUpdateSerializer, PostDetailSerializer, PostListSerializer)
 
-from rest_framework.permissions import (AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)    # added 
-from social.api.permissions import IsOwnerOrReadOnly                                                           # added 
+from rest_framework.permissions import (AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)    
+from social.api.permissions import IsOwnerOrReadOnly      
 
+from django.db.models import Q                                                                     
+
+from rest_framework.filters import SearchFilter, OrderingFilter                      # added these types of filters for getting querys 
 
 class PostCreateAPIView(CreateAPIView):                                              
 	queryset = Post.objects.all()
 	serializer_class = PostCreateUpdateSerializer
-	permission_classes = [IsAuthenticated]       # added IsAuthenticated .. user must be logged in to create post now if not error
+	permission_classes = [IsAuthenticated]       
 															  
 	def perform_create(self, serializer):               
 		serializer.save(author=self.request.user)         
@@ -368,16 +445,39 @@ class PostDetailAPIView(RetrieveAPIView):
 	lookup_field = 'id' 
 
 class PostListAPIView(ListAPIView):                               
-	queryset = Post.objects.all()
+	# queryset = Post.objects.all()
 	serializer_class = PostListSerializer
+	filter_backends = [SearchFilter, OrderingFilter]                               # added .. CV = searchfilter , orderingfilter
+	search_fields = ['body', 'first_name', 'last_name', 'author']                  # added .. fields we can search by 
+
+	def get_queryset(self, *args, **kwargs):                                           
+		# queryset_list = super(PostListAPIView, self).get_queryset(*args, **kwargs)
+		queryset_list = Post.objects.all()                                             
+		query = self.request.GET.get("q")                                              
+		if query:
+			queryset_list = queryset_list.filter(                                      
+				Q(body__icontains=query)|     
+				# Q(author__icontains=query)|                                                                                       
+				# Q(image__icontains=query)|
+				# Q(video__icontains=query)|
+				Q(author__first_name__icontains=query) |                               
+				Q(author__last_name__icontains=query)                                   
+				).distinct()
+		return queryset_list															
 
 class PostUpdateAPIView(RetrieveUpdateAPIView):                                              
 	queryset = Post.objects.all()
 	serializer_class = PostCreateUpdateSerializer
-	permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]  # added IsAuthenticatedOrReadOnly .. user must be logged in to update post now if not error
-																		 # added IsOwnerOrReadOnly we created in permissions.py
-																		 # so now only the user who created the post can edit is or else error
+	permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]  
 	lookup_field = 'id' 
 
 	def perform_update(self, serializer):                
 		serializer.save(author=self.request.user)
+
+
+
+# NOTES !!!!!!!!!!!
+# we can do same concept as previous coding with the search filter
+# http://localhost:7000/api/social/?q=chetram&q=bassit  .. we can do a double search now .. and this is with the searchfilter
+# with orderingfilter we can do http://localhost:7000/api/social/?q=chetram&ordering=body .. will show posts in order based on body 
+# with orderingfilter we can do http://localhost:7000/api/social/?q=chetram&ordering=-body .. will show posts in reverse order based on body 
