@@ -6,8 +6,8 @@ from members.models import UserProfile, User
 from django.urls import reverse_lazy, reverse
 from .validators import file_size
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.fields import GenericForeignKey
+# from django.contrib.contenttypes.models import ContentType
+# from django.contrib.contenttypes.fields import GenericForeignKey
 
 # markdown 
 from django.utils.safestring import mark_safe
