@@ -256,7 +256,8 @@ from members.models import User
 
 
 class CommentSerializer(ModelSerializer):                    # added comment serilaizer same concept as postserializer 
-	author = SerializerMethodField()                
+	author = SerializerMethodField()       
+	reply_count = SerializerMethodField()         
 	class Meta:
 		model = Comment 
 		fields = [
@@ -267,11 +268,69 @@ class CommentSerializer(ModelSerializer):                    # added comment ser
 			'likes',
 			'dislikes',
 			'parent',
-			'tags'	
+			'tags',	
+			'reply_count'
+		]
+
+	def get_reply_count(self, obj):
+		if obj.is_parent:
+			return obj.children().count()
+		return 0
+
+	def get_author(self, obj):                       
+		return str(obj.author.username)
+
+class CommentChildSerializer(ModelSerializer):                    # added 
+	author = SerializerMethodField()                
+	class Meta:
+		model = Comment 
+		fields = [
+			'id',
+			'comment',
+			'created_on',
+			'author',
+			# 'likes',
+			# 'dislikes',
+			'parent',
+			# 'tags'	
 		]
 
 	def get_author(self, obj):                       
 		return str(obj.author.username)
+
+
+class CommentDetailSerializer(ModelSerializer):                    # added  
+	author = SerializerMethodField()    
+	replies = SerializerMethodField()    
+	reply_count = SerializerMethodField()           
+	class Meta:
+		model = Comment 
+		fields = [
+			'id',
+			'comment',
+			'created_on',
+			'author',
+			'likes',
+			'dislikes',
+			'tags', 
+			'replies',
+			'reply_count'
+		]
+
+
+
+	def get_author(self, obj):                       
+		return str(obj.author.username)
+
+	def get_replies(self, obj):                                   # this function basically serializes our replies data 
+		if obj.is_parent:
+			return CommentChildSerializer(obj.children(), many=True).data     # return the replies related to parent comment 
+		return None
+
+	def get_reply_count(self, obj):
+		if obj.is_parent:
+			return obj.children().count()
+		return 0
 
 
 class PostCreateUpdateSerializer(ModelSerializer):                   

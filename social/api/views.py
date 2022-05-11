@@ -611,7 +611,13 @@ from rest_framework.generics import (
 	UpdateAPIView
 	)     
 from social.models import Post, Comment            # added comment model 
-from social.api.serializers import (CommentSerializer, PostCreateUpdateSerializer, PostDetailSerializer, PostListSerializer)
+from social.api.serializers import (
+CommentSerializer, 
+CommentDetailSerializer, 
+PostCreateUpdateSerializer, 
+PostDetailSerializer, 
+PostListSerializer
+) # added comments serializers
 
 from rest_framework.permissions import (AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)    
 from social.api.permissions import IsOwnerOrReadOnly      
@@ -623,12 +629,13 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from .pagination import PostLimitOffsetPagination, PostPageNumberPagination   
 
 
-class CommentDetailAPIView(RetrieveAPIView):             # added 
+class CommentDetailAPIView(RetrieveAPIView):             # added same concept as postdetailapiview 
 	queryset = Comment.objects.all()
-	serializer_class = CommentSerializer   
+	serializer_class = CommentDetailSerializer  
+	lookup_field = 'id' 
 
 
-class CommentListAPIView(ListAPIView):                    # added                 
+class CommentListAPIView(ListAPIView):                    # added same concept of postlistapiview             
 	# queryset = Post.objects.all()
 	serializer_class = CommentSerializer
 	filter_backends = [SearchFilter, OrderingFilter]                              
@@ -704,4 +711,5 @@ class PostUpdateAPIView(RetrieveUpdateAPIView):
 
 
 # LOGIC !!!!!!!!! 
-
+# now we can go to locaolhost:8000/api/social/comments to view a list of comments 
+# now we can go to localhost:8000/api/social/comments/<int:id>/ to view that comments details which include the replies 

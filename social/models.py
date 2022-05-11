@@ -6,6 +6,8 @@ from members.models import UserProfile, User
 from django.urls import reverse_lazy, reverse
 from .validators import file_size
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 # markdown 
 from django.utils.safestring import mark_safe
@@ -91,17 +93,35 @@ class Post(models.Model):
         return mark_safe(markdown_text)
 
 
+# class CommentManager(models.Manager):
+#     def all(self):
+#         qs = super(CommentManager, self).filter(parent=None)
+#         return qs
+
+#     def filter_by_instance(self, instance):
+#         content_type = ContentType.objects.get_for_model(instance.__class__)
+#         obj_id = instance.id
+#         qs = super(CommentManager, self).filter(content_type=content_type, object_id= obj_id).filter(parent=None)
+#         return qs
 
 
 class Comment(models.Model):
     comment = models.TextField()
     created_on = models.DateTimeField(default=timezone.now)
+
+    # content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, default=False)
+    # object_id = models.PositiveIntegerField()
+    # content_object = GenericForeignKey('content_type', 'object_id')
+
+
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, blank=True, related_name='comment_likes')
     dislikes = models.ManyToManyField(User, blank=True, related_name='comment_dislikes')
     parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='+')
     tags = models.ManyToManyField('Tag', blank=True)
+
+    # objects = CommentManager()
 
     def create_tags(self):
         for word in self.comment.split():
@@ -115,7 +135,7 @@ class Comment(models.Model):
                     self.tags.add(tag.pk)
                 self.save()
 
-    @property
+   
     def children(self):
         return Comment.objects.filter(parent=self).order_by('-created_on').all()
 

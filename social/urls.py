@@ -50,10 +50,10 @@ urlpatterns = [
     # path('post/<int:post_pk>/comment/<int:pk>/reply', CommentReplyView.as_view(), name='comment-reply'),
     # path('post/<int:post_pk>/comment/<int:pk>/reply/<int:num_replies>/', CommentReplyView.as_view(), name='comment-reply'), ## tried to create load button url for loading replies
 
-    # profile like / dislike for post
+    # user profile like / dislike for post
     path('profile/<int:pk>/post/<int:id>/profile-like', ProfileAddLike.as_view(), name='profile-like'),
     path('profile/<int:pk>/post/<int:id>/profile-dislike', ProfileAddDislike.as_view(), name='profile-dislike'),
-    # sharedprofile like / dislike for post 
+    # sharedprofile like / dislike for sharedpost 
     path('profile/<int:pk>/post/<int:id>/shared-profile-like', SharedProfileAddLike.as_view(), name='shared-profile-like'),
     path('profile/<int:pk>/post/<int:id>/shared-profile-dislike', SharedProfileAddDislike.as_view(), name='shared-profile-dislike'),
 
