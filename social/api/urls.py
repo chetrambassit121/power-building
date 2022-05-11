@@ -3,6 +3,7 @@ from django.urls import path
 from django.contrib import admin
 
 from .views import (
+	CommentListAPIView,
 	PostCreateAPIView,
 	PostDeleteAPIView, 
 	PostListAPIView, 
@@ -17,7 +18,11 @@ urlpatterns = [
 	# url(r'^(?P<slug>[\w-]+)/edit/$', PostUpdateAPIView.as_view(), name='update'),   # url to update a post 
  #    url(r'^(?P<slug>[\w-]+)/delete/$', PostDeleteAPIView.as_view(), name='delete'), # url to delete 
 
+ 	# comments api urls
+ 	path('comments/', CommentListAPIView.as_view(), name='comments'), 
 
+
+ 	# posts api urls 
     path('', PostListAPIView.as_view(), name='list'),                             # url to display posts similar to  url(r'^$', post_list, name='list')     
     path('create/', PostCreateAPIView.as_view(), name='create'),                  # url to create post    
 	path('post/<int:id>/', PostDetailAPIView.as_view(), name='detail'),        # url to display post detail .... url(r'^(?P<slug>[\w-]+)/$', post_detail, name='detail'),

@@ -235,12 +235,44 @@
 
 
 
-# LOGIC .... Serializer Method Field
+# LOGIC .... Comments api 
 
-from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField, SerializerMethodField          # added serializer methodfield               
+from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField, SerializerMethodField                      
 
-from social.models import Post
+from social.models import Post, Comment                                     # added Comment 
 from members.models import User
+
+
+ # comment = models.TextField()
+ #    created_on = models.DateTimeField(default=timezone.now)
+ #    author = models.ForeignKey(User, on_delete=models.CASCADE)
+ #    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+ #    likes = models.ManyToManyField(User, blank=True, related_name='comment_likes')
+ #    dislikes = models.ManyToManyField(User, blank=True, related_name='comment_dislikes')
+ #    parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='+')
+ #    tags = models.ManyToManyField('Tag', blank=True)
+
+
+
+
+class CommentSerializer(ModelSerializer):                    # added comment serilaizer same concept as postserializer 
+	author = SerializerMethodField()                
+	class Meta:
+		model = Comment 
+		fields = [
+			'id',
+			'comment',
+			'created_on',
+			'author',
+			'likes',
+			'dislikes',
+			'parent',
+			'tags'	
+		]
+
+	def get_author(self, obj):                       
+		return str(obj.author.username)
+
 
 class PostCreateUpdateSerializer(ModelSerializer):                   
 	class Meta:
@@ -306,7 +338,7 @@ class PostListSerializer(ModelSerializer):
 	def get_author(self, obj):                       # added this function to return author string instead of id number 
 		return str(obj.author.username)              # so this will get the actual authors string name 
 
-	# def get_image(self, obj):                        # we did not need this for our image hyperlink .. this is another way to return image field and link 
+	# def get_image(self, obj):                      # we did not need this for our image hyperlink .. this is another way to return image field and link 
 	# 	try:
 	# 		image = obj.image.url 
 	# 	except:
