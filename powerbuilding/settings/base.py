@@ -62,10 +62,11 @@ INSTALLED_APPS = [
                                        # https://django-crispy-forms.readthedocs.io/en/latest/install.html#installing-django-crispy-forms 
     'ckeditor',                        # added this app we downloaded ... will help upload photos more easily
                                        # https://pytutorial.com/django-ckeditor
-    'django_ckeditor_5',               # added this version of ck editior as well 
+    # 'django_ckeditor_5',               # added this version of ck editior as well 
                                        # https://pypi.org/project/django-ckeditor-5/
     'ckeditor_uploader',               # added this since we downloaded ckeditor this is required for app to work 
     'rest_framework',
+    "whitenoise.runserver_nostatic"
 ]
 
 
@@ -249,8 +250,4 @@ REST_FRAMEWORK = {
 
 django_on_heroku.settings(locals())    # added ... required for django heroku 
 
-'''
 
-curl -X POST -d "username=admin&password=blacksam101" http://localhost:7000/api/auth/token/
-
-'''

@@ -31,11 +31,15 @@ from rest_framework.views import APIView                                      # 
 class UserCreateAPIView(CreateAPIView):                                        # user create view accessing usercreateserilaizer class 
 	serializer_class = UserCreateSerializer
 	queryset = User.objects.all()
-	permission_classes = [AllowAny]
+	# permission_classes = [AllowAny]
+	permission_classes = [IsAdminUser]
+
 
 
 class UserLoginAPIView(APIView):                                                  # user login view 
-	permission_classes = [AllowAny]
+	# permission_classes = [AllowAny]
+	permission_classes = [IsAdminUser]
+	
 	serializer_class = UserLoginSerializer
 
 	def post(self, request, *args, **kwargs):                                  # when user posts data to login 
