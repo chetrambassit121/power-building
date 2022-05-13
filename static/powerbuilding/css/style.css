@@ -321,10 +321,10 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
   padding: 0px 25px 0px 25px;
 }
 
-.source {
+.source, .login-or-register {
   display: block;
   text-align: center;
-  background-color: #22495e;
+  /*background-color: #22495e;*/
 }
 
 .border-bottom {
