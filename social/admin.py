@@ -14,9 +14,9 @@ admin.site.register(ThreadModel)
 
 class CommentAdmin(admin.ModelAdmin):
     model = Comment
-    list_display = ('comment', 'created_on', 'post', 'author')
-    list_filter = ('comment', 'created_on', 'post', 'author')
-    search_fields = ('comment', 'created_on', 'post', 'author')
+    list_display = ('comment', 'created_on', 'author')
+    list_filter = ('comment', 'created_on', 'author')
+    search_fields = ('comment', 'created_on', 'author')
 admin.site.register(Comment, CommentAdmin)
 
 class PostAdmin(admin.ModelAdmin):

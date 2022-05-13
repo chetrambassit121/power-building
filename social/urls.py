@@ -31,6 +31,8 @@ urlpatterns = [
    
     # post detail page which includes the post, editing post, deleting post, its comments, reply form and view replies link 
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
+    # path('comments/<int:pk>/', comment_thread, name='post-detail-comments'),
+
     path('post/edit/<int:pk>/', PostEditView.as_view(), name='post-edit'),
     path('post/delete/<int:pk>/', PostDeleteView.as_view(), name='post-delete'),
     path('post/<int:pk>/post-detail-like', PostDetailAddLike.as_view(), name='post-detail-like'),

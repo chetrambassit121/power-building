@@ -616,6 +616,7 @@ CommentSerializer,
 CommentDetailSerializer, 
 PostCreateUpdateSerializer, 
 PostDetailSerializer, 
+PostDetailCommentsSerializer,
 PostListSerializer
 ) # added comments serializers
 
@@ -632,12 +633,14 @@ from .pagination import PostLimitOffsetPagination, PostPageNumberPagination
 class CommentDetailAPIView(RetrieveAPIView):             # added same concept as postdetailapiview 
 	queryset = Comment.objects.all()
 	serializer_class = CommentDetailSerializer  
+	permission_classes = [IsOwnerOrReadOnly]
 	lookup_field = 'id' 
 
 
 class CommentListAPIView(ListAPIView):                    # added same concept of postlistapiview             
 	# queryset = Post.objects.all()
 	serializer_class = CommentSerializer
+	permission_classes = [AllowAny]
 	filter_backends = [SearchFilter, OrderingFilter]                              
 	search_fields = ['content', 'first_name', 'last_name', 'author']       
 	pagination_class = PostPageNumberPagination                                     
@@ -661,7 +664,7 @@ class CommentListAPIView(ListAPIView):                    # added same concept o
 class PostCreateAPIView(CreateAPIView):                                              
 	queryset = Post.objects.all()
 	serializer_class = PostCreateUpdateSerializer
-	permission_classes = [IsAuthenticated]       
+	# permission_classes = [IsAuthenticated]       
 															  
 	def perform_create(self, serializer):               
 		serializer.save(author=self.request.user)         
@@ -669,19 +672,26 @@ class PostCreateAPIView(CreateAPIView):
 class PostDeleteAPIView(DestroyAPIView):                                           
 	queryset = Post.objects.all()
 	serializer_class = PostDetailSerializer
-	permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]           
+	permission_classes = [IsOwnerOrReadOnly]           
 	lookup_field = 'id' 
 
 class PostDetailAPIView(RetrieveAPIView):                                
 	queryset = Post.objects.all()
 	serializer_class = PostDetailSerializer
+	permission_classes = [AllowAny]
 	lookup_field = 'id' 
+
+class PostDetailCommentsAPIView(RetrieveAPIView):                                
+	queryset = Post.objects.all()
+	serializer_class = PostDetailCommentsSerializer
+	lookup_field = 'pk' 
 
 class PostListAPIView(ListAPIView):                               
 	# queryset = Post.objects.all()
 	serializer_class = PostListSerializer
 	filter_backends = [SearchFilter, OrderingFilter]                              
-	search_fields = ['body', 'first_name', 'last_name', 'author']       
+	search_fields = ['body', 'first_name', 'last_name', 'author']  
+	permission_classes = [AllowAny]     
 	pagination_class = PostPageNumberPagination                                     
 																	  
 	def get_queryset(self, *args, **kwargs):                                           
@@ -702,7 +712,7 @@ class PostListAPIView(ListAPIView):
 class PostUpdateAPIView(RetrieveUpdateAPIView):                                              
 	queryset = Post.objects.all()
 	serializer_class = PostCreateUpdateSerializer
-	permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]  
+	permission_classes = [IsOwnerOrReadOnly]  
 	lookup_field = 'id' 
 
 	def perform_update(self, serializer):                

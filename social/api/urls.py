@@ -9,6 +9,7 @@ from .views import (
 	PostDeleteAPIView, 
 	PostListAPIView, 
 	PostDetailAPIView, 
+	PostDetailCommentsAPIView, 
 	PostUpdateAPIView
 )
 
@@ -24,6 +25,9 @@ urlpatterns = [
     path('', PostListAPIView.as_view(), name='list'),                             # url to display posts fields/data     
     path('create/', PostCreateAPIView.as_view(), name='create'),                  # url to create post 
 	path('post/<int:id>/', PostDetailAPIView.as_view(), name='detail'),           # url to display post detail fields/data
+
+	path('post/comments/<int:pk>/', PostDetailCommentsAPIView.as_view(), name='post-comments'),           # url to display post detail fields/data
+
 	path('post/edit/<int:id>/', PostUpdateAPIView.as_view(), name='update'),      # url to edit a post 
     path('post/delete/<int:id>/', PostDeleteAPIView.as_view(), name='delete'),    # url to delete a post 
 

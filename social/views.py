@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import redirect
 from django.contrib import messages
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse, Http404
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.views import View
 from .models import Post, Comment, Notification, ThreadModel, MessageModel, Tag
@@ -17,6 +17,56 @@ from django import template
 from django.core.paginator import Paginator        
 from django.template.loader import render_to_string
 
+
+# def comment_thread(request, id):
+# try:
+#         obj = Comment.objects.get(id=id)
+#     except:
+#         raise Http404
+
+#     if not obj.is_parent:
+#         obj = obj.parent
+
+#     content_object = obj.content_object # Post that the comment is on
+#     content_id = obj.content_object.id
+
+#     initial_data = {
+#             "content_type": obj.content_type,
+#             "object_id": obj.object_id
+#     }
+#     form = CommentForm(request.POST or None, initial=initial_data)
+#     if form.is_valid() and request.user.is_authenticated():
+#         c_type = form.cleaned_data.get("content_type")
+#         content_type = ContentType.objects.get(model=c_type)
+#         obj_id = form.cleaned_data.get('object_id')
+#         content_data = form.cleaned_data.get("content")
+#         parent_obj = None
+#         try:
+#             parent_id = int(request.POST.get("parent_id"))
+#         except:
+#             parent_id = None
+
+#         if parent_id:
+#             parent_qs = Comment.objects.filter(id=parent_id)
+#             if parent_qs.exists() and parent_qs.count() == 1:
+#                 parent_obj = parent_qs.first()
+
+
+#         new_comment, created = Comment.objects.get_or_create(
+#                             user = request.user,
+#                             content_type= content_type,
+#                             object_id = obj_id,
+#                             content = content_data,
+#                             parent = parent_obj,
+#                         )
+#         return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
+
+
+#     context = {
+#         "comment": obj,
+#         "form": form,
+#     }
+#     return render(request, "comment_thread.html", context)
 
 
 # notification
@@ -483,7 +533,8 @@ class AddDislike(LoginRequiredMixin, View):
             return JsonResponse(data, safe=False)
         return redirect(reverse("post-list"), args=[str(id)])
 
-
+# def comment_thread(request, pk):
+    
 
 #  post detail 
 class PostDetailView(LoginRequiredMixin, ListView):
@@ -549,38 +600,38 @@ class PostDetailView(LoginRequiredMixin, ListView):
         # return redirect('social/post-detail', context)
 
 
-    # # ajax .. comment is posted w/o refresh .. problem is if user clicks like/dislike button data returned instead of html page user has to refresh page
-    # def post(self, request, pk, *args, **kwargs):
-    #     post = Post.objects.get(pk=pk)
-    #     form = CommentForm(request.POST)
+#     # # ajax .. comment is posted w/o refresh .. problem is if user clicks like/dislike button data returned instead of html page user has to refresh page
+#     # def post(self, request, pk, *args, **kwargs):
+#     #     post = Post.objects.get(pk=pk)
+#     #     form = CommentForm(request.POST)
 
-    #     if form.is_valid():
-    #         new_comment = form.save(commit=False)
-    #         new_comment.author = request.user
-    #         new_comment.post = post
-    #         new_comment.save()
-    #         new_comment.create_tags()
-    #         form = CommentForm()
+#     #     if form.is_valid():
+#     #         new_comment = form.save(commit=False)
+#     #         new_comment.author = request.user
+#     #         new_comment.post = post
+#     #         new_comment.save()
+#     #         new_comment.create_tags()
+#     #         form = CommentForm()
 
-    #     p = Paginator(Comment.objects.filter(post=post), 10)
-    #     page = request.GET.get('page')
-    #     comments = p.get_page(page)
+#     #     p = Paginator(Comment.objects.filter(post=post), 10)
+#     #     page = request.GET.get('page')
+#     #     comments = p.get_page(page)
 
-    #     notification = Notification.objects.create(notification_type=2, from_user=request.user, to_user=post.author, post=post)
-    #     context = {
-    #         'post': post,
-    #         'form': form,
-    #         # 'comments': comments,
-    #         'comments': comments,
-    #     }
-    #     ## KEEP AJAX .. when user makes a comment .. page doesnt refresh .. if user clicks like.dislike data returned instead of html page ... user has to refesh page to like.dislike
-    #     # if request.is_ajax():
-    #     if request.accepts("application/json"):
-    #         html = render_to_string('social/comments.html', context, request=request)
-    #         return JsonResponse({'form':html})
+#     #     notification = Notification.objects.create(notification_type=2, from_user=request.user, to_user=post.author, post=post)
+#     #     context = {
+#     #         'post': post,
+#     #         'form': form,
+#     #         # 'comments': comments,
+#     #         'comments': comments,
+#     #     }
+#     #     ## KEEP AJAX .. when user makes a comment .. page doesnt refresh .. if user clicks like.dislike data returned instead of html page ... user has to refesh page to like.dislike
+#     #     # if request.is_ajax():
+#     #     if request.accepts("application/json"):
+#     #         html = render_to_string('social/comments.html', context, request=request)
+#     #         return JsonResponse({'form':html})
 
-    #     return render(request, 'social/post_detail.html', context)
-    #     # return redirect('social/post-detail', context)
+#     #     return render(request, 'social/post_detail.html', context)
+#     #     # return redirect('social/post-detail', context)
 
 
 

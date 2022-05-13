@@ -6,8 +6,10 @@ from members.models import UserProfile, User
 from django.urls import reverse_lazy, reverse
 from .validators import file_size
 from django.conf import settings
-# from django.contrib.contenttypes.models import ContentType
-# from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.utils.text import slugify
+
 
 # markdown 
 from django.utils.safestring import mark_safe
@@ -46,10 +48,19 @@ class Tag(models.Model):
     name = models.CharField(max_length=255)
 
 
+# class PostManager(models.Manager):
+#     def active(self, *args, **kwargs):
+#         # Post.objects.all() = super(PostManager, self).all()
+#         return super(PostManager, self).filter(draft=False).filter(publish__lte=timezone.now())
+
+
 class Post(models.Model):
     body = models.TextField()
     image = models.ImageField(upload_to='media/uploads/post_photos', blank=True, null=True)
     video = models.FileField(upload_to="media/uploads/post_videos", validators=[file_size], blank=True, null=True)
+
+    # slug = models.SlugField(unique=True, default=False)
+
     created_on = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     shared_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='+')
@@ -58,6 +69,8 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, blank=True, related_name='likess')
     dislikes = models.ManyToManyField(User, blank=True, related_name='dislikess')
     tags = models.ManyToManyField('Tag', blank=True)
+
+    # objects = PostManager()
 
     def create_tags(self):
         for word in self.body.split():
@@ -86,11 +99,38 @@ class Post(models.Model):
     class Meta:
         ordering = ['-created_on']
 
+    @property
+    def comments(self):
+        instance = self
+        qs = Comment.objects.filter_by_instance(instance)
+        return qs
+
+
+
+    # @property
+    # def get_content_type(self):
+    #     instance = self
+    #     content_type = ContentType.objects.get_for_model(instance.__class__)
+    #     return content_type
+
+
 
     def get_markdown(self):
         body = self.body
         markdown_text = markdown(body)
         return mark_safe(markdown_text)
+
+
+# def create_slug(instance, new_slug=None):
+#     slug = slugify(instance.author)
+#     if new_slug is not None:
+#         slug = new_slug
+#     qs = Post.objects.filter(slug=slug).order_by("-id")
+#     exists = qs.exists()
+#     if exists:
+#         new_slug = "%s-%s" %(slug, qs.first().id)
+#         return create_slug(instance, new_slug=new_slug)
+#     return slug
 
 
 # class CommentManager(models.Manager):
@@ -110,12 +150,12 @@ class Comment(models.Model):
     created_on = models.DateTimeField(default=timezone.now)
 
     # content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, default=False)
-    # object_id = models.PositiveIntegerField()
+    # object_id = models.PositiveIntegerField(default=False)
     # content_object = GenericForeignKey('content_type', 'object_id')
 
 
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, default=False)
     likes = models.ManyToManyField(User, blank=True, related_name='comment_likes')
     dislikes = models.ManyToManyField(User, blank=True, related_name='comment_dislikes')
     parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='+')
@@ -135,9 +175,14 @@ class Comment(models.Model):
                     self.tags.add(tag.pk)
                 self.save()
 
+
+    # def get_absolute_url(self):
+    #     return reverse("post-detail", kwargs={"id": self.id})
    
     def children(self):
         return Comment.objects.filter(parent=self).order_by('-created_on').all()
+
+
 
   
     @property
