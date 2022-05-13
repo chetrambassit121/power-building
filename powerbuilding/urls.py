@@ -20,6 +20,7 @@ from django.urls import include                  # added
 from django.conf import settings                 # added
 from django.conf.urls.static import static       # added
 from django.contrib.auth import views as auth_views    # added 
+# from rest_framework_jwt.views import obtain_jwt_token
 
 
 urlpatterns = [
@@ -29,7 +30,7 @@ urlpatterns = [
     path('members/', include('members.urls')),     
     path('social/', include('social.urls')),          
     path('ckeditor/', include('ckeditor_uploader.urls')),     
-
+    # path('api/auth/token/', obtain_jwt_token),
     path('api/social/', include("social.api.urls"), name='social-api'),
     path('api/users/', include("members.api.urls"), name='users-api'),
 

@@ -236,6 +236,7 @@ REST_FRAMEWORK = {
 
     "DEFAULT_AUTHENTICATION_CLASSES": [
         'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',   # added from DRF JWT
         # 'rest_framework.authentication.BasicAuthentication'
     ],
 
@@ -247,3 +248,9 @@ REST_FRAMEWORK = {
 }
 
 django_on_heroku.settings(locals())    # added ... required for django heroku 
+
+'''
+
+curl -X POST -d "username=admin&password=blacksam101" http://localhost:7000/api/auth/token/
+
+'''
