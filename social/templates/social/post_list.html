@@ -11,12 +11,13 @@
                     <h5 class="row justify-content-center mt-3">Share your Thoughts, Pictures, Videos!</h5>
                 </div>
                 <div class="row justify-content-center mt-3 mb-5"><div class="col-md-5 col-sm-12"><div class="flexbox-item-99"><div class="header-info2">
+                    
                     <h5>Explore different <a href="{% url 'explore' %}">#</a>hashtags!</h5>
                     <h5>Share a Post <i class="far fa-share-square share-btn"></i>!</h5>
                     <h5>Message a User <a href="{% url 'inbox' %}" class="inbox-icon"><i class="far fa-paper-plane"></i></a>!</h5>
-               </div></div></div></div>
+                    
+                </div></div></div></div>
             </div>
-            
             <div class="main-post-section">
                 {% include 'social/posts.html' %}
             </div>
@@ -27,9 +28,9 @@
                     <h5 class="row justify-content-center mt-3">Share your Thoughts!</h5>
                 </div>
                 <div class="row justify-content-center mt-3 mb-5"><div class="col-md-5 col-sm-12"><div class="flexbox-item-99"><div class="header-info2">
-                    <h5>Explore different <a href="{% url 'explore' %}">#</a>hashtags!</h5>
-                    <h5>Share a Post <i class="far fa-share-square share-btn"></i>!</h5>
-                    <h5>Message a User <a href="{% url 'inbox' %}" class="inbox-icon"><i class="far fa-paper-plane"></i></a>!</h5>
+                    <h5>Explore different #hashtags!</h5>
+                    <h5>Share a Post <i class="far fa-share-square "></i>!</h5>
+                    <h5>Message a User<i class="far fa-paper-plane"></i>!</h5>
                     <h6>Please <a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a> to interact with Users! </h6>
                </div></div></div></div>
             </div>
