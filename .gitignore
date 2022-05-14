@@ -1,4 +1,5 @@
 .env    
 secret_notes.txt    
 testing_notes.txt 
-
+htmlcov
+notes.txt

@@ -66,7 +66,8 @@ INSTALLED_APPS = [
                                        # https://pypi.org/project/django-ckeditor-5/
     'ckeditor_uploader',               # added this since we downloaded ckeditor this is required for app to work 
     'rest_framework',
-    "whitenoise.runserver_nostatic"
+    "whitenoise.runserver_nostatic",
+    # 'django-nose'
 ]
 
 
@@ -110,6 +111,17 @@ AUTH_USER_MODEL = 'members.User'                                                
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4' # added for cripsy forms its also accessing bootstrap4
+
+
+# # Use nose to run all tests
+# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# # Tell nose to measure coverage on the 'foo' and 'bar' apps
+# NOSE_ARGS = [
+#     '--with-coverage',
+#     '--cover-package=foo,bar',
+# ]
+
 
 
 # added for ckeditor and django ckeditor 5 
