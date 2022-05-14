@@ -220,18 +220,26 @@ LOGOUT_REDIRECT_URL = 'home'                                                    
 # added all email information which connects to the information in .env file .. we do not want our sensative information displayed here rather its displayed in hidden .env file
 # EMAIL_BACKEND = config('EMAIL_BACKEND') 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
+
+# EMAIL_HOST = os.getenv('EMAIL_HOST')
+# EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+# EMAIL_PORT = os.getenv('EMAIL_PORT')
+# EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+# # DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
 EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 # DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
-# EMAIL_HOST=os.environ.get('EMAIL_HOST')
-# EMAIL_HOST_USER=os.environ.get('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD=os.environ.get('EMAIL_HOST_PASSWORD')
-# EMAIL_USE_TLS=os.environ.get('EMAIL_USE_TLS')
-# EMAIL_PORT=os.environ.get('EMAIL_PORT')
+# EMAIL_HOST=os.getenv('EMAIL_HOST')
+# EMAIL_HOST_USER=os.getenv('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD=os.getenv('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS=os.getenv('EMAIL_USE_TLS')
+# EMAIL_PORT=os.getenv('EMAIL_PORT')
 
 ###########################################
 
