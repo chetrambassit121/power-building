@@ -1,0 +1,15 @@
+language: python 
+
+python:
+  - "3.8.10"
+
+.env:
+  - SECRET_KEY='TEST'
+
+services:
+
+install:
+  - pipenv install 
+
+scripts:
+  - python manage.py test 
