@@ -7,6 +7,7 @@ python:
   - SECRET_KEY='TEST'
 
 services:
+  - sqlite3
 
 install:
   - pipenv install 
