@@ -10,7 +10,7 @@ services:
   - sqlite3
 
 install:
-  - pipenv install 
+  - Python -m venv virtual
 
 scripts:
   - python manage.py test 
