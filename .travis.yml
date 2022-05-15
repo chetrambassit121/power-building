@@ -13,4 +13,4 @@ install:
   - Python -m venv virtual
 
 scripts:
-  - python manage.py test 
+  - coverage run --source='members' manage.py test && coverage report && coverage html 
