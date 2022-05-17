@@ -10,7 +10,7 @@ services:
   - sqlite3
 
 install:
-  - Python -m venv virtual
+  - pipenv install
 
 scripts:
   - coverage run --source='members' manage.py test && coverage report && coverage html 
