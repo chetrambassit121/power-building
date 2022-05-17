@@ -25,7 +25,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 import json
-from validate_email import validate_email
+# from validate_email import validate_email
                            
 
 # Create your views here.
