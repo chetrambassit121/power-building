@@ -13,4 +13,4 @@ install:
   - pipenv install
 
 scripts:
-  - coverage run --source='members' manage.py test && coverage report && coverage html 
+  - python manage.py test 
