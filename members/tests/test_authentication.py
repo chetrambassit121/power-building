@@ -241,17 +241,17 @@
 
 
 
-# from django.test import TestCase
-# from django.urls import reverse 
-# from members.models import User
+from django.test import TestCase
+from django.urls import reverse 
+from members.models import User
 
-# # from django.test import TestCase
-# # from django.urls import reverse
-# # from django.contrib.auth.models import User
-# # from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
-# from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
-# # from authentication.utils import generate_token
-# from members.tokens import account_activation_token
+# from django.test import TestCase
+# from django.urls import reverse
+# from django.contrib.auth.models import User
+# from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+# from authentication.utils import generate_token
+from members.tokens import account_activation_token
 
 # class SignUpPageTests(TestCase):
 #     def setUp(self) -> None:
@@ -292,118 +292,124 @@
 # #         users = get_user_model().objects.all()
 # #         self.assertEqual(users.count(), 1)
 
-# class BaseTest(TestCase):                                        
-# 	def setUp(self):
-# 		# #register
-# 		# self.user = {
-# 		self.register_url=reverse('register')   
-# 		# self.username = 'testuser'
-# 		# self.email = 'testuser@email.com'
-#   #       # self.age = 20
-# 		# self.first_name = 'chetram'
-# 		# self.last_name = 'bassit'
-# 		# self.state = 'New York'
-# 		# self.city = 'South Richmond Hill'
-# 		# self.password = 'blacksam101'
-# 		# }
-# 		self.user={                                         
-# 			'username': 'username',
-# 			'email': 'nyforchoice@gmail.com',
-# 			'first_name': 'chetty',
-# 			'last_name': 'bassit',
-# 			'state': 'New York',
-# 			'city': 'South Richmond Hill',
-# 			'password1': 'blacksam101',
-# 			'password2': 'blacksam101'
-# 		}
-# 		self.user_short_password={                                                   
-# 			'username': 'username',
-# 			'email': 'testemail@gmail.com',
-# 			'first_name': 'first_name',
-# 			'last_name': 'last_name',
-# 			'password1': 'tea',                            
-# 			'password2': 'tea'
-# 		}
-# 		self.user_unmatching_password={                                                        
-# 			'username': 'username',
-# 			'email': 'testemail@gmail.com',
-# 			'first_name': 'first_name',
-# 			'last_name': 'last_name',
-# 			'password1': 'teateas',                       
-# 			'password2': 'teatea'
-# 		}
-# 		self.user_invalid_email={
-#             'email':'test.com',
-#             'username':'username',
-#             'password':'teslatt',
-#             'password2':'teslatto',
-#             'name':'fullname'
-#         }
+class BaseTest(TestCase):                                        
+	def setUp(self):
+		# #register
+		# self.user = {
+		self.register_url=reverse('register')
+		# self.user_profile_url=reverse('show_profile_page')      
+		# self.username = 'testuser'
+		# self.email = 'testuser@email.com'
+  #       # self.age = 20
+		# self.first_name = 'chetram'
+		# self.last_name = 'bassit'
+		# self.state = 'New York'
+		# self.city = 'South Richmond Hill'
+		# self.password = 'blacksam101'
+		# }
+		self.user={                                         
+			'username': 'username',
+			'email': 'nyforchoice@gmail.com',
+			'first_name': 'chetty',
+			'last_name': 'bassit',
+			'state': 'New York',
+			'city': 'South Richmond Hill',
+			'password1': 'blacksam101',
+			'password2': 'blacksam101'
+		}
+		self.user_short_password={                                                   
+			'username': 'username',
+			'email': 'testemail@gmail.com',
+			'first_name': 'first_name',
+			'last_name': 'last_name',
+			'password1': 'tea',                            
+			'password2': 'tea'
+		}
+		self.user_unmatching_password={                                                        
+			'username': 'username',
+			'email': 'testemail@gmail.com',
+			'first_name': 'first_name',
+			'last_name': 'last_name',
+			'password1': 'teateas',                       
+			'password2': 'teatea'
+		}
+		self.user_invalid_email={
+            'email':'test.com',
+            'username':'username',
+            'password':'teslatt',
+            'password2':'teslatto',
+            'name':'fullname'
+        }
 
-#         # login
-# 		self.login_url=reverse('login')
-# 		return super().setUp()
+        # login
+		self.login_url=reverse('login')
+		return super().setUp()
 
-# class RegisterTest(BaseTest):
-# 	# REGISTER TESTING
+class RegisterTest(BaseTest):
+	# REGISTER TESTING
 
-# 	# self.register_url
-#     def test_can_view_page_correctly(self):
-#         response=self.client.get(self.register_url)
-#         self.assertEqual(response.status_code,200)
-#         self.assertTemplateUsed(response,'registration/register.html')
+	# self.register_url
+    def test_can_view_page_correctly(self):
+        response=self.client.get(self.register_url)
+        self.assertEqual(response.status_code,200)
+        self.assertTemplateUsed(response,'registration/register.html')
 
-#     # self.user
-#     # def test_can_register_user(self):
-#     #     response=self.client.post(self.register_url,self.user,format='text/html')
-#     #     self.assertEqual(response.status_code,302)
+    # self.user
+    # def test_can_register_user(self):
+    #     response=self.client.post(self.register_url,self.user,format='text/html')
+    #     self.assertEqual(response.status_code,302)
 
-#  #    # self.user_short_password
-#  #    def test_cant_register_user_withshortpassword(self):
-#  #        response=self.client.post(self.register_url,self.user_short_password,format='text/html')
-#  #        self.assertEqual(response.status_code,400)
+ #    # self.user_short_password
+ #    def test_cant_register_user_withshortpassword(self):
+ #        response=self.client.post(self.register_url,self.user_short_password,format='text/html')
+ #        self.assertEqual(response.status_code,400)
 
-#  #    # self.user_unmatching_password
-#  #    def test_cant_register_user_with_unmatching_passwords(self):
-#  #        response=self.client.post(self.register_url,self.user_unmatching_password,format='text/html')
-#  #        self.assertEqual(response.status_code,400)
+ #    # self.user_unmatching_password
+ #    def test_cant_register_user_with_unmatching_passwords(self):
+ #        response=self.client.post(self.register_url,self.user_unmatching_password,format='text/html')
+ #        self.assertEqual(response.status_code,400)
 
-# 	# # self.user_invalid_email
-#  #    def test_cant_register_user_with_invalid_email(self):
-#  #        response=self.client.post(self.register_url,self.user_invalid_email,format='text/html')
-#  #        self.assertEqual(response.status_code,400)
+	# # self.user_invalid_email
+ #    def test_cant_register_user_with_invalid_email(self):
+ #        response=self.client.post(self.register_url,self.user_invalid_email,format='text/html')
+ #        self.assertEqual(response.status_code,400)
 
-#  #    # self.user
-#  #    def test_cant_register_user_with_taken_email(self):
-#  #        self.client.post(self.register_url,self.user,format='text/html')
-#  #        response=self.client.post(self.register_url,self.user,format='text/html')
-#  #        self.assertEqual(response.status_code,400)
+ #    # self.user
+ #    def test_cant_register_user_with_taken_email(self):
+ #        self.client.post(self.register_url,self.user,format='text/html')
+ #        response=self.client.post(self.register_url,self.user,format='text/html')
+ #        self.assertEqual(response.status_code,400)
 
 
 
-# # LOGIN TESTING
-# class LoginTest(BaseTest):
+# LOGIN TESTING
+class LoginTest(BaseTest):
+    def test_can_access_page(self):
+        response=self.client.get(self.login_url)
+        self.assertEqual(response.status_code,200)
+        self.assertTemplateUsed(response,'registration/login.html')
+    # def test_login_success(self):
+    #     self.client.post(self.register_url,self.user,format='text/html')
+    #     user=User.objects.filter(username=self.user['username']).first()
+    #     user.is_active=True
+    #     user.save()
+    #     response= self.client.post(self.login_url,self.user,format='text/html')
+    #     self.assertEqual(response.status_code,302)
+#     def test_cantlogin_with_unverified_email(self):
+#         self.client.post(self.register_url,self.user,format='text/html')
+#         response= self.client.post(self.login_url,self.user,format='text/html')
+#         self.assertEqual(response.status_code,401)
+
+#     def test_cantlogin_with_no_username(self):
+#         response= self.client.post(self.login_url,{'password':'password','username':''},format='text/html')
+#         self.assertEqual(response.status_code,401)
+#     def test_cantlogin_with_no_password(self):
+#         response= self.client.post(self.login_url,{'username':'password','password':''},format='text/html')
+#         self.assertEqual(response.status_code,401)
+
+
+# class HtmlTest(BaseTest):
 #     def test_can_access_page(self):
-#         response=self.client.get(self.login_url)
+#         response=self.client.get(self.user_profile_url)
 #         self.assertEqual(response.status_code,200)
-#         self.assertTemplateUsed(response,'registration/login.html')
-#     # def test_login_success(self):
-#     #     self.client.post(self.register_url,self.user,format='text/html')
-#     #     user=User.objects.filter(username=self.user['username']).first()
-#     #     user.is_active=True
-#     #     user.save()
-#     #     response= self.client.post(self.login_url,self.user,format='text/html')
-#     #     self.assertEqual(response.status_code,302)
-# #     def test_cantlogin_with_unverified_email(self):
-# #         self.client.post(self.register_url,self.user,format='text/html')
-# #         response= self.client.post(self.login_url,self.user,format='text/html')
-# #         self.assertEqual(response.status_code,401)
-
-# #     def test_cantlogin_with_no_username(self):
-# #         response= self.client.post(self.login_url,{'password':'password','username':''},format='text/html')
-# #         self.assertEqual(response.status_code,401)
-# #     def test_cantlogin_with_no_password(self):
-# #         response= self.client.post(self.login_url,{'username':'password','password':''},format='text/html')
-# #         self.assertEqual(response.status_code,401)
-
-
+#         self.assertTemplateUsed(response,'registration/user_profile.html')
