@@ -1,3 +1,173 @@
+
+
+# LOGIC .... comments api 
+
+from rest_framework.generics import ( 
+	CreateAPIView,                    
+	DestroyAPIView, 
+	ListAPIView, 
+	RetrieveAPIView, 
+	RetrieveUpdateAPIView,             
+	UpdateAPIView
+	)     
+from social.models import Post, Comment            # added comment model 
+from social.api.serializers import (
+CommentSerializer, 
+CommentDetailSerializer, 
+PostCreateUpdateSerializer, 
+PostDetailSerializer, 
+PostDetailCommentsSerializer,
+PostListSerializer
+) # added comments serializers
+
+from rest_framework.permissions import (AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)    
+from social.api.permissions import IsOwnerOrReadOnly      
+
+from django.db.models import Q                                                                     
+
+from rest_framework.filters import SearchFilter, OrderingFilter   
+
+from .pagination import PostLimitOffsetPagination, PostPageNumberPagination   
+
+
+class CommentDetailAPIView(RetrieveAPIView):             # added same concept as postdetailapiview 
+	queryset = Comment.objects.all()
+	serializer_class = CommentDetailSerializer  
+	permission_classes = [IsOwnerOrReadOnly]
+	lookup_field = 'id' 
+
+
+class CommentListAPIView(ListAPIView):                    # added same concept of postlistapiview             
+	# queryset = Post.objects.all()
+	serializer_class = CommentSerializer
+	permission_classes = [AllowAny]
+	filter_backends = [SearchFilter, OrderingFilter]                              
+	search_fields = ['content', 'first_name', 'last_name', 'author']       
+	pagination_class = PostPageNumberPagination                                     
+																	  
+	def get_queryset(self, *args, **kwargs):                                           
+		# queryset_list = super(PostListAPIView, self).get_queryset(*args, **kwargs)
+		queryset_list = Comment.objects.all()                                             
+		query = self.request.GET.get("q")                                              
+		if query:
+			queryset_list = queryset_list.filter(                                      
+				Q(comment__icontains=query)|     
+				# Q(author__icontains=query)|                                                                                       
+				# Q(image__icontains=query)|
+				# Q(video__icontains=query)|
+				Q(author__first_name__icontains=query) |                               
+				Q(author__last_name__icontains=query)                                   
+				).distinct()
+		return queryset_list								            
+                 
+
+class PostCreateAPIView(CreateAPIView):                                              
+	queryset = Post.objects.all()
+	serializer_class = PostCreateUpdateSerializer
+	# permission_classes = [IsAuthenticated]       
+															  
+	def perform_create(self, serializer):               
+		serializer.save(author=self.request.user)         
+	
+class PostDeleteAPIView(DestroyAPIView):                                           
+	queryset = Post.objects.all()
+	serializer_class = PostDetailSerializer
+	permission_classes = [IsOwnerOrReadOnly]           
+	lookup_field = 'id' 
+
+class PostDetailAPIView(RetrieveAPIView):                                
+	queryset = Post.objects.all()
+	serializer_class = PostDetailSerializer
+	permission_classes = [AllowAny]
+	lookup_field = 'id' 
+
+class PostDetailCommentsAPIView(RetrieveAPIView):                                
+	queryset = Post.objects.all()
+	serializer_class = PostDetailCommentsSerializer
+	lookup_field = 'pk' 
+
+class PostListAPIView(ListAPIView):                               
+	# queryset = Post.objects.all()
+	serializer_class = PostListSerializer
+	filter_backends = [SearchFilter, OrderingFilter]                              
+	search_fields = ['body', 'first_name', 'last_name', 'author']  
+	# permission_classes = [AllowAny]  
+	permission_classes = [IsAdminUser]   
+	pagination_class = PostPageNumberPagination                                     
+																	  
+	def get_queryset(self, *args, **kwargs):                                           
+		# queryset_list = super(PostListAPIView, self).get_queryset(*args, **kwargs)
+		queryset_list = Post.objects.all()                                             
+		query = self.request.GET.get("q")                                              
+		if query:
+			queryset_list = queryset_list.filter(                                      
+				Q(body__icontains=query)|     
+				# Q(author__icontains=query)|                                                                                       
+				# Q(image__icontains=query)|
+				# Q(video__icontains=query)|
+				Q(author__first_name__icontains=query) |                               
+				Q(author__last_name__icontains=query)                                   
+				).distinct()
+		return queryset_list															
+
+class PostUpdateAPIView(RetrieveUpdateAPIView):                                              
+	queryset = Post.objects.all()
+	serializer_class = PostCreateUpdateSerializer
+	permission_classes = [IsOwnerOrReadOnly]  
+	lookup_field = 'id' 
+
+	def perform_update(self, serializer):                
+		serializer.save(author=self.request.user) 
+
+
+
+# LOGIC !!!!!!!!! 
+# now we can go to locaolhost:8000/api/social/comments to view a list of comments 
+# now we can go to localhost:8000/api/social/comments/<int:id>/ to view that comments details which include the replies 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # LOGIC .. similair to post-list 
 
 # from rest_framework.generics import ListAPIView      # https://www.django-rest-framework.org/api-guide/generic-views/#listapiview
@@ -600,127 +770,3 @@
 
 
 
-# LOGIC .... comments api 
-
-from rest_framework.generics import ( 
-	CreateAPIView,                    
-	DestroyAPIView, 
-	ListAPIView, 
-	RetrieveAPIView, 
-	RetrieveUpdateAPIView,             
-	UpdateAPIView
-	)     
-from social.models import Post, Comment            # added comment model 
-from social.api.serializers import (
-CommentSerializer, 
-CommentDetailSerializer, 
-PostCreateUpdateSerializer, 
-PostDetailSerializer, 
-PostDetailCommentsSerializer,
-PostListSerializer
-) # added comments serializers
-
-from rest_framework.permissions import (AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)    
-from social.api.permissions import IsOwnerOrReadOnly      
-
-from django.db.models import Q                                                                     
-
-from rest_framework.filters import SearchFilter, OrderingFilter   
-
-from .pagination import PostLimitOffsetPagination, PostPageNumberPagination   
-
-
-class CommentDetailAPIView(RetrieveAPIView):             # added same concept as postdetailapiview 
-	queryset = Comment.objects.all()
-	serializer_class = CommentDetailSerializer  
-	permission_classes = [IsOwnerOrReadOnly]
-	lookup_field = 'id' 
-
-
-class CommentListAPIView(ListAPIView):                    # added same concept of postlistapiview             
-	# queryset = Post.objects.all()
-	serializer_class = CommentSerializer
-	permission_classes = [AllowAny]
-	filter_backends = [SearchFilter, OrderingFilter]                              
-	search_fields = ['content', 'first_name', 'last_name', 'author']       
-	pagination_class = PostPageNumberPagination                                     
-																	  
-	def get_queryset(self, *args, **kwargs):                                           
-		# queryset_list = super(PostListAPIView, self).get_queryset(*args, **kwargs)
-		queryset_list = Comment.objects.all()                                             
-		query = self.request.GET.get("q")                                              
-		if query:
-			queryset_list = queryset_list.filter(                                      
-				Q(comment__icontains=query)|     
-				# Q(author__icontains=query)|                                                                                       
-				# Q(image__icontains=query)|
-				# Q(video__icontains=query)|
-				Q(author__first_name__icontains=query) |                               
-				Q(author__last_name__icontains=query)                                   
-				).distinct()
-		return queryset_list								            
-                 
-
-class PostCreateAPIView(CreateAPIView):                                              
-	queryset = Post.objects.all()
-	serializer_class = PostCreateUpdateSerializer
-	# permission_classes = [IsAuthenticated]       
-															  
-	def perform_create(self, serializer):               
-		serializer.save(author=self.request.user)         
-	
-class PostDeleteAPIView(DestroyAPIView):                                           
-	queryset = Post.objects.all()
-	serializer_class = PostDetailSerializer
-	permission_classes = [IsOwnerOrReadOnly]           
-	lookup_field = 'id' 
-
-class PostDetailAPIView(RetrieveAPIView):                                
-	queryset = Post.objects.all()
-	serializer_class = PostDetailSerializer
-	permission_classes = [AllowAny]
-	lookup_field = 'id' 
-
-class PostDetailCommentsAPIView(RetrieveAPIView):                                
-	queryset = Post.objects.all()
-	serializer_class = PostDetailCommentsSerializer
-	lookup_field = 'pk' 
-
-class PostListAPIView(ListAPIView):                               
-	# queryset = Post.objects.all()
-	serializer_class = PostListSerializer
-	filter_backends = [SearchFilter, OrderingFilter]                              
-	search_fields = ['body', 'first_name', 'last_name', 'author']  
-	# permission_classes = [AllowAny]  
-	permission_classes = [IsAdminUser]   
-	pagination_class = PostPageNumberPagination                                     
-																	  
-	def get_queryset(self, *args, **kwargs):                                           
-		# queryset_list = super(PostListAPIView, self).get_queryset(*args, **kwargs)
-		queryset_list = Post.objects.all()                                             
-		query = self.request.GET.get("q")                                              
-		if query:
-			queryset_list = queryset_list.filter(                                      
-				Q(body__icontains=query)|     
-				# Q(author__icontains=query)|                                                                                       
-				# Q(image__icontains=query)|
-				# Q(video__icontains=query)|
-				Q(author__first_name__icontains=query) |                               
-				Q(author__last_name__icontains=query)                                   
-				).distinct()
-		return queryset_list															
-
-class PostUpdateAPIView(RetrieveUpdateAPIView):                                              
-	queryset = Post.objects.all()
-	serializer_class = PostCreateUpdateSerializer
-	permission_classes = [IsOwnerOrReadOnly]  
-	lookup_field = 'id' 
-
-	def perform_update(self, serializer):                
-		serializer.save(author=self.request.user) 
-
-
-
-# LOGIC !!!!!!!!! 
-# now we can go to locaolhost:8000/api/social/comments to view a list of comments 
-# now we can go to localhost:8000/api/social/comments/<int:id>/ to view that comments details which include the replies 

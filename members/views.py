@@ -89,7 +89,8 @@ def register(request):
             email = mail.EmailMessage(mail_subject, message, to=[to_email])
             email.send()
             # connection.close()
-            return render(request, 'registration/confirm_email.html')  
+            return render(request, 'registration/confirm_email.html')
+            # return redirect('confirm_email')  
             # connection.close()
             # return HttpResponse('Please confirm your email address to complete the registration')
     else:
@@ -97,92 +98,92 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
-class RegistrationView(View):
-    def get(self, request):
-        form = SignUpForm()
-        return render(request, 'registration/register.html', {'form': form})
+# class RegistrationView(View):
+#     def get(self, request):
+#         form = SignUpForm()
+#         return render(request, 'registration/register.html', {'form': form})
 
-    def post(self, request):
-        context = {
+#     def post(self, request):
+#         context = {
 
-            'data': request.POST,
-            'has_error': False
-        }
+#             'data': request.POST,
+#             'has_error': False
+#         }
 
-        email = request.POST.get('email')
-        username = request.POST.get('username')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('flast_name')
-        state = request.POST.get('State')
-        city = request.POST.get('City')
-        password = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-        if len(password) < 6:
-            messages.add_message(request, messages.ERROR,
-                                 'passwords should be atleast 6 characters long')
-            context['has_error'] = True
-        if password != password2:
-            messages.add_message(request, messages.ERROR,
-                                 'passwords dont match')
-            context['has_error'] = True
+#         email = request.POST.get('email')
+#         username = request.POST.get('username')
+#         first_name = request.POST.get('first_name')
+#         last_name = request.POST.get('flast_name')
+#         state = request.POST.get('State')
+#         city = request.POST.get('City')
+#         password = request.POST.get('password1')
+#         password2 = request.POST.get('password2')
+#         if len(password) < 6:
+#             messages.add_message(request, messages.ERROR,
+#                                  'passwords should be atleast 6 characters long')
+#             context['has_error'] = True
+#         if password != password2:
+#             messages.add_message(request, messages.ERROR,
+#                                  'passwords dont match')
+#             context['has_error'] = True
 
-        if not validate_email(email):
-            messages.add_message(request, messages.ERROR,
-                                 'Please provide a valid email')
-            context['has_error'] = True
+#         if not validate_email(email):
+#             messages.add_message(request, messages.ERROR,
+#                                  'Please provide a valid email')
+#             context['has_error'] = True
 
-        try:
-            if User.objects.get(email=email):
-                messages.add_message(request, messages.ERROR, 'Email is taken')
-                context['has_error'] = True
+#         try:
+#             if User.objects.get(email=email):
+#                 messages.add_message(request, messages.ERROR, 'Email is taken')
+#                 context['has_error'] = True
 
-        except Exception as identifier:
-            pass
+#         except Exception as identifier:
+#             pass
 
-        try:
-            if User.objects.get(username=username):
-                messages.add_message(
-                    request, messages.ERROR, 'Username is taken')
-                context['has_error'] = True
+#         try:
+#             if User.objects.get(username=username):
+#                 messages.add_message(
+#                     request, messages.ERROR, 'Username is taken')
+#                 context['has_error'] = True
 
-        except Exception as identifier:
-            pass
+#         except Exception as identifier:
+#             pass
 
-        if context['has_error']:
-            return render(request, 'registration/register.html', context, status=400)
+#         if context['has_error']:
+#             return render(request, 'registration/register.html', context, status=400)
 
-        user = User.objects.create_user(username=username, email=email, password=password)
-        user.set_password(password)
-        user.first_name = first_name
-        user.last_name = last_name
-        user.state = state 
-        user.city = city 
-        user.is_active = False
-        user.save()
+#         user = User.objects.create_user(username=username, email=email, password=password)
+#         user.set_password(password)
+#         user.first_name = first_name
+#         user.last_name = last_name
+#         user.state = state 
+#         user.city = city 
+#         user.is_active = False
+#         user.save()
 
-        current_site = get_current_site(request)
-        email_subject = 'Active your Account'
-        message = render_to_string('auth/activate.html',
-                                   {
-                                       'user': user,
-                                       'domain': current_site.domain,
-                                       'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                                       'token': generate_token.make_token(user)
-                                   }
-                                   )
+#         current_site = get_current_site(request)
+#         email_subject = 'Active your Account'
+#         message = render_to_string('auth/activate.html',
+#                                    {
+#                                        'user': user,
+#                                        'domain': current_site.domain,
+#                                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                                        'token': generate_token.make_token(user)
+#                                    }
+#                                    )
 
-        email_message = EmailMessage(
-            email_subject,
-            message,
-            settings.EMAIL_HOST_USER,
-            [email]
-        )
+#         email_message = EmailMessage(
+#             email_subject,
+#             message,
+#             settings.EMAIL_HOST_USER,
+#             [email]
+#         )
 
-        EmailThread(email_message).start()
-        messages.add_message(request, messages.SUCCESS,
-                             'account created succesfully')
+#         EmailThread(email_message).start()
+#         messages.add_message(request, messages.SUCCESS,
+#                              'account created succesfully')
 
-        return redirect('login')
+#         return redirect('login')
 
 # def register(request):
 #     if request.method=="POST":

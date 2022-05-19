@@ -1,5 +1,5 @@
 from django.urls import path         
-from .views import register, RegistrationView, load_citys, PasswordsChangeView, ShowProfilePageView, ShowSharedProfilePageView, EditProfilePageView, UserEditView, UserDeleteView
+from .views import register, load_citys, PasswordsChangeView, ShowProfilePageView, ShowSharedProfilePageView, EditProfilePageView, UserEditView, UserDeleteView
 from django.contrib.auth import views as auth_views
 from . import views 
 
