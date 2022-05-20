@@ -2,6 +2,12 @@ from django.test import TestCase, SimpleTestCase
 from django.urls import reverse 
 from members.models import User
 
+
+# python test command .... python manage.py test
+# coverage command .... coverage run manage.py test
+# coverage report command .... coverage report  
+# coverage run --source='social' manage.py test && coverage report && coverage html 
+
 class PostListHtmlUrlTests(TestCase):
     def test_url_exists_at_correct_location(self):
         response = self.client.get("/social/post-list/")

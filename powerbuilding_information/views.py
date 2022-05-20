@@ -5,14 +5,15 @@ from django.shortcuts import redirect                       # added redirect ...
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.views.generic import View
 from .models import Survey
+from social.models import PostTest 
 # Create your views here.
 
 
 class HomeView(View):
   def get(self, request):                       # defining the homeview function .. this will literally be out home page 
   											                       # A django view is a python function which accept an argument called request and returns an response.
-  	survey = Survey.objects.all()
-  	return render(request, 'home.html', {'survey':survey})      # render gets an HTML template as a response .. we want to return this html template as the response 
+    survey = Survey.objects.all()
+    return render(request, 'home.html', {'survey':survey})      # render gets an HTML template as a response .. we want to return this html template as the response 
   											                                        # https://www.geeksforgeeks.org/render-a-html-template-as-response-django-views/
 
 def SurveyView(request):

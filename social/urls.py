@@ -1,8 +1,11 @@
 from django.urls import path
 from .views import PostListView, PostDetailView, PostEditView, PostDeleteView, NotificationView, CommentDeleteView, SharedPostView,  AddLike, AddDislike, UserSearch, AddCommentLike, AddCommentDislike, CommentReplyView, CreateThread, ListThreads, ThreadView, CreateMessage, Explore
-from .views import PostNotification, PostDetailAddLike, PostDetailAddDislike, SharedProfileAddLike, ReplyPageDeleteView, CommentReplyViewPage, SharedProfileAddDislike, ProfileAddLike, ProfileAddDislike, ThreadNotification, RemoveNotification, ReplyDeleteView, AddFollower, RemoveFollower, ListFollowers, FollowNotification, ListFollowings
+from .views import PostNotification, post_single, post_single_test, PostDetailAddLike, PostDetailAddDislike, SharedProfileAddLike, ReplyPageDeleteView, CommentReplyViewPage, SharedProfileAddDislike, ProfileAddLike, ProfileAddDislike, ThreadNotification, RemoveNotification, ReplyDeleteView, AddFollower, RemoveFollower, ListFollowers, FollowNotification, ListFollowings
 
 urlpatterns = [
+    #testing urls
+    # path('post-single-test/', post_single_test, name='post-single-test'),
+    # path('<slug:post>/', post_single, name='post_single'),
 
     # notifications
     path('notifications/', NotificationView.as_view(), name='notifications'),

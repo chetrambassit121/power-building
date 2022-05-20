@@ -5,10 +5,12 @@ from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from .models import Post, Comment, Notification, ThreadModel
+from .models import Post, Comment, Notification, ThreadModel, PostTest
 
 admin.site.register(Notification)
 admin.site.register(ThreadModel)
+admin.site.register(PostTest)
+
 # admin.site.register(Video)
 
 

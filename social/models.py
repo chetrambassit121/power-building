@@ -15,6 +15,25 @@ from django.utils.text import slugify
 from django.utils.safestring import mark_safe
 from markdown_deux import markdown
 
+
+class PostTest(models.Model):
+    bodytest = models.TextField(max_length=1000)
+    slug = models.SlugField(max_length=250, default=None)
+    likestest = models.ManyToManyField(User, related_name='likestest', default=None, blank=True)
+    dislikestest = models.ManyToManyField(User, related_name='dislikestest', default=None, blank=True)
+
+    # authortest = models.ForeignKey(User, on_delete=models.CASCADE, default=False)
+    def get_absolute_url(self):
+        return reverse('post_single', args=[self.slug])
+
+    def __str__(self):
+        return self.bodytest
+        
+
+
+
+
+
 class Notification(models.Model):
     # 1 = Like, 2 = Comment, 3 = Follow, #4 = DM
     notification_type = models.IntegerField()

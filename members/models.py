@@ -128,6 +128,8 @@ class BroadCast_Email(models.Model):
 	def __unicode__(self):
 		return self.subject
 
+
+
 	class Meta:
 		verbose_name = "BroadCast Email to all Member"
 		verbose_name_plural = "BroadCast Email"  

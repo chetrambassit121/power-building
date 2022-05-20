@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse, Http404
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.views import View
-from .models import Post, Comment, Notification, ThreadModel, MessageModel, Tag
+from .models import Post, Comment, Notification, ThreadModel, MessageModel, Tag, PostTest
 from members.models import UserProfile, User
 from .forms import PostForm, CommentForm, EditPostForm, ThreadForm, MessageForm, ExploreForm, ShareForm
 from django.views.generic.edit import UpdateView, DeleteView
@@ -16,6 +16,18 @@ from django.views import generic
 from django import template     
 from django.core.paginator import Paginator        
 from django.template.loader import render_to_string
+
+
+def post_single_test(request):
+    all_posts = PostTest.objects.all()
+
+    return render(request, 'social/detail_test.html', {'posts': all_posts})
+
+
+def post_single(request, post):
+    post = get_object_or_404(PostTest, slug=post)
+
+    return render(request, 'social/detail.html', {'post':post})
 
 
 # def comment_thread(request, id):
@@ -344,6 +356,7 @@ class PostListView(View):
         posts = p.get_page(page)
         context = {
           'posts': posts,
+          
           # 'all_video': all_video,
           'shareform': share_form,
           'form': form,

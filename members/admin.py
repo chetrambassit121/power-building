@@ -1,6 +1,21 @@
 from django.contrib import admin
 from .models import UserProfile, User, State, City, BroadCast_Email
+from django.utils.safestring import mark_safe
+from email.message import EmailMessage
+from django.conf import settings
 import threading
+
+# from django.contrib import admin
+# from .models import BroadCast_Email, Survey
+# , Survey_General, Random, Randomm 
+# from . import models
+# from django.utils.safestring import mark_safe
+# import threading
+# from django.conf import settings
+from django.http import HttpResponse
+from django.core.mail import (send_mail, BadHeaderError, EmailMessage)
+# from django.contrib.auth.models import User
+from members.models import User 
 
 # Register your models here.
 admin.site.register(UserProfile)    

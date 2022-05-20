@@ -10,8 +10,8 @@ class Survey(models.Model):
 	likes = models.ManyToManyField(User, blank=True ,related_name='likes')
 	dislikes = models.ManyToManyField(User, blank=True ,related_name='dislikes')  
 
-	def get_absolute_url(self):
-		return reverse('surveys', args=[str(self.id)])
+	# def get_absolute_url(self):
+	# 	return reverse('surveys', args=[str(self.id)])
 	
 	def num_likes(self):
 		return self.likes.count()

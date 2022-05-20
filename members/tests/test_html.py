@@ -2,6 +2,11 @@ from django.test import TestCase
 from django.urls import reverse 
 from members.models import User
 
+# python test command .... python manage.py test
+# coverage command .... coverage run manage.py test
+# coverage report command .... coverage report  
+# coverage run --source='members' manage.py test && coverage report && coverage html 
+
 class RegisterHtmlTest(TestCase):
     def test_url_exists_at_correct_location(self):
         response = self.client.get("/members/register/")

@@ -4,6 +4,12 @@
 # # from powerbuilding_information.views import HomeView
 
 
+# python test command .... python manage.py test
+# coverage command .... coverage run manage.py test
+# coverage report command .... coverage report  
+# coverage run --source='powerbuilding_information' manage.py test && coverage report && coverage html 
+
+
 ## pytest commands .... pytest 
 
 # pytestmark = pytest.mark.django_db
