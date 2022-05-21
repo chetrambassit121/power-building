@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import reverse 
 from members.models import User, MyAccountManager, State, City, UserProfile, BroadCast_Email
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from model_bakery import baker
 
 # python test command .... python manage.py test
 # coverage command .... coverage run manage.py test
@@ -22,25 +23,28 @@ class BaseTest(TestCase):
 			email='test@gmail.com', username='testuser', first_name='chetram', last_name='bassit', 
 			state=self.state, city=self.city, password='abc123'
 		)
-		self.email = BroadCast_Email.objects.create(subject='testing', message='testing')		
+		self.user_baker = baker.make(User, username='testuser1', state=self.state, city=self.city)
+		self.email = BroadCast_Email.objects.create(subject='testing', message='testing')	
+		# self.userprofile = UserProfile.objects.create(user=self.user)
+
 		return super().setUp()
 
 class TestState(BaseTest):
-	def test_state(self):
+	def test_state_str(self):
 		# response=self.client.get(self.state)
 		# state = State.objects.create(name='New York')
 		state = self.state 
 		self.assertEqual(str(state), 'New York')
 
 class TestCity(BaseTest):
-	def test_city(self):
+	def test_city_str(self):
 		# state = State.objects.create(name='New York')
 		# city = City.objects.create(state=state, name='Queens')
 		city = self.city
 		self.assertEqual(str(city), 'Queens')
 
 class TestUser(BaseTest):
-	def test_username(self):
+	def test_username_str(self):
 		# state = State.objects.create(name='New York')
 		# city = City.objects.create(state=state, name='Queens')
 		# username = User.objects.create(email='test@gmail.com', username='testuser', first_name='chetram', last_name='bassit', 
@@ -48,10 +52,37 @@ class TestUser(BaseTest):
 		username = self.user
 		self.assertEqual(str(username), 'testuser')
 
+class TestUserBaker(BaseTest):
+	def test_username_str(self):
+		# state = State.objects.create(name='New York')
+		# city = City.objects.create(state=state, name='Queens')
+		# username = User.objects.create(email='test@gmail.com', username='testuser', first_name='chetram', last_name='bassit', 
+		# 						   state=state, city=city, password='abc123')
+		username = self.user_baker
+		self.assertEqual(str(username), 'testuser1')
+
+# class TestUserProfile(BaseTest):
+# 	def test_user_str(self):
+# 		# state = State.objects.create(name='New York')
+# 		# city = City.objects.create(state=state, name='Queens')
+# 		# username = User.objects.create(email='test@gmail.com', username='testuser', first_name='chetram', last_name='bassit', 
+# 		# 						   state=state, city=city, password='abc123')
+# 		user_str = self.userprofile
+# 		self.assertEqual(str(user_str), 'user')
+
 class TestBroadcastEmail(BaseTest):
-	def test_unicode(self):
+	def test_subject_str(self):
 		subject = self.email
 		self.assertEqual(str(subject), 'testing')
+
+
+
+
+
+
+
+
+
 
 	# def test_has_perm(self):
 	# 	state = State.objects.create(name='New York')

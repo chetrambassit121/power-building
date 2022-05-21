@@ -125,7 +125,7 @@ class BroadCast_Email(models.Model):
 	created = models.DateTimeField(default=datetime.now)
 	message = RichTextUploadingField(config_name="default")
 
-	def __unicode__(self):
+	def __str__(self):
 		return self.subject
 
 
