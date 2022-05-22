@@ -18,12 +18,18 @@ from model_bakery import baker
 class BaseTest(TestCase):                                        
 	def setUp(self):
 		self.state = State.objects.create(name='New York')
+
 		self.city = City.objects.create(state=self.state, name='Queens')
+
+		# manually create user 
 		self.user = User.objects.create(
 			email='test@gmail.com', username='testuser', first_name='chetram', last_name='bassit', 
 			state=self.state, city=self.city, password='abc123'
 		)
+		
+		# create user with baker w/ fields we want 
 		self.user_baker = baker.make(User, username='testuser1', state=self.state, city=self.city)
+
 		self.email = BroadCast_Email.objects.create(subject='testing', message='testing')	
 		# self.userprofile = UserProfile.objects.create(user=self.user)
 
