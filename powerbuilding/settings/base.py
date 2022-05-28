@@ -67,8 +67,8 @@ INSTALLED_APPS = [
     'ckeditor_uploader',               # added this since we downloaded ckeditor this is required for app to work 
     'rest_framework',
     "whitenoise.runserver_nostatic",
-    # 'django-nose'
-    'lists'
+    # 'django-nose',
+    'lists',
 ]
 
 
