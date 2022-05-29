@@ -19,7 +19,7 @@ from members.models import User
 
 # Register your models here.
 admin.site.register(UserProfile)   
-admin.site.register(User)     
+# admin.site.register(User)     
 admin.site.register(State)    
 admin.site.register(City)    
 
