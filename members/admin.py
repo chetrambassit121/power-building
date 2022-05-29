@@ -18,7 +18,8 @@ from django.core.mail import (send_mail, BadHeaderError, EmailMessage)
 from members.models import User 
 
 # Register your models here.
-admin.site.register(UserProfile)    
+admin.site.register(UserProfile)   
+admin.site.register(User)     
 admin.site.register(State)    
 admin.site.register(City)    
 
