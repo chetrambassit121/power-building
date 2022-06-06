@@ -220,6 +220,13 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
 }
 
 
+/* login form */
+
+.login-form {
+  padding: 20px;
+}
+
+
 
 /* main header for some html files and elements within it  */
 

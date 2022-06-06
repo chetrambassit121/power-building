@@ -3,23 +3,27 @@
 {% block title %}Login{% endblock %}
 {% block content %}
 <h1 style="display: none;">login-test</h1>
-	<h1>Login</h1> 
-	<br/><br/>
-	<div class="form-group">                                         
-		<form method='POST'>
-			{% csrf_token %}
-				<div class="mb-3">
-				    <input type="text" class="form-control" name="username" placeholder="username">
-				    <div id="emailHelp" class="form-text"></div>
-				</div>
-				<div class="mb-3">
-				    <input type="password" class="form-control" name="password" placeholder="password">
-				</div>
-			<button class="btn btn-secondary">Login</button> 
-			<br><br>
-			Not a User? <a href="{% url 'register' %}">Register here!<a><br>
-			<a href="{% url 'password_reset' %}">Forgot Username/Password?</a>	
-		</form>
+<div class="flexbox-container">
+	<div class="flexbox-item login-form">
+		<h1>Login</h1> 
+		<br/>
+		<div class="form-group">                                         
+			<form method='POST'>
+				{% csrf_token %}
+					<div class="mb-3">
+						<input type="text" class="form-control" name="username" placeholder="username">
+						<div id="emailHelp" class="form-text"></div>
+					</div>
+					<div class="mb-3">
+						<input type="password" class="form-control" name="password" placeholder="password">
+					</div>
+				<button class="btn btn-secondary">Login</button> 
+				<br><br>
+				Not a User? <a href="{% url 'register' %}">Register here!<a><br>
+				<a href="{% url 'password_reset' %}">Forgot Username/Password?</a>	
+			</form>
+		</div>
 	</div>
+</div>
 
 {% endblock %}
