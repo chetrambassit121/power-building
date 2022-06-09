@@ -3,14 +3,18 @@
 {% block title %}Register{% endblock %}
 {% block content %}
 <h1 style="display: none;">register-test</h1>
-	<div class="form-group" id="registerForm" data-branches-url="{% url 'ajax_load_citys' %}" novalidate>       
-		<h1>Register</h1>                                   
-		<form method='POST'>
-			{% csrf_token %}
-			{{ form.as_p }}
-			<button class="btn btn-secondary">Register</button> 
-		</form>
+<div class="flexbox-container">
+	<div class="flexbox-item1 login-form">
+		<div class="form-group" id="registerForm" data-branches-url="{% url 'ajax_load_citys' %}" novalidate>       
+			<h1>Register</h1>                                   
+			<form method='POST'>
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button class="btn btn-secondary">Register</button> 
+			</form>
+		</div>
 	</div>
+</div>
 
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
