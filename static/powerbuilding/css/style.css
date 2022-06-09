@@ -13,6 +13,22 @@ body {
   background-color: #223a5e;
 }
 
+body{ 
+  /* background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80'); */
+  background-image: url('/static/powerbuilding/images/home-image-5.jpg');
+
+   background-repeat:no-repeat;
+
+   -moz-background-size: cover;
+   -webkit-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+   background-position:center center;
+   background-attachment:fixed;
+  color: lightgreen;
+  
+   }
+
 a {
   text-decoration: none;
 }
@@ -156,6 +172,7 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
 
 .notification-badge {
   transition: 0.3s;
+  margin-bottom: 8px;
 }
 
 .notification-badge:hover {
@@ -168,11 +185,14 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
 
 /* inbox / messages  */
 
+.inbox-icon-container .inbox-icon .fa-paper-plane {
+  color: #3498db;
+  /* margin-bottom: 20px; */
+}
+
 .inbox-icon-container {
   margin-right: 15px;
 }
-
-
 
 .inbox-icon:hover {
   transition: 0.5s;
