@@ -1,6 +1,7 @@
 ABOUT: fitness project with information and social feed. 
           PHOTOS: https://chetram-bassit-resume.herokuapp.com/power_building/#photos 
           User Logic
+![image](https://user-images.githubusercontent.com/75236091/173152167-9f836c69-e3e7-4558-84fd-360fefabb4c2.png)
 
 .	Register 
 
