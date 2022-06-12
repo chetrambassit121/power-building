@@ -1,10 +1,11 @@
 from django.db import models
 from django.utils import timezone
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from members.models import UserProfile, User
 from django.urls import reverse_lazy, reverse
 from .validators import file_size
+# from .utils import get_read_time
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -78,7 +79,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to='media/uploads/post_photos', blank=True, null=True)
     video = models.FileField(upload_to="media/uploads/post_videos", validators=[file_size], blank=True, null=True)
 
-    # slug = models.SlugField(unique=True, default=False)
+    slug = models.SlugField(unique=True, null=False)
 
     created_on = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -90,6 +91,11 @@ class Post(models.Model):
     tags = models.ManyToManyField('Tag', blank=True)
 
     # objects = PostManager()
+
+    def save(self, *args, **kwargs):  # new
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
 
     def create_tags(self):
         for word in self.body.split():
@@ -151,6 +157,18 @@ class Post(models.Model):
 #         return create_slug(instance, new_slug=new_slug)
 #     return slug
 
+# def pre_save_post_receiver(sender, instance, *args, **kwargs):
+#     if not instance.slug:
+#         instance.slug = create_slug(instance)
+
+    # if instance.content:
+    #     html_string = instance.get_markdown()
+    #     read_time_var = get_read_time(html_string)
+    #     instance.read_time = read_time_var
+
+
+
+# pre_save.connect(pre_save_post_receiver, sender=Post)
 
 # class CommentManager(models.Manager):
 #     def all(self):

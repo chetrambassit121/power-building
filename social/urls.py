@@ -33,7 +33,9 @@ urlpatterns = [
     path('post/<int:id>/dislike', AddDislike.as_view(), name='dislike'),
    
     # post detail page which includes the post, editing post, deleting post, its comments, reply form and view replies link 
-    path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
+    # path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
+    path('post/<slug:slug>/', PostDetailView.as_view(), name='post-detail'),
+
     # path('comments/<int:pk>/', comment_thread, name='post-detail-comments'),
 
     path('post/edit/<int:pk>/', PostEditView.as_view(), name='post-edit'),

@@ -1348,6 +1348,7 @@ class PostListSerializer(ModelSerializer):
 			'url',                                                       
 			'id',
 			'author',
+			'slug',
 			'shared_user',
 			'body',
 			'shared_body',
