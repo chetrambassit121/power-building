@@ -580,7 +580,9 @@ class PostDetailView(LoginRequiredMixin, ListView):
     #     return JsonResponse(data=data)
 
 
+    # def post(self, request, slug, *args, **kwargs):
     def post(self, request, pk, *args, **kwargs):
+        # post = Post.objects.get(slug=slug)
         post = Post.objects.get(pk=pk)
         form = CommentForm(request.POST)
 

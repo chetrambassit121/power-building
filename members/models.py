@@ -105,11 +105,13 @@ class UserProfile(models.Model):
   instagram_url = models.CharField(max_length=255, null=True, blank=True)          
   # pinterest_url = models.CharField(max_length=255, null=True, blank=True)   
 
+  def get_absolute_url(self):	                                               			                    
+    return reverse('home')
+
   def __str__(self):															
 	  return str(self.user)                                                   
 
-  def get_absolute_url(self):	                                               			                    
-	  return reverse('home')
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

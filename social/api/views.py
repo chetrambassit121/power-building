@@ -1,5 +1,3 @@
-
-
 # LOGIC .... comments api 
 
 from rest_framework.generics import ( 
@@ -91,8 +89,8 @@ class PostListAPIView(ListAPIView):
 	serializer_class = PostListSerializer
 	filter_backends = [SearchFilter, OrderingFilter]                              
 	search_fields = ['body', 'first_name', 'last_name', 'author']  
-	# permission_classes = [AllowAny]  
-	permission_classes = [IsAdminUser]   
+	permission_classes = [AllowAny]  
+	# permission_classes = [IsAdminUser]   
 	pagination_class = PostPageNumberPagination                                     
 																	  
 	def get_queryset(self, *args, **kwargs):                                           

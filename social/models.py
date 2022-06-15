@@ -79,7 +79,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to='media/uploads/post_photos', blank=True, null=True)
     video = models.FileField(upload_to="media/uploads/post_videos", validators=[file_size], blank=True, null=True)
 
-    slug = models.SlugField(unique=True, null=False)
+    slug = models.SlugField(max_length=255, unique=True, null=False)
 
     created_on = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -94,7 +94,7 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):  # new
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.body)
         return super().save(*args, **kwargs)
 
     def create_tags(self):

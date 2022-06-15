@@ -19,9 +19,11 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 
 from django.contrib.auth import get_user_model
 
-from members.models import User
+from members.models import User, UserProfile
 
-from .serializers import UserCreateSerializer, ModelSerializer, UserLoginSerializer
+from .permissions import IsOwnerOrReadOnly
+
+from .serializers import UserCreateSerializer, ModelSerializer, UserLoginSerializer, UserProfileSerializer, UserDetailSerializer, UserCreateUpdateSerializer
 
 from rest_framework.response import Response                                 # added for login                    
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST          # added for login 
@@ -32,13 +34,13 @@ class UserCreateAPIView(CreateAPIView):                                        #
 	serializer_class = UserCreateSerializer
 	queryset = User.objects.all()
 	# permission_classes = [AllowAny]
-	permission_classes = [IsAdminUser]
+	# permission_classes = [IsAdminUser]
 
 
 
 class UserLoginAPIView(APIView):                                                  # user login view 
-	# permission_classes = [AllowAny]
-	permission_classes = [IsAdminUser]
+	permission_classes = [AllowAny]
+	# permission_classes = [IsAdminUser]
 	
 	serializer_class = UserLoginSerializer
 
@@ -48,7 +50,31 @@ class UserLoginAPIView(APIView):                                                
 		if serializer.is_valid(raise_exception=True):
 			new_data = serializer.data 
 			return Response(new_data, status=HTTP_200_OK)
-		return Response(serilaizer.errors, status=HTTP_400_BAD_REQUEST)
+		return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+class UserAPIView(ListAPIView):                                
+	queryset = User.objects.all()
+	serializer_class = UserDetailSerializer
+	permission_classes = [AllowAny]
+	# lookup_field = 'pk' 
+
+
+class UserUpdateAPIView(RetrieveUpdateAPIView):                                              
+	queryset = User.objects.all()
+	serializer_class = UserCreateUpdateSerializer
+	# permission_classes = [IsOwnerOrReadOnly] 
+	permission_classes = [IsAuthenticated]   
+	lookup_field = 'username' 
+
+	def perform_update(self, serializer):                
+		serializer.save(user=self.request.user) 
+
+
+class UserProfileAPIView(ListAPIView):                                
+	queryset = UserProfile.objects.all()
+	serializer_class = UserProfileSerializer
+	permission_classes = [AllowAny]
+	# lookup_field = 'pk' 
 
 
 
