@@ -1022,7 +1022,7 @@ class ReplyPageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Comment
     template_name = 'social/reply_delete.html'
 
-    def get_success_url(self):
+    def get_success_url(self, post_pk):
         pk = self.kwargs['comment_pk']
         return reverse_lazy('view-comment-reply', kwargs={'pk': post_pk})
         # return redirect('view-comment-reply', kwargs={'pk': pk})
