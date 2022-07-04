@@ -28,12 +28,18 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from .pagination import PostLimitOffsetPagination, PostPageNumberPagination   
 
 
+
 class CommentDetailAPIView(RetrieveAPIView):             # added same concept as postdetailapiview 
 	queryset = Comment.objects.all()
 	serializer_class = CommentDetailSerializer  
 	permission_classes = [IsOwnerOrReadOnly]
 	lookup_field = 'id' 
 
+class CommentDeleteAPIView(DestroyAPIView):                                           
+	queryset = Comment.objects.all()
+	serializer_class = CommentDetailSerializer
+	permission_classes = [IsOwnerOrReadOnly]           
+	lookup_field = 'id' 
 
 class CommentListAPIView(ListAPIView):                    # added same concept of postlistapiview             
 	# queryset = Post.objects.all()

@@ -1,5 +1,5 @@
 from django.urls import path         
-from .views import register, load_citys, PasswordsChangeView, ShowProfilePageView, ShowSharedProfilePageView, EditProfilePageView, UserEditView, UserDeleteView
+from .views import register, load_citys, PasswordsChangeView, ShowProfilePageView, ShowSharedProfilePageView, EditProfilePageView, UserEditView, UserDeleteView, users_list
 from django.contrib.auth import views as auth_views
 from . import views 
 
@@ -46,5 +46,8 @@ urlpatterns = [
 
     # user delete 
     path('<int:pk>/delete/', UserDeleteView.as_view(template_name='registration/delete.html'), name="account_delete"),
+
+    #sql users list 
+    path('users_list/', views.users_list, name="users_list")
 
 ]

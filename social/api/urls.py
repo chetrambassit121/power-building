@@ -10,7 +10,8 @@ from .views import (
 	PostListAPIView, 
 	PostDetailAPIView, 
 	PostDetailCommentsAPIView, 
-	PostUpdateAPIView
+	PostUpdateAPIView,
+	CommentDeleteAPIView
 )
 
 urlpatterns = [
@@ -19,6 +20,7 @@ urlpatterns = [
  	# comments api urls
  	path('comments/', CommentListAPIView.as_view(), name='comments'),                             # url to display comment fields/data
  	path('comments/<int:id>/', CommentDetailAPIView.as_view(), name='comment-detail'),            # url to display comment fields/data including the replies 
+	path('comments/delete/<int:id>/', CommentDeleteAPIView.as_view(), name='comment-delete'), 
 
 
  	# posts api urls 

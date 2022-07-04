@@ -153,7 +153,7 @@
                             {% endif %}
                         </form>
 
-                        &nbsp;&nbsp;<a href="{% url 'post-detail' post.slug %}">Comments: {{ comment.count }}</a>
+                        &nbsp;&nbsp;<a href="{% url 'post-detail' post.pk %}">Comments: {{ comment.count }}</a>
                     </div>
 
                 </div>

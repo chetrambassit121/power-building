@@ -1,0 +1,7 @@
+
+<p>SQL</p>
+{{users}}
+
+{% for i in users %}
+    <div>{{ i.first_name }} {{ i.last_name }} {{ i.username }} {{ i.email }}</div>
+{% endfor %}

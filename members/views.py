@@ -25,6 +25,9 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 import json
+
+from django.db import connection
+from django.db.models import Q
 # from validate_email import validate_email
                            
 
@@ -393,3 +396,24 @@ class UserEditView(generic.UpdateView):
 class UserDeleteView(DeleteView):
     model = User
     success_url = reverse_lazy('login')
+
+
+
+
+
+
+
+
+# user sql view 
+def users_list(request):
+
+    
+    users = User.objects.all()   # displays all users with there fields 
+    # users = User.objects.raw("SELECT * FROM members_user")
+
+    print(users)     # print data into terminal
+    # print(users.query)
+    print(connection.queries)
+    return render(request, 'registration/users_list.html', {'users': users})
+
+# go to http://localhost:7000/members/users_list/ .. queryset will be displayed in terminal 

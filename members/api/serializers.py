@@ -70,6 +70,22 @@ class UserProfileSerializer(ModelSerializer):
 			'website_url'
 		]
 
+class UserProfileUpdateSerializer(ModelSerializer):
+	user = UserDetailSerializer() 
+	class Meta:
+		model = UserProfile
+		fields = [
+			'user',
+			'first_name',
+			'last_name', 
+			'birth_date',
+			'location',
+			'bio',
+			'followers',
+			'followings',
+			'website_url'
+		]
+
 
 
 

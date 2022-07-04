@@ -23,7 +23,7 @@ from members.models import User, UserProfile
 
 from .permissions import IsOwnerOrReadOnly
 
-from .serializers import UserCreateSerializer, ModelSerializer, UserLoginSerializer, UserProfileSerializer, UserDetailSerializer, UserCreateUpdateSerializer
+from .serializers import UserCreateSerializer, ModelSerializer, UserLoginSerializer, UserProfileSerializer, UserDetailSerializer, UserCreateUpdateSerializer, UserProfileUpdateSerializer
 
 from rest_framework.response import Response                                 # added for login                    
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST          # added for login 
@@ -63,11 +63,11 @@ class UserUpdateAPIView(RetrieveUpdateAPIView):
 	queryset = User.objects.all()
 	serializer_class = UserCreateUpdateSerializer
 	# permission_classes = [IsOwnerOrReadOnly] 
-	permission_classes = [IsAuthenticated]   
-	lookup_field = 'username' 
+	permission_classes = [IsAuthenticatedOrReadOnly]   
+	lookup_field = 'id' 
 
 	def perform_update(self, serializer):                
-		serializer.save(user=self.request.user) 
+		serializer.save(username=self.request.user) 
 
 
 class UserProfileAPIView(ListAPIView):                                
@@ -75,6 +75,16 @@ class UserProfileAPIView(ListAPIView):
 	serializer_class = UserProfileSerializer
 	permission_classes = [AllowAny]
 	# lookup_field = 'pk' 
+
+class UserProfileUpdateAPIView(RetrieveUpdateAPIView):                                              
+	queryset = UserProfile.objects.all()
+	serializer_class = UserProfileUpdateSerializer
+	permission_classes = [IsOwnerOrReadOnly] 
+	# permission_classes = [IsAuthenticated]   
+	lookup_field = 'username' 
+
+	def perform_update(self, serializer):                
+		serializer.save(username=self.request.user) 
 
 
 
