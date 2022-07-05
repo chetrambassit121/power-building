@@ -130,67 +130,14 @@ class Post(models.Model):
         qs = Comment.objects.filter_by_instance(instance)
         return qs
 
-
-
-    # @property
-    # def get_content_type(self):
-    #     instance = self
-    #     content_type = ContentType.objects.get_for_model(instance.__class__)
-    #     return content_type
-
-
-
     def get_markdown(self):
         body = self.body
         markdown_text = markdown(body)
         return mark_safe(markdown_text)
 
-
-# def create_slug(instance, new_slug=None):
-#     slug = slugify(instance.author)
-#     if new_slug is not None:
-#         slug = new_slug
-#     qs = Post.objects.filter(slug=slug).order_by("-id")
-#     exists = qs.exists()
-#     if exists:
-#         new_slug = "%s-%s" %(slug, qs.first().id)
-#         return create_slug(instance, new_slug=new_slug)
-#     return slug
-
-# def pre_save_post_receiver(sender, instance, *args, **kwargs):
-#     if not instance.slug:
-#         instance.slug = create_slug(instance)
-
-    # if instance.content:
-    #     html_string = instance.get_markdown()
-    #     read_time_var = get_read_time(html_string)
-    #     instance.read_time = read_time_var
-
-
-
-# pre_save.connect(pre_save_post_receiver, sender=Post)
-
-# class CommentManager(models.Manager):
-#     def all(self):
-#         qs = super(CommentManager, self).filter(parent=None)
-#         return qs
-
-#     def filter_by_instance(self, instance):
-#         content_type = ContentType.objects.get_for_model(instance.__class__)
-#         obj_id = instance.id
-#         qs = super(CommentManager, self).filter(content_type=content_type, object_id= obj_id).filter(parent=None)
-#         return qs
-
-
 class Comment(models.Model):
     comment = models.TextField()
     created_on = models.DateTimeField(default=timezone.now)
-
-    # content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, default=False)
-    # object_id = models.PositiveIntegerField(default=False)
-    # content_object = GenericForeignKey('content_type', 'object_id')
-
-
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey('Post', on_delete=models.CASCADE, default=False)
     likes = models.ManyToManyField(User, blank=True, related_name='comment_likes')

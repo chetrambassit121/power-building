@@ -111,8 +111,6 @@ class UserProfile(models.Model):
   def __str__(self):															
 	  return str(self.user)                                                   
 
-
-
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
   if created:
@@ -129,8 +127,6 @@ class BroadCast_Email(models.Model):
 
 	def __str__(self):
 		return self.subject
-
-
 
 	class Meta:
 		verbose_name = "BroadCast Email to all Member"

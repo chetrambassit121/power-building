@@ -34,10 +34,6 @@ urlpatterns = [
    
     # post detail page which includes the post, editing post, deleting post, its comments, reply form and view replies link 
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
-    # path('post/<slug:slug>/', PostDetailView.as_view(), name='post-detail'),
-
-    # path('comments/<int:pk>/', comment_thread, name='post-detail-comments'),
-
     path('post/edit/<int:pk>/', PostEditView.as_view(), name='post-edit'),
     path('post/delete/<int:pk>/', PostDeleteView.as_view(), name='post-delete'),
     path('post/<int:pk>/post-detail-like', PostDetailAddLike.as_view(), name='post-detail-like'),
@@ -45,21 +41,16 @@ urlpatterns = [
     path('post/<int:post_pk>/comment/delete/<int:pk>/', CommentDeleteView.as_view(), name='comment-delete'),
     path('post/<int:post_pk>/comment/<int:pk>/like', AddCommentLike.as_view(), name='comment-like'),
     path('post/<int:post_pk>/comment/<int:pk>/dislike', AddCommentDislike.as_view(), name='comment-dislike'),
+
     # replies
     path('post/<int:post_pk>/comment/<int:pk>/reply', CommentReplyView.as_view(), name='comment-reply'),
     path('comment/<int:pk>/reply', CommentReplyViewPage.as_view(), name='view-comment-reply'),
-    # path('post/<int:post_pk>/comment/<int:pk>/reply', CommentReplyViewPage.as_view(), name='view-comment-reply'),
     path('comment/<int:comment_pk>/reply/delete/<int:pk>/', ReplyDeleteView.as_view(), name='reply-delete'),
-    # path('post/<int:post_pk>/comment/<int:comment_pk>/reply/delete/<int:pk>/', ReplyPageDeleteView.as_view(), name='reply-page-delete'),
-    # path('comment/<int:pk>/reply', CommentReplyView.as_view(), name='view-comment-reply'),
-    # path('post/<int:post_pk>/comment/<int:pk>/reply', CommentReplyView.as_view(), name='view-comment-reply'),
-    # path('comment/<int:comment_pk>/reply/delete/<int:pk>/', ReplyPageDeleteView.as_view(), name='reply-page-delete'),
-    # path('post/<int:post_pk>/comment/<int:pk>/reply', CommentReplyView.as_view(), name='comment-reply'),
-    # path('post/<int:post_pk>/comment/<int:pk>/reply/<int:num_replies>/', CommentReplyView.as_view(), name='comment-reply'), ## tried to create load button url for loading replies
 
     # user profile like / dislike for post
     path('profile/<int:pk>/post/<int:id>/profile-like', ProfileAddLike.as_view(), name='profile-like'),
     path('profile/<int:pk>/post/<int:id>/profile-dislike', ProfileAddDislike.as_view(), name='profile-dislike'),
+    
     # sharedprofile like / dislike for sharedpost 
     path('profile/<int:pk>/post/<int:id>/shared-profile-like', SharedProfileAddLike.as_view(), name='shared-profile-like'),
     path('profile/<int:pk>/post/<int:id>/shared-profile-dislike', SharedProfileAddDislike.as_view(), name='shared-profile-dislike'),

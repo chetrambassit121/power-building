@@ -20,66 +20,11 @@ from django.template.loader import render_to_string
 
 def post_single_test(request):
     all_posts = PostTest.objects.all()
-
     return render(request, 'social/detail_test.html', {'posts': all_posts})
-
 
 def post_single(request, post):
     post = get_object_or_404(PostTest, slug=post)
-
     return render(request, 'social/detail.html', {'post':post})
-
-
-# def comment_thread(request, id):
-# try:
-#         obj = Comment.objects.get(id=id)
-#     except:
-#         raise Http404
-
-#     if not obj.is_parent:
-#         obj = obj.parent
-
-#     content_object = obj.content_object # Post that the comment is on
-#     content_id = obj.content_object.id
-
-#     initial_data = {
-#             "content_type": obj.content_type,
-#             "object_id": obj.object_id
-#     }
-#     form = CommentForm(request.POST or None, initial=initial_data)
-#     if form.is_valid() and request.user.is_authenticated():
-#         c_type = form.cleaned_data.get("content_type")
-#         content_type = ContentType.objects.get(model=c_type)
-#         obj_id = form.cleaned_data.get('object_id')
-#         content_data = form.cleaned_data.get("content")
-#         parent_obj = None
-#         try:
-#             parent_id = int(request.POST.get("parent_id"))
-#         except:
-#             parent_id = None
-
-#         if parent_id:
-#             parent_qs = Comment.objects.filter(id=parent_id)
-#             if parent_qs.exists() and parent_qs.count() == 1:
-#                 parent_obj = parent_qs.first()
-
-
-#         new_comment, created = Comment.objects.get_or_create(
-#                             user = request.user,
-#                             content_type= content_type,
-#                             object_id = obj_id,
-#                             content = content_data,
-#                             parent = parent_obj,
-#                         )
-#         return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
-
-
-#     context = {
-#         "comment": obj,
-#         "form": form,
-#     }
-#     return render(request, "comment_thread.html", context)
-
 
 # notification
 class NotificationView(View):
@@ -365,42 +310,6 @@ class PostListView(View):
     
         return render(request, 'social/post_list.html', context)
 
-    # posting with ajax .. image / video isnt being posted 
-    # def post(self, request, *args, **kwargs):
-    #     post = Post.objects.all()
-    #     post_count = post.count()
-    #     form = PostForm(request.POST, request.FILES)
-    #     share_form = ShareForm()
-
-    #     p = Paginator(Post.objects.all(), 10)
-    #     page = request.GET.get('page')
-    #     posts = p.get_page(page)
-       
-    #     if form.is_valid():
-    #         new_post = form.save(commit=False)
-    #         new_post.author = request.user
-    #         new_post.save()
-    #         form = PostForm()
-
-    #         new_post.create_tags()
-
-    #     context = {
-    #         'posts': posts,
-    #         # 'all_video': all_video,
-    #         'shareform': share_form,
-    #         'form': form,
-    #         'post_count': post_count,
-    #     }
-
-    #     # if request.ajax():
-    #     if request.accepts("application/json"):
-    #         html = render_to_string('social/posts.html', context, request=request)
-    #         return JsonResponse({'form':html})
-
-    #     return render(request, 'social/post_list.html', context)
-
-
-    # without ajax everything is posted with reload
     def post(self, request, *args, **kwargs):
         post = Post.objects.all()
         post_count = post.count()
@@ -546,9 +455,6 @@ class AddDislike(LoginRequiredMixin, View):
             return JsonResponse(data, safe=False)
         return redirect(reverse("post-list"), args=[str(id)])
 
-# def comment_thread(request, pk):
-    
-
 #  post detail 
 class PostDetailView(LoginRequiredMixin, ListView):
     def get(self, request, pk, *args, **kwargs):
@@ -569,18 +475,6 @@ class PostDetailView(LoginRequiredMixin, ListView):
 
         return render(request, 'social/post_detail.html', context)
 
-    # tried to load more replies 
-    # def load_more(request):
-    #     total_replies = int(request.GET.get('total_replies'))
-    #     limit = 2
-    #     comment_obj = list(Comment.objects.values()[offset_int:offset_int+limit])
-    #     data = {
-    #         'comments': comment_obj
-    #     }
-    #     return JsonResponse(data=data)
-
-
-    # def post(self, request, slug, *args, **kwargs):
     def post(self, request, pk, *args, **kwargs):
         # post = Post.objects.get(slug=slug)
         post = Post.objects.get(pk=pk)
@@ -605,50 +499,8 @@ class PostDetailView(LoginRequiredMixin, ListView):
             # 'comments': comments,
             'comments': comments,
         }
-        ## KEEP AJAX .. when user makes a comment .. page doesnt refresh .. if user clicks like.dislike data returned instead of html page ... user has to refesh page to like.dislike
-        # # if request.is_ajax():
-        # if request.accepts("application/json"):
-        #     html = render_to_string('social/comments.html', context, request=request)
-        #     return JsonResponse({'form':html})
 
         return render(request, 'social/post_detail.html', context)
-        # return redirect('social/post-detail', context)
-
-
-#     # # ajax .. comment is posted w/o refresh .. problem is if user clicks like/dislike button data returned instead of html page user has to refresh page
-#     # def post(self, request, pk, *args, **kwargs):
-#     #     post = Post.objects.get(pk=pk)
-#     #     form = CommentForm(request.POST)
-
-#     #     if form.is_valid():
-#     #         new_comment = form.save(commit=False)
-#     #         new_comment.author = request.user
-#     #         new_comment.post = post
-#     #         new_comment.save()
-#     #         new_comment.create_tags()
-#     #         form = CommentForm()
-
-#     #     p = Paginator(Comment.objects.filter(post=post), 10)
-#     #     page = request.GET.get('page')
-#     #     comments = p.get_page(page)
-
-#     #     notification = Notification.objects.create(notification_type=2, from_user=request.user, to_user=post.author, post=post)
-#     #     context = {
-#     #         'post': post,
-#     #         'form': form,
-#     #         # 'comments': comments,
-#     #         'comments': comments,
-#     #     }
-#     #     ## KEEP AJAX .. when user makes a comment .. page doesnt refresh .. if user clicks like.dislike data returned instead of html page ... user has to refesh page to like.dislike
-#     #     # if request.is_ajax():
-#     #     if request.accepts("application/json"):
-#     #         html = render_to_string('social/comments.html', context, request=request)
-#     #         return JsonResponse({'form':html})
-
-#     #     return render(request, 'social/post_detail.html', context)
-#     #     # return redirect('social/post-detail', context)
-
-
 
 # post edit
 class PostEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -785,45 +637,8 @@ class CommentReplyView(LoginRequiredMixin, ListView):
             new_comment.save()
 
         notification = Notification.objects.create(notification_type=2, from_user=request.user, to_user=parent_comment.author, comment=new_comment)
-        # if request.is_ajax():
-        #     html = render_to_string('social/comments.html', context, request=request)
-        #     return JsonResponse({'form':html})
         return redirect('post-detail', pk=post_pk)
        
-    # ajax post 
-    # def post(self, request, pk, post_pk, *args, **kwargs):
-    #     post = Post.objects.get(pk=post_pk)
-    #     parent_comment = Comment.objects.get(pk=pk)
-    #     # comments = Comment.objects.get(pk=pk)
-
-    #     form = CommentForm(request.POST)
-
-    #     if form.is_valid():
-    #         new_comment = form.save(commit=False)
-    #         new_comment.author = request.user
-    #         new_comment.post = post
-    #         new_comment.parent = parent_comment
-    #         new_comment.save()
-
-
-
-    #     notification = Notification.objects.create(notification_type=2, from_user=request.user, to_user=parent_comment.author, comment=new_comment)
-    #     context = {
-    #         'post': post,
-    #         'form': form,
-    #         # 'comment_count': comment_count,
-    #         'parent_comment': parent_comment,
-    #     }
-    #     # ajax works but comments html doesnt return 
-    #     # if request.is_ajax():
-    #     if request.accepts("application/json"):
-    #         html = render_to_string('social/comments.html', context, request=request)
-    #         return JsonResponse({'form':html})
-    #     return redirect('post-detail', context,  pk=post_pk)
-    #     # return render(request, 'social/post_detail.html', context, pk=post_pk)
-
-
-
 # comment delete
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Comment
@@ -981,42 +796,6 @@ class CommentReplyViewPage(LoginRequiredMixin, ListView):
         # return render(request, 'social/post_comment_replies.html', context)
         return redirect('view_comment_reply', pk=post_pk)
 
-
-# class CommentReplyViewPage(LoginRequiredMixin, ListView):
-#     def get(self, request, pk, post_pk, *args, **kwargs):
-#         post = Post.objects.get(pk=post_pk)
-
-#         form = CommentForm()
-#         comment = Comment.objects.get(pk=pk)
-#         context = {
-#             'form': form,
-#             'post': post,
-#             'comment': comment,
-#         }
-#         return render(request, 'social/post_comment_replies.html', context)
-#     def post(self, request, pk, post_pk, *args, **kwargs):
-#         post = Post.objects.get(pk=post_pk)
-#         parent_comment = Comment.objects.get(pk=pk)
-#         form = CommentForm(request.POST)
-
-#         if form.is_valid():
-#             new_comment = form.save(commit=False)
-#             new_comment.author = request.user
-#             new_comment.post = post
-#             new_comment.parent = parent_comment
-#             new_comment.save()
-
-#         notification = Notification.objects.create(notification_type=2, from_user=request.user, to_user=parent_comment.author, comment=new_comment)
-#         # if request.is_ajax():
-#         #     html = render_to_string('social/comments.html', context, request=request)
-#         #     return JsonResponse({'form':html})
-#         return redirect('post-detail', pk=post_pk)
-
-
-
-
-
-
 # reply delete on replies view page 
 class ReplyPageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Comment
@@ -1031,21 +810,6 @@ class ReplyPageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         comment = self.get_object()
         return self.request.user == comment.author
-
-    ## tried to get replies and return them into ajax function with load more button 
-    # def get(self, *args, **kwargs):
-    #     upper = kwargs.get('num_replies')
-    #     lower = upper - 3
-    #     replies = list(Comment.objects.get(children).values()[lower:upper])
-    #     replies_size = len(Comment.objects.get(children).all())
-    #     max_size = True if upper >= replies_size else False
-    #     # return JsonResponse({'data': replies, 'max':max_size}, safe=False)
-    #     return redirect('post-detail', context={'data': replies, 'max':max_size})
-
-
-
-
-
 
 # followers 
 class ListFollowers(View):
@@ -1103,37 +867,6 @@ class ListFollowings(View):
         }
 
         return render(request, 'social/followings_list.html', context)
-
-
-
-
-
-
-
-
-
-
- 
-
-      
-
-
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
-
 
 class ProfileAddLike(LoginRequiredMixin, View):
     def post(self, request, id, pk, *args, **kwargs):
