@@ -1,6 +1,7 @@
-<p>SQL</p>
-{{users}}
+<p>Django ORM and SQL</p>
+<!-- {{users}} -->
 
 {% for i in users %}
-    <div>{{ i.first_name }} {{ i.last_name }} {{ i.username }} {{ i.email }}</div>
+    <div style="padding-bottom: 10;">USERNAME: {{ i.username }} -- EMAIL: {{ i.email }} -- FIRST_NAME: {{ i.first_name }} -- 
+        LAST_NAME: {{ i.last_name }} -- CITY: {{ i.city }} -- STATE: {{ i.state }}</div>
 {% endfor %}

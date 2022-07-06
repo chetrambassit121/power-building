@@ -397,11 +397,74 @@ def users_list_(request):
 
 
 # using exclude with & .. excluding based on 2 parameters
-def users_list(request):
+def users_list_(request):
     users = User.objects.exclude(first_name__startswith='chetram') & User.objects.exclude(last_name__startswith='doe')                                                                              
     print(users)            
     print(connection.queries)     
     return render(request, 'registration/users_list.html', {'users': users}) 
+
+
+
+# using parameters inside exclude ... WE DO NOT HAVE AN AGE FEILD USING AS AN EXMPLE CODING CANNOT EXECUTE UNTIL ADDING AGE FIELD TO MODELS
+def users_list_(request):
+    users = User.objects.exclude(age__gt=19)                                                                              
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users}) 
+
+    # gt       GREATER THAN
+    # gte      GREATER THAN OR EQUAL TO 
+    # lt       LESS NOT 
+    # lte      LESS THEN OR EQUAL TO 
+# this func will return all user queryes excluding those greater than age 19
+
+
+
+# using exclude wth Q and parameters
+def users_list_(request):
+    users = User.objects.exclude(~Q(age__gt=19))                                                                              
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users}) 
+# this func will return all user queryes excluding those greater than age 19
+
+
+
+# using exclude wth Q and parameters and & 
+def users_list_(request):
+    users = User.objects.exclude(~Q(age__gt=19)&~Q(first_name__Startswith='chetram'))                                                                              
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users}) 
+# exclusing queries based on two feilds 
+
+# .....................................................................
+
+
+
+
+
+
+
+
+
+# OVERVIEW 6 ... Simple field selection and output ... selecting indiviusal database fields .. outputting to template
+
+
+# using ONLY
+def users_list(request):
+    users = User.objects.filter(city_id=1).only('first_name')                                                                  
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users})
+    
+# get user based on city and return users firstname 
+
+
+
+
+
+
 
 
 
