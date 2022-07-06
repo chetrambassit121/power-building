@@ -227,16 +227,110 @@ class UserDeleteView(DeleteView):
     model = User
     success_url = reverse_lazy('login')
 
-# user sql view 
+
+
+
+
+
+
+
+
+# DATABASE ORM , SQL CODING !!!!!!!!!!!!!!!!
+# ACCESS SQLITE EXPLORER .. right click dqsqlite3 .. click open database .. sqlite explorer will aviable for viewing 
+
+
+
+# OVERVIEW 1 ... basic orm sql with django/python
+
+
+# user sql view basic 
+# def users_list(request):
+def users_list_(request):    # added _ to halt this method 
+    users = User.objects.all()   # variable users bound to all users with there fields 
+    # users = User.objects.raw("SELECT * FROM members_user")     # sql way of getting all users with feilds 
+
+    print(users)            # print users variable data into terminal
+    print(users.query)      # print the users querys into terminal 
+    print(connection.queries)    # print connections 
+    return render(request, 'registration/users_list.html', {'users': users})    # return html file with data 
+
+# go to http://localhost:7000/members/users_list/ ..SQL info dispayed in template and SQL will be displayed in terminal 
+
+
+
+
+
+
+
+
+# OVERVIEW 2 ... Simple object relational queries, simple OR query, Q objects - OR query, view query SQL, query performance 
+
+
+# created another function .. # filtering user by first name ... doing two filter searches at once 
+def users_list_(request):
+    users = User.objects.filter(first_name__startswith='chetram') | User.objects.filter(first_name__startswith='john')
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users})   
+
+# go to http://localhost:7000/members/users_list/   ... will display user information based on first_name .. on template and terminal 
+
+
+
+
+
+# implemented Q for more advacbed search ... same as previous coding with less code ...  filtering user by first name ... doing two filter searches at once 
+def users_list_(request):
+    # users = User.objects.filter(Q(first_name__startswith='chetram') | Q(first_name__startswith='john'))
+    users = User.objects.filter(~Q(first_name__startswith='chetram') | Q(first_name__startswith='john'))            # addded ~ to Q will halt that specfic Q search
+    # users = User.objects.filter(Q(first_name__startswith='john'))                                                 # searching just for john first_name
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users})   
+
+# go to http://localhost:7000/members/users_list/   ... will display user information based on first_name .. on template and terminal .. 
+# we can keep adding new Q searches
+
+# ...............................................................................................................
+
+
+
+
+
+
+#OVERVIEW 3 ... Simple AND queries .. exclude ... simple AND query, Q objects-AND query, view query sql, query performance
+
+
+
+# preform an AND query on database
+def users_list_(request):
+    users = User.objects.filter(city_id=1) & User.objects.filter(first_name__startswith='chetram')                                               
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users})   
+
+# go to http://localhost:7000/members/users_list/   ... will display users information based on city_id and first_name .. 
+# used & to search two different feilds and once 
+
+
+
+
+# using exclude 
 def users_list(request):
+    users = User.objects.exclude(city_id=1) & User.objects.filter(first_name__startswith='chetram')                                               
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users})   
 
-    
-    users = User.objects.all()   # displays all users with there fields 
-    # users = User.objects.raw("SELECT * FROM members_user")
+# go to http://localhost:7000/members/users_list/   ... exclude users with the following city_id and frist_name .. 
+# used exclude 
 
-    print(users)     # print data into terminal
-    # print(users.query)
-    print(connection.queries)
-    return render(request, 'registration/users_list.html', {'users': users})
 
-# go to http://localhost:7000/members/users_list/ .. queryset will be displayed in terminal 
+
+
+
+
+
+
+
+
