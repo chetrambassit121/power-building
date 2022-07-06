@@ -334,3 +334,18 @@ def users_list(request):
     return render(request, 'registration/users_list.html', {'users': users})
 # change cursor.execute() to which ever querying we want to do 
 # ..............................................................
+
+
+
+
+
+
+
+
+# OVERVIEW 9 ... ORM series ... intro to model inheritance
+# abstract models, multi-table model inheritance, proxy models
+# the coding for this concept is in our members.models file 
+
+
+
+
