@@ -213,6 +213,26 @@ class ISBN(Books):
 
 
 
+# Proxy Model
+#Used ... change the behavior of a model ... proxy models operation on the original model 
+class NewManager(models.Manager):
+    pass
+
+class BookContent(models.Model):
+    title = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+
+class BookOrders(BookContent):
+    objects = NewManager()
+    class Meta:
+        proxy = True
+        ordering = ['created']
+
+    def created_on(self):
+        return timezone.now() - self.created
+
+
+
 
 
 
