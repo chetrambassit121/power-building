@@ -158,18 +158,16 @@ class BroadCast_Email(models.Model):
 # OVERVIEW 9 ... ORM series ... intro to model inheritance
 # abstract models, multi-table model inheritance, proxy models
 
+# all of these models available on sqlite explorer
+# didnt add any of these models into admin panel until being used
+
+
+
+
 # abstract models .. abstract base classes - ABC
 # Used when you have common information needed for number of other models 
 # ABC - does not get created ... fields added to other child classes (models)
-
-# multi-table model inheritance
-# differences .. every model is a model all by itself .. one-to-one link is created automatically
-
-
-
-
-
-# Abstract Model ... all of these models available on sqlite explorer .. didnt add any of these classes into admin panel until being used
+# Abstract Model ...  .. 
 class BaseItem(models.Model):
     title = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True)
@@ -196,6 +194,26 @@ class ItemC(BaseItem):
 
 class ItemD(BaseItem):
     slug = models.SlugField(max_length=255, unique=True)
+
+
+
+# multi-table model inheritance
+# differences .. every model is a model all by itself .. one-to-one link is created automatically
+class Books(models.Model):
+    title = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+
+class ISBN(Books):
+    books_ptr = models.OneToOneField(
+        Books, on_delete=models.CASCADE,
+        parent_link=True,
+        primary_key=True,
+    )
+    ISBN = models.TextField()
+
+
+
+
 
 
 
