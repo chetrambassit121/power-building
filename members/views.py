@@ -237,7 +237,7 @@ class UserDeleteView(DeleteView):
 
 # DATABASE ORM , SQL CODING !!!!!!!!!!!!!!!!
 # ACCESS SQLITE EXPLORER .. right click dqsqlite3 .. click open database .. sqlite explorer will aviable for viewing 
-
+# remove the _ at the end of the function to use it
 
 
 # OVERVIEW 1 ... basic orm sql with django/python
@@ -251,7 +251,7 @@ def users_list_(request):    # added _ to halt this method
 
     print(users)            # print users variable data into terminal
     print(users.query)      # print the users querys into terminal 
-    print(connection.queries)    # print connections 
+    print(connection.queries)    # sql connections query displayes time as well to load data 
     return render(request, 'registration/users_list.html', {'users': users})    # return html file with data 
 
 # go to http://localhost:7000/members/users_list/ ..SQL info dispayed in template and SQL will be displayed in terminal 
@@ -304,26 +304,75 @@ def users_list_(request):
 
 # preform an AND query on database
 def users_list_(request):
-    users = User.objects.filter(city_id=1) & User.objects.filter(first_name__startswith='chetram')                                               
+    users = User.objects.filter(city_id=1) & User.objects.filter(state_id=1)                                               
     print(users)            
     print(connection.queries)     
     return render(request, 'registration/users_list.html', {'users': users})   
 
-# go to http://localhost:7000/members/users_list/   ... will display users information based on city_id and first_name .. 
+# go to http://localhost:7000/members/users_list/   ... will display users information based on city_id and state_id .. both feilds must be TRUE
+# used & to search two different feilds and once 
+
+
+# preform an AND query WITH Q on database
+def users_list_(request):
+    users = User.objects.filter(Q(first_name__startswith='chetram') & Q(last_name__startswith='bassit'))                                              
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users})   
+
+# go to http://localhost:7000/members/users_list/   ... will display users information based on specfic fields 
 # used & to search two different feilds and once 
 
 
 
-
-# using exclude 
-def users_list(request):
-    users = User.objects.exclude(city_id=1) & User.objects.filter(first_name__startswith='chetram')                                               
+# using exclude with & and Q
+def users_list_(request):
+    users = User.objects.exclude(Q(first_name__startswith='chetram') & Q(last_name__startswith='bassit'))                                              
+    # users = User.objects.exclude(city_id=1) & User.objects.filter(first_name__startswith='chetram')                                               
     print(users)            
     print(connection.queries)     
     return render(request, 'registration/users_list.html', {'users': users})   
 
-# go to http://localhost:7000/members/users_list/   ... exclude users with the following city_id and frist_name .. 
+# go to http://localhost:7000/members/users_list/   ...returns all user but exclude users with the following fields .. 
 # used exclude 
+
+
+
+
+
+
+
+
+#OVERVIEW 4 ... Simple UNION queries ... Simple UNION query, view query sql, query performance
+# usng the User model and the UserProfile model ... using UNION to acces data from both models 
+
+# values_list and using UNION 
+def users_list_(request):
+    users = User.objects.all().values_list("first_name").union(UserProfile.objects.all().values_list("first_name"))                                                                                      
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users})
+
+# gets first name for both User model and UserProfile model ... if firstname is in both models it will only be displayed once
+# so it also doesnt display duplicate fistnames 
+
+
+
+# values and using UNION     .......   different from values_list .... return in dictionary form "value":"key"
+def users_list(request):
+    users = User.objects.all().values("first_name").union(UserProfile.objects.all().values("first_name"))                                                                                      
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users}) 
+
+
+
+
+
+
+
+
+
 
 
 
