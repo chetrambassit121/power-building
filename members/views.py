@@ -452,13 +452,62 @@ def users_list_(request):
 
 
 # using ONLY
-def users_list(request):
+def users_list_(request):
     users = User.objects.filter(city_id=1).only('first_name')                                                                  
     print(users)            
     print(connection.queries)     
     return render(request, 'registration/users_list.html', {'users': users})
     
 # get user based on city and return users firstname 
+
+# ......................................................................................
+
+
+
+
+
+
+
+
+# OVERVIEW 7 .. performing RAW queries with SQL
+# raw method takes a raw SQL query and executes them 
+
+
+
+def users_list_(request):
+    sql = "SELECT * FROM members_user"
+    users = User.objects.raw(sql)            # select everything from members app, user model                                                       
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users})
+# will display all queries from that table members_user 
+
+
+
+# elect everything from members app, user model, where the last name is doe 
+def users_list_(request):
+    users = User.objects.raw("SELECT * FROM members_user WHERE last_name='doe'")                                                          
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users})
+# displays all data if last name is doe 
+
+
+
+# 
+def users_list(request):
+    users = User.objects.all()
+    for u in User.objects.raw("SELECT * FROM members_user"):
+        print(u)
+
+    # print(users)            
+    # print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users})
+# .................................................
+
+
+
+
 
 
 
