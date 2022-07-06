@@ -336,6 +336,8 @@ def users_list_(request):
 # go to http://localhost:7000/members/users_list/   ...returns all user but exclude users with the following fields .. 
 # used exclude 
 
+# ...........................................................................................
+
 
 
 
@@ -359,11 +361,54 @@ def users_list_(request):
 
 
 # values and using UNION     .......   different from values_list .... return in dictionary form "value":"key"
-def users_list(request):
+def users_list_(request):
     users = User.objects.all().values("first_name").union(UserProfile.objects.all().values("first_name"))                                                                                      
     print(users)            
     print(connection.queries)     
     return render(request, 'registration/users_list.html', {'users': users}) 
+
+
+# ......................................................
+
+
+
+
+
+
+
+
+#OVERVIEW 5 ... Simple NOT queries ... Simple NOT query, view query sql, query performance
+
+# NOT Eexample in SQL lanuage 
+# SELECT * FROM Users WHERE NOT first_name = chetram
+
+# NOT Eexample in ORM lanuage 
+# exclude()
+# filter(~Q)
+
+
+# using exclude 
+def users_list_(request):
+    users = User.objects.exclude(first_name__startswith='chetram')                                                                                      
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users}) 
+
+
+
+# using exclude with & .. excluding based on 2 parameters
+def users_list(request):
+    users = User.objects.exclude(first_name__startswith='chetram') & User.objects.exclude(last_name__startswith='doe')                                                                              
+    print(users)            
+    print(connection.queries)     
+    return render(request, 'registration/users_list.html', {'users': users}) 
+
+
+
+
+
+
+
 
 
 
