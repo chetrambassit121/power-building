@@ -20,6 +20,7 @@ from django.urls import include                  # added
 from django.conf import settings                 # added
 from django.conf.urls.static import static       # added
 from django.contrib.auth import views as auth_views    # added 
+import debug_toolbar
 # from rest_framework_jwt.views import obtain_jwt_token
 
 
@@ -34,6 +35,7 @@ urlpatterns = [
     # path('api/auth/token/', obtain_jwt_token),
     path('api/social/', include("social.api.urls"), name='social-api'),
     path('api/users/', include("members.api.urls"), name='users-api'),
+    path('__debug__/', include(debug_toolbar.urls)),
 
     # path(r'^api/social/', include("social.api.urls")),
 

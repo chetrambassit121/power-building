@@ -53,22 +53,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    'django_extensions',               # added 
-    'powerbuilding_information',       # added this app we created 
-    'members',                         # added this app we created 
-    'social',                         # added this app we created 
+
+    'powerbuilding_information',       
+    'members',                         
+    'social',  
+    'lists',
+
+    # third party 
+    'django_extensions',               
     'crispy_forms',                    # added this app we downloaded ... this helps with any forms we want to create like login form, register form ... etc 
                                        # https://django-crispy-forms.readthedocs.io/en/latest/install.html#installing-django-crispy-forms 
     'ckeditor',                        # added this app we downloaded ... will help upload photos more easily
                                        # https://pytutorial.com/django-ckeditor
-    # 'django_ckeditor_5',               # added this version of ck editior as well 
+    # 'django_ckeditor_5',             # added this version of ck editior as well 
                                        # https://pypi.org/project/django-ckeditor-5/
     'ckeditor_uploader',               # added this since we downloaded ckeditor this is required for app to work 
     'rest_framework',
     "whitenoise.runserver_nostatic",
     # 'django-nose',
-    'lists',
+    'debug_toolbar'
 ]
 
 
@@ -80,6 +83,9 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -219,26 +225,6 @@ LOGOUT_REDIRECT_URL = 'home'                                                    
 
 
 # added all email information which connects to the information in .env file .. we do not want our sensative information displayed here rather its displayed in hidden .env file
-# EMAIL_BACKEND = config('EMAIL_BACKEND') 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-# EMAIL_BACKEND=config('EMAIL_BACKEND')
-# EMAIL_USE_TLS=config('EMAIL_USE_TLS')
-# EMAIL_HOST=config('EMAIL_HOST')
-# EMAIL_HOST_USER=config('EMAIL_HOST_USER')
-# DEFAULT_FROM_EMAIL=config('DEFAULT_FROM_EMAIL')
-# EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
-# EMAIL_PORT=config('EMAIL_PORT') 
-
-# EMAIL_BACKEND=os.environ.get('EMAIL_BACKEND')
-# EMAIL_USE_TLS=os.environ.get('EMAIL_USE_TLS')
-# EMAIL_HOST=os.environ.get('EMAIL_HOST')
-# EMAIL_HOST_USER=os.environ.get('EMAIL_HOST_USER')
-# DEFAULT_FROM_EMAIL=os.environ.get('DEFAULT_FROM_EMAIL')
-# EMAIL_HOST_PASSWORD=os.environ.get('EMAIL_HOST_PASSWORD')
-# EMAIL_PORT=os.environ.get('EMAIL_PORT') 
-
-
 EMAIL_BACKEND=str(os.getenv('EMAIL_BACKEND'))
 EMAIL_USE_TLS=str(os.getenv('EMAIL_USE_TLS'))
 EMAIL_HOST=str(os.getenv('EMAIL_HOST'))
@@ -246,36 +232,6 @@ EMAIL_HOST_USER=str(os.getenv('EMAIL_HOST_USER'))
 DEFAULT_FROM_EMAIL=str(os.getenv('DEFAULT_FROM_EMAIL'))
 EMAIL_HOST_PASSWORD=str(os.getenv('EMAIL_HOST_PASSWORD'))
 EMAIL_PORT=str(os.getenv('EMAIL_PORT'))
-
-
-# EMAIL_BACKEND = config('EMAIL_BACKEND')
-# EMAIL_USE_TLS = config('EMAIL_USE_TLS')
-# EMAIL_HOST = config('EMAIL_HOST')
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-# EMAIL_PORT = config('EMAIL_PORT')
-
-# EMAIL_HOST = os.getenv('EMAIL_HOST')
-# EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
-# EMAIL_PORT = os.getenv('EMAIL_PORT')
-# EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-# # DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
-# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-
-# EMAIL_HOST = config('EMAIL_HOST')
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-# EMAIL_USE_TLS = config('EMAIL_USE_TLS')
-# EMAIL_PORT = config('EMAIL_PORT')
-# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
-
-# EMAIL_HOST=os.getenv('EMAIL_HOST')
-# EMAIL_HOST_USER=os.getenv('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD=os.getenv('EMAIL_HOST_PASSWORD')
-# EMAIL_USE_TLS=os.getenv('EMAIL_USE_TLS')
-# EMAIL_PORT=os.getenv('EMAIL_PORT')
-
 ###########################################
 
 
@@ -308,6 +264,30 @@ REST_FRAMEWORK = {
     ]
 
 }
+
+# required for django-debugger-toolbar
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+DEBUG_TOOLBAR_PANELS = [
+    'debug_toolbar.panels.history.HistoryPanel',
+    'debug_toolbar.panels.versions.VersionsPanel',
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.settings.SettingsPanel',
+    'debug_toolbar.panels.headers.HeadersPanel',
+    'debug_toolbar.panels.request.RequestPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'debug_toolbar.panels.cache.CachePanel',
+    'debug_toolbar.panels.signals.SignalsPanel',
+    'debug_toolbar.panels.logging.LoggingPanel',
+    'debug_toolbar.panels.redirects.RedirectsPanel',
+    'debug_toolbar.panels.profiling.ProfilingPanel',
+]
+
+
 
 django_on_heroku.settings(locals())    # added ... required for django heroku 
 
