@@ -92,10 +92,10 @@ class Post(models.Model):
 
     # objects = PostManager()
 
-    def save(self, *args, **kwargs):  # new
-        if not self.slug:
-            self.slug = slugify(self.body)
-        return super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):  # new
+    #     if not self.slug:
+    #         self.slug = slugify(self.body)
+    #     return super().save(*args, **kwargs)
 
     def create_tags(self):
         for word in self.body.split():
