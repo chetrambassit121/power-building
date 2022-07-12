@@ -1,11 +1,8 @@
-# LOGIC .... user detail serializer 
-
 from asyncore import write
 from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField, SerializerMethodField, ValidationError, EmailField, CharField # charfield                
 
 from social.models import Post, Comment
                                    
-
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 from members.models import User, UserProfile, State, City 
