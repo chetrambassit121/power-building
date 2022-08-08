@@ -71,7 +71,9 @@
   <div class="container-fluid">
 <!--     <a style="text-decoration: none;" href="{% url 'post-list' %}"><h4 id="fh5co-logo"><b style="color: white;">Power-</b><span style="color: black; margin: 0,0,0,0">Building Social</span></h4></a> &nbsp;&nbsp;&nbsp; -->
   <a style="text-decoration: none;" href="{% url 'post-list' %}"><h6 id="fh5co-logo1"><b style="color: black;">Power-</b><span style="color: white;">Building Social</span></h6></a> &nbsp;&nbsp;&nbsp;
-    <p style="padding-top: 10px">Try out the application! Username: GuestUser1, Password: power9000</p>
+    {% if not user.is_authenticated %}
+      <p style="padding-top: 10px">Try out the application! Username: GuestUser1, Password: power9000</p>
+    {% endif %}
     {% if user.is_authenticated %}
       <a href="{% url 'notifications' %}" class="badge bg-primary notification-badge" style="background-color: black;">{% show_notifications %}</a>
     {% endif %}
