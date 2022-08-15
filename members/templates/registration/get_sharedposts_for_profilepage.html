@@ -4,48 +4,18 @@
 {% block content %}
 
 
-
  <div class="row mt-5">
     <div class="col-md-3 col-sm-6">
       <a href="{% url 'post-list' %}" class="btn btn-light">Social Feed</a>
     </div>
   </div>
-
-  
   <div class="row justify-content-center mt-5">
     <div class="col-md-8 col-sm-12 border px-5 pt-3">
       <div class="text-center">
         <h1 class="row justify-content-center mt-3">User Profile</h1> 
         <h5>{{ profile }}</h5>  
         <h6>
-
-
           <a href="{% url 'list-followers' profile.pk %}" class="post-link">Followers: {{ number_of_followers }}</a>&nbsp;&nbsp; 
-          <!-- <a href="{ url 'list-followings' profile.pk %}" class="post-link">Following: {{ number_of_followings }}</a>&nbsp;&nbsp; -->
-          <!-- <a href="#" class="post-link">Following: {{ number_of_followings }}</a>&nbsp;&nbsp; -->
-
-
-        <!--   <b> following : </b>
-          <p class="text-muted"> {{ author.following.count }} </p>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-          <b> followers : </b>
-          <p class="text-muted"> {{ author.followers.count }} </p> -->
-
-
-         <!--  <div class="level-item has-text-centered">
-            <div>
-              <p class="heading">Following</p>
-              <a href="{ url 'list-followings' profile.pk %}"><p class="title">{{ following_count }}</p></a>
-            </div>
-          </div>
-          <div class="level-item has-text-centered">
-            <div>
-              <p class="heading">Followers</p>
-              <p class="title">{{ followers_count }}</p>
-            </div>
-          </div> -->
-
-
           {% if request.user == user %}
             <a href="{% url 'edit_profile_page' request.user.profile.pk %}">Edit Profile Page</a> &nbsp;&nbsp; 
             <a href="{% url 'edit_profile' request.user.profile.pk %}">Edit User Settings</a>
@@ -60,79 +30,50 @@
           <img src="{% static 'operationfreedom/images/profile_pictures/default_pic.jpg' %}" class="rounded-circle" width="100" height="100">
         {% endif %}
       </div>
-      <!-- <div class="col-md-10"> -->
-        <div class="card-body">
-          <div class="text-center">
-            <h5 class="card-title">{% if profile.first_name %}{{ profile.first_name }}{% endif %} {% if profile.last_name %}{{ profile.last_name }}{% endif %} </h5>
-            <p class="small text-muted">
-              {% if profile.website_url %}
-                <a target="_blank" href="{{ profile.website_url }}">Website</a>  
-              {% endif %}
-              {% if profile.facebook_url %}
-                | <a target="_blank" href="{{ profile.facebook_url }}">Facebook</a> 
-              {% endif %}
-              {% if profile.twitter_url %} 
-                | <a target="_blank" href="{{ profile.twitter_url }}">Twitter</a> 
-              {% endif %}
-              {% if profile.instagram_url %} 
-                | <a target="_blank" href="{{ profile.instagram_url }}">Instagram</a> 
-              {% endif %}
-              {% if profile.pinterest_url %} 
-                | <a target="_blank" href="{{ profile.pinterest_url }}">Pinterest</a> 
-              {% endif %}
-              <br>
-              {% if profile.location %}
-              <p>Location: {{ profile.location }}</p>
-              {% endif %}
-
-              {% if profile.birth_date %}
+      <div class="card-body">
+        <div class="text-center">
+          <h5 class="card-title">{% if profile.first_name %}{{ profile.first_name }}{% endif %} {% if profile.last_name %}{{ profile.last_name }}{% endif %} </h5>
+          <p class="small text-muted">
+            {% if profile.website_url %}
+              <a target="_blank" href="{{ profile.website_url }}">Website</a>  
+            {% endif %}
+            {% if profile.facebook_url %}
+              | <a target="_blank" href="{{ profile.facebook_url }}">Facebook</a> 
+            {% endif %}
+            {% if profile.twitter_url %} 
+              | <a target="_blank" href="{{ profile.twitter_url }}">Twitter</a> 
+            {% endif %}
+            {% if profile.instagram_url %} 
+              | <a target="_blank" href="{{ profile.instagram_url }}">Instagram</a> 
+            {% endif %}
+            {% if profile.pinterest_url %} 
+              | <a target="_blank" href="{{ profile.pinterest_url }}">Pinterest</a> 
+            {% endif %}
+            <br>
+            {% if profile.location %}
+            <p>Location: {{ profile.location }}</p>
+            {% endif %}
+            {% if profile.birth_date %}
               <p>Birthday: {{ profile.birth_date }}</p>
-              {% endif %}
-
-              {% if user == request.user %}
+            {% endif %}
+            {% if user == request.user %}
+            {% else %}
+              {% if is_following %}
+                <form method="POST" action="{% url 'remove-follower' profile.pk %}">
+                  {% csrf_token %}
+                  <button class="btn btn-outline-danger" type="submit">Unfollow</button>
+                </form>
               {% else %}
-                {% if is_following %}
-                  <form method="POST" action="{% url 'remove-follower' profile.pk %}">
-                    {% csrf_token %}
-                    <button class="btn btn-outline-danger" type="submit">Unfollow</button>
-                  </form>
-                {% else %}
-                  <form method="POST" action="{% url 'add-follower' profile.pk %}">
-                    {% csrf_token %}
-                    <button class="btn btn-outline-success" type="submit">Follow</button>
-                  </form>
-                {% endif %}
+                <form method="POST" action="{% url 'add-follower' profile.pk %}">
+                  {% csrf_token %}
+                  <button class="btn btn-outline-success" type="submit">Follow</button>
+                </form>
               {% endif %}
-
-
-           <!--    {if user == request.user %}
-              { else %}
-                { if user in author.following.all %}
-                  <a href="{ url 'followToggle' author=author.user.pk  %}" class="btn btn-primary">Unfollow</a>
-                { else %}
-                  <a href="{ url 'followToggle' author=author.user.pk  %}" class="btn btn-primary"> Follow </a>
-                { endif %}
-              { endif %} -->
-
-             <!--  { if user == request.user %}
-              { else %}
-                <div class="media-right">
-                  { if follow_status == True %}
-                    <a href="{ url 'follow' profile.user 0 %}" class="button is-danger">Unfollow</a>
-                  { else %}
-                    <a href="{ url 'follow' profile.user 1 %}" class="button is-success">Follow</a>
-                  { endif  %}
-                </div>
-              { endif %} -->
-
-
-
-            </p>  
-            <p class="card-text">{{ profile.bio }}</p>
-            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-          </div>
+            {% endif %}
+          </p>  
+          <p class="card-text">{{ profile.bio }}</p>
         </div>
-      <!-- </div> -->
+      </div>
     </div>
   </div>
   <div class="row justify-content-center mt-3 mb-5"><div class="col-md-5 col-sm-12"><div class="flexbox-item-99"><div class="header-info2">
@@ -178,10 +119,6 @@
         <a href="{% url 'post-detail' sharedpost.pk %}" class="stretched-link"></a>
       </div>
     </div>
-
-
-
-
     <div class="d-flex flex-row">
       <form method="POST" action="{% url 'shared-profile-like' profile.pk sharedpost.id   %}" class="like-form" id="{{sharedpost.id}}">
         {% csrf_token %}
@@ -197,7 +134,6 @@
           </button>
         {% endif %}
       </form>
-      
       <form method="POST" action="{% url 'shared-profile-dislike' profile.pk sharedpost.id  %}" class="dislike-form" id='{{sharedpost.id}}'>
         {% csrf_token %}
         {% if request.user not in sharedpost.dislikes.all %}
@@ -212,7 +148,6 @@
           </button>
         {% endif %}
       </form>
-
       <p>Comments: {{ comment.count }}</p>
     </div>
     </div>
@@ -224,9 +159,7 @@
       <a href="?page=1">&laquo First</a>
       <a href="?page={{ sharedposts.previous_page_number }}">Previous</a>
     {% endif %}
-
     Page {{ sharedposts.number }} of {{ sharedposts.paginator.num_pages }}
-
     {% if sharedposts.has_next %}
       <a href="?page={{ sharedposts.next_page_number }}">Next</a>
       <a href="?page={{ sharedposts.paginator.num_pages }}">Last &raquo</a>
@@ -234,33 +167,22 @@
   </div>
 </div>
 
-
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
 <script type="text/javascript">
   $(document).ready(function(){
-
-    //like ajax call
     $('.like-form').submit(function(e){
       e.preventDefault();
-      // const post_id=$(`.like-btn${post_id}`).val();
-      // const post_id=$('.like-btn').val();
-
       const post_id=$(this).attr('id')
       const likeText = $(`.like-btn${post_id}`).text()
       const trim = $.trim(likeText)
       const url=$(this).attr('action') 
       let res;
       const like = $(`.like_count${post_id}`).text()
-      // const trimCount = parseInt(like)
-      // const token=$('input[name=csrfmiddlewaretoken]').val();
       $.ajax({
         method:"POST",
         url:url,
-        // headers:{'X-CSRFToken': token},
         data:{
           'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-          // 'profile':profile,
           'post_id':post_id,
         },
         success:function(response){
@@ -285,12 +207,8 @@
       })
     });
 
-
-    //dislike ajax call
-
     $('.dislike-form').submit(function(e){
       e.preventDefault();
-      // const post_id=$(".dislike-btn").val();
       const token=$('input[name=csrfmiddlewaretoken]').val();
       const post_id = $(this).attr('id')
       const dislikeText = $(`.dislike-btn${post_id}`).text()
@@ -302,10 +220,8 @@
       $.ajax({
         method:"POST",
         url:url,
-        // headers:{"X-CSRFToken": token},
         data:{
           'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-          // 'profile':profile,
           'post_id':post_id,
         },
         success:function(response){
@@ -314,7 +230,6 @@
           }else{
             $(`.dislike-icon${post_id}`).removeClass("btn-success")
           }
-
           if(response.liked===true){
             $(`.like-icon${post_id}`).addClass('btn-success')
           }else{
@@ -334,39 +249,4 @@
   });
 </script>
 
-
 {% endblock %}
-
-
-
-
-  <div class="d-flex flex-row">
-      <form method="POST" action="{% url 'profile-like' sharedpost.pk %}">
-        {% csrf_token %}
-        {% if user not in sharedpost.likes.all %}
-          <input type="hidden" name="next" value="{{ request.path }}">
-          <button class="remove-default-btn" type="submit">
-            <i class="far fa-thumbs-up" style="color: white"><span>{{ sharedpost.likes.all.count }}</span></i>
-          </button>
-        {% else %}
-          <input type="hidden" name="next" value="{{ request.path }}">
-          <button class="remove-default-btn" type="submit">
-            <i class="far fa-thumbs-up btn-success" style="color: white"><span>{{ sharedpost.likes.all.count }}</span></i>
-          </button>
-        {% endif %}
-      </form>
-      <form method="POST" action="{% url 'profile-dislike' sharedpost.pk %}">
-        {% csrf_token %}
-        {% if user not in sharedpost.dislikes.all %}
-          <input type="hidden" name="next" value="{{ request.path }}">
-          <button class="remove-default-btn" type="submit">
-            <i class="far fa-thumbs-down" style="color: white"> <span>{{ sharedpost.dislikes.all.count }}</span></i>
-          </button>
-        {% else %}
-          <input type="hidden" name="next" value="{{ request.path }}">
-          <button class="remove-default-btn" type="submit">
-            <i class="far fa-thumbs-down btn-success" style="color: white"> <span>{{ sharedpost.dislikes.all.count }}</span></i>
-          </button>
-        {% endif %}
-      </form>
-    </div>

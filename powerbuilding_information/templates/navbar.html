@@ -1,10 +1,6 @@
 {% load custom_tags %}
-
-
-
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: black;">
   <div class="container-fluid">
-    <!-- <a class="navbar-brand" href="{% url 'home' %}">NY for Choice</a> -->
     <a style="text-decoration: none;" href="{% url 'home' %}"><h4 id="fh5co-logo"><b style="color: darkred;">Power-</b><span style="color: white;">Building</span></h4></a>  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
     <button class="navbar-toggler" style="background-color: darkred;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -29,31 +25,17 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'powerbuilding' %}">Powerbuilding</a>
         </li> 
-        {% if user.is_authenticated %}
-        
-        {% else %}
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="{ url 'register' %}">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{ url 'login' %}">Login</a>
-          </li> -->
-        {% endif %}
       </ul>
-
       {% if user.is_authenticated %}
         <div class="dropdown">
           <a href="{% url 'show_profile_page' request.user.profile.pk %}"><img class="round-circle post-img" height="35" width="35" src="{{ request.user.profile.picture.url }}" /></a>
           <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <!-- Current User: {{ user.username }} -->
             User Settings
           </button>
           <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" href="{% url 'edit_profile' request.user.profile.pk %}">Edit User Settings</a></li>
-            
             <li><a class="dropdown-item" href="{% url 'edit_profile_page' request.user.profile.pk %}">Edit Profile Page</a></li>
             <li><a class="dropdown-item" href="{% url 'show_profile_page' request.user.profile.pk %}">Show Profile Page</a></li>
-         
             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
           </ul>
         </div>              
@@ -63,13 +45,8 @@
 </nav>
 
 
-
-
-
-
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: darkred;">
   <div class="container-fluid">
-<!--     <a style="text-decoration: none;" href="{% url 'post-list' %}"><h4 id="fh5co-logo"><b style="color: white;">Power-</b><span style="color: black; margin: 0,0,0,0">Building Social</span></h4></a> &nbsp;&nbsp;&nbsp; -->
   <a style="text-decoration: none;" href="{% url 'post-list' %}"><h6 id="fh5co-logo1"><b style="color: black;">Power-</b><span style="color: white;">Building Social</span></h6></a> &nbsp;&nbsp;&nbsp;
     {% if not user.is_authenticated %}
       <p style="padding-top: 10px">Try out the application! Username: GuestUser1, Password: power9000</p>
@@ -82,24 +59,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03" stroke="darkred">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-       
       </ul>
-      
       {% if user.is_authenticated %}
         <form class="d-flex" method="GET" action="{% url 'profile-search' %}">
           <div class="input-group">
-            <!-- <span class="" id="basic-addon1">@</span> -->
             <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ request.GET.query }}">
             <button class="remove-default-btn" type="submit"><i class="fas fa-search"></i></button>
           </div>
         </form>
-        <div class="nav-item dropdown">
-          <!-- <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-expanded="false"><i class="fas fa-user"></i></a> -->
-          <!-- <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{url 'user_profile' request.user.profile.pk %}">Profile</a></li>
-            <li><a class="dropdown-item" href="{url 'account_logout' %}">Sign Out</a></li>
-          </ul> -->
-        </div>
         <div class="nav-item inbox-icon-container">
           <a class="hashtag-icon" href="{% url 'explore' %}">#</a>
           <a href="{% url 'inbox' %}" class="inbox-icon"><i class="far fa-paper-plane"></i></a>
@@ -108,7 +75,6 @@
       {% else %}
         <h6 style="color: black;">Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a> to interact with other users</h6>  
       {% endif %}
-      
     </div>
   </div>
 </nav>

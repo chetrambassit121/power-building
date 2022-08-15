@@ -88,17 +88,10 @@
                                 {% endif %}
                             </form> &nbsp;&nbsp;
                             <div>
-                              <!--   {% if comment.children %}
-                                    <button class="remove-default-btn reply-button"><a href="{ url 'view-comment-reply' comment.pk %}">Replies: {{comment.children.all.count}}</a></button>
-                                {% else %}
-                                    <p>Replies: 0</p>
-                                {% endif %} -->
-                               <!--  <button class="remove-default-btn reply-button"><a href="{ url 'view-comment-reply' comment.pk %}">Replies: {{comment.children.all.count}}</a></button> -->
                                 <button class="remove-default-btn reply-button"><a href="{% url 'view-comment-reply' comment.pk %}">Replies: {{comment.children.all.count}}</a></button>
                             </div>
                             &nbsp;&nbsp;
                             <div>
-                                <!-- <button class="remove-default-btn"><i class="far fa-comment-dots" style="color: white" onclick="commentReplyToggle('{{ comment.pk }}')"></i></button> -->
                                 <button class="remove-default-btn"><i class="far fa-comment-dots" onclick="commentReplyToggle('n{{ comment.pk }}')"></i></button>
                             </div>
                         </div>
@@ -106,16 +99,7 @@
                     <div class="reply-section">
                         {% include 'social/replies.html' %}
                     </div>
-                   
-
-
-           
                 </div>
-
-                   
-
-
-          
                 {% if comment.children %}
                     <div class="row justify-content-center mt-3"><div class="col-md-5 col-sm-12 border-bottom"></div></div>
                 {% endif %}  

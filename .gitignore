@@ -5,8 +5,10 @@ htmlcov
 notes.txt
 geckodriver.log
 sql.txt
-
-
+functional_tests.py
+lists
+serializers.txt
+views.txt
 
 # Created by https://www.gitignore.io/api/django
 # Edit at https://www.gitignore.io/?templates=django

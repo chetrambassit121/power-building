@@ -8,22 +8,29 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('social', '0019_posttest_authortest'),
+        ("social", "0019_posttest_authortest"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='posttest',
-            name='authortest',
+        migrations.RemoveField(model_name="posttest", name="authortest",),
+        migrations.AddField(
+            model_name="posttest",
+            name="dislikestest",
+            field=models.ManyToManyField(
+                blank=True,
+                default=None,
+                related_name="dislikestest",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='posttest',
-            name='dislikestest',
-            field=models.ManyToManyField(blank=True, default=None, related_name='dislikestest', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='posttest',
-            name='likestest',
-            field=models.ManyToManyField(blank=True, default=None, related_name='likestest', to=settings.AUTH_USER_MODEL),
+            model_name="posttest",
+            name="likestest",
+            field=models.ManyToManyField(
+                blank=True,
+                default=None,
+                related_name="likestest",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

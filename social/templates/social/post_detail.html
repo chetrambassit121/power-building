@@ -120,115 +120,8 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-<!-- AJAX for when user makes a comment page doesnt refresh ... problem is when user clicks like/dislike button data returned not html page
-... user has to refresh page  -->
-<!-- <script type="text/javascript">
-    $(document).on('submit', '.comment-form', function(event){
-        event.preventDefault();
-        console.log($(this).serialize());
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                $('.main-comment-section').html(response['form']);
-                $('textarea').val('');
-                function commentReplyToggle(parent_id) {
-                    const row = document.getElementById(parent_id);
-
-                    if (row.classList.contains('d-none')) {
-                        row.classList.remove('d-none');
-                    } else {
-                        row.classList.add('d-none');
-                    }
-                    $('textarea').val('');
-                };
-                
-                
-              
-            },
-            error: function(rs, e) {
-                console.log(rs.responseText);
-            },
-        });
-    });
-   
-</script> -->
-
-
-<!-- <script type="text/javascript">
-    $(document).on('submit', '.reply-form', function(event){
-        event.preventDefault();
-        console.log($(this).serialize());
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                $('.main-comment-section').html(response['form']);
-                $('textarea').val('');
-                function commentReplyToggle(parent_id) {
-                    const row = document.getElementById(parent_id);
-
-                    if (row.classList.contains('d-none')) {
-                        row.classList.remove('d-none');
-                    } else {
-                        row.classList.add('d-none');
-                    }
-                    $('textarea').val('');
-                };
-                
-                
-              
-            },
-            error: function(rs, e) {
-                console.log(rs.responseText);
-            },
-        });
-    });
-   
-</script> -->
-
-<!-- AJAX for when user makes a comm page doesnt refresh ... problem is when user clicks like/dislike button data returned not html page -->
-<!-- <script type="text/javascript">
-    $(document).on('submit', '.reply-form', function(event){
-        event.preventDefault();
-        console.log($(this).serialize());
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                $('.reply-section').html(response['form']);
-                // $('.main-comment-section').html(response['form']);
-
-                $('textarea').val('');
-                // $('.main-comment-section').html(response['form']);
-                // $('textarea').val('');
-                // $('reply-btn').click(function() {
-                //     $(this).parent().next('.replied-comments').fadeToggle():
-                //         $('textarea').val('');
-                // });
-                
-              
-            },
-            error: function(rs, e) {
-                console.log(rs.responseText);
-            },
-        });
-    });
-</script> -->
-
-
-
 <script type="text/javascript">
     $(document).ready(function(){
-
-         
         $('.like-form').submit(function(e){
             e.preventDefault();
             const comment_pk=$(this).attr('id')
@@ -265,7 +158,6 @@
                 }
             })
         });
-
 
         $('.dislike-form').submit(function(e){
             e.preventDefault();  

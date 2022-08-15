@@ -6,15 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('social', '0017_remove_comment_content_type_remove_comment_object_id_and_more'),
+        (
+            "social",
+            "0017_remove_comment_content_type_remove_comment_object_id_and_more",
+        ),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PostTest',
+            name="PostTest",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('bodytest', models.TextField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("bodytest", models.TextField()),
             ],
         ),
     ]

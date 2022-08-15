@@ -30,8 +30,6 @@
 	<h6 class="login-or-register">Only Users can answer survey questions! Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register!</a></h6>
 {% endif %}	
 <br><br>
-
-
 <h1 class="survey_header green" id="pl">Questions for Powerlifters</h1><hr>
 <div class="flexbox-container" >
 	{% if survey.4 %}
@@ -58,8 +56,6 @@
                                 {%endif%}
                                 <span class="like_count" id="like_count4">{{survey.4.num_likes}}</span>
                             </form>
-
-
                             <form action="{% url 'dislikes' survey.4.id%}" method="POST" class="dislike-form4">
                                 {% csrf_token %}
                                 {%if user not in survey.4.dislikes.all %}
@@ -81,7 +77,6 @@
                     {% else %}
 						<p>{{ survey.4.num_likes }} &nbsp; Yes</p>
 						<p>{{ survey.4.num_dislikes }} &nbsp; No</p>
-						<!-- <h5>Only Users can answer survey questions! Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register!</a></h5> -->
 					{% endif %}
                 </center>
             </div>
@@ -111,8 +106,6 @@
                                 {%endif%}
                                 <span class="like_count" id="like_count5">{{survey.5.num_likes}}</span>
                              </form>
-
-
                             <form action="{% url 'dislikes' survey.5.id%}" method="POST" class="dislike-form5">
                                 {% csrf_token %}
                                 {%if user not in survey.5.dislikes.all %}
@@ -134,14 +127,12 @@
                     {% else %}
 						<p>{{ survey.5.num_likes }} &nbsp; Yes</p>
 						<p>{{ survey.5.num_dislikes }} &nbsp; No</p>
-						<!-- <h5>Only Users can answer survey questions! Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register!</a></h5> -->
 					{% endif %}
                 </center>
             </div>
         </div>		
 	{% endif %}	
 </div>
-
 
 <h1 class="survey_header green" id="bb">Questions for Bodybuilders</h1><hr>
 	<div class="flexbox-container" >
@@ -367,28 +358,3 @@
 
 
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

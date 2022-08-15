@@ -33,36 +33,4 @@
     </div>
 </div>
 
-
 {% endblock %}
-
-	<!-- {% if user.is_authenticated %}
-		{% if user.id == profile.user.pk %}
-			<h1>Edit your Profile information</h1> 
-			<br/><br/>
-			<div class="form-group">                                         
-				<form method='POST' enctype="multipart/form-data">
-					<p>Please make sure all urls start with http:// and are correct links or else error</p>
-					{% csrf_token %}
-					{{ form.as_p }}
-					<button class="btn btn-secondary">Update Profile Page</button> 
-				</form>
-			</div>
-		{% else %}
-			You cannot edit another users profile 
-		{% endif %}
-	{% else %}
-		You are not allowed to edit unless your logged in 
-	{% endif %} -->
-
-
-	<h1>Edit your Profile information</h1> 
-	<br/><br/>
-	<div class="form-group">                                         
-		<form method='POST' enctype="multipart/form-data">
-			<p>Please make sure all urls start with http:// and are correct links or else error</p>
-			{% csrf_token %}
-			{{ form.as_p }}
-			<button class="btn btn-secondary">Update Profile Page</button> 
-		</form>
-	</div>

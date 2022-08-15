@@ -1,13 +1,9 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 
-<!-- <div class="dropdown">
-    <span class="badge bg-primary notification-badge" onclick="showNotifications()">{{ notifications.count }}</span>
-    <div class="dropdown-content d-none" id="notification-container"> -->
-<div class="row justify-content-center mt-3">
 
+<div class="row justify-content-center mt-3">
         {% for notification in notifications %}
             {% if notification.post %}
                 {% if notification.notification_type == 1 %}
@@ -44,12 +40,7 @@
                     <span class="dropdown-item-close" onclick="removeNotification(`{% url 'notification-delete' notification.pk %}`, `{{ request.path }}`)">&times;</span>
                 </div>
             {% endif %}
-        {% endfor %}
-        
+        {% endfor %}        
     </div>
 
-    
-
-
 {% endblock %}
-

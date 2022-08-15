@@ -1,9 +1,10 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm                                                                
-# from django.contrib.auth.models import User                             
-from django import forms 
-from .models import UserProfile, User, State, City
-
+from django import forms
+from django.contrib.auth.forms import (PasswordChangeForm, UserChangeForm,
+                                       UserCreationForm)
 from django.utils.safestring import mark_safe
+
+from .models import City, State, User, UserProfile
+
 
 class SignUpForm(UserCreationForm):              
 	                              
@@ -18,24 +19,22 @@ class SignUpForm(UserCreationForm):
 	def clean_email(self):
 		email = self.cleaned_data['email']
 		if User.objects.filter(email=email).exists():
-		    raise forms.ValidationError('Email already used')
+			raise forms.ValidationError('Email already used')
 		return email
 
 	def __init__(self, *args, **kwargs):                                    
 		super(SignUpForm, self).__init__(*args, **kwargs)                    
-		self.fields['username'].widget.attrs['class'] = 'form-control'
-		# self.fields['email'].widget.attrs['class'] = 'form-control'              
+		self.fields['username'].widget.attrs['class'] = 'form-control'            
 		self.fields['password1'].widget.attrs['class'] = 'form-control'      
 		self.fields['password2'].widget.attrs['class'] = 'form-control'   
 		self.fields['city'].queryset = City.objects.none()
-		# self.fields['branch'].queryset = Branch.objects.none()
 
 		if 'state' in self.data:
 			try:
 				state_id = int(self.data.get('state'))
 				self.fields['city'].queryset = City.objects.filter(state_id=state_id).order_by('name')
 			except (ValueError, TypeError):
-				pass  # invalid input from the client; ignore and fallback to empty City queryset
+				pass  
 		elif self.instance.pk:
 			self.fields['city'].queryset = self.instance.state.city_set.order_by('name')
 
@@ -65,17 +64,14 @@ class EditProfileForm(UserChangeForm):
 	def __init__(self, *args, **kwargs):                                    
 		super(EditProfileForm, self).__init__(*args, **kwargs)   
 		self.fields['city'].queryset = City.objects.none()  
-
 		if 'state' in self.data:
 			try:
 				state_id = int(self.data.get('state'))
 				self.fields['city'].queryset = City.objects.filter(state_id=state_id).order_by('name')
 			except (ValueError, TypeError):
-				pass  # invalid input from the client; ignore and fallback to empty City queryset
+				pass  
 		elif self.instance.pk:
 			self.fields['city'].queryset = self.instance.state.city_set.order_by('name')   
-
-
 
 
 class ProfilePageForm(forms.ModelForm):		

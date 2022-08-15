@@ -13,30 +13,30 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path                     # path is used for routing URLs to the appropriate view functions within a Django application
-                                                 # https://www.fullstackpython.com/django-urls-path-examples.html
-from django.urls import include                  # added 
-from django.conf import settings                 # added
-from django.conf.urls.static import static       # added
-from django.contrib.auth import views as auth_views    # added 
 import debug_toolbar
-# from rest_framework_jwt.views import obtain_jwt_token
+from django.conf import settings  
+from django.conf.urls.static import static 
+from django.contrib import admin
+from django.contrib.auth import views as auth_views 
+from django.urls import include  
+from django.urls import (
+    path,
+)  
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('powerbuilding_information.urls')),    
-    path('members/', include('django.contrib.auth.urls')),       
-    path('members/', include('members.urls')),     
-    path('social/', include('social.urls')),   
-    path('lists/', include('lists.urls')),                 
-    path('ckeditor/', include('ckeditor_uploader.urls')),     
+    path("admin/", admin.site.urls),
+    path("", include("powerbuilding_information.urls")),
+    path("members/", include("django.contrib.auth.urls")),
+    path("members/", include("members.urls")),
+    path("social/", include("social.urls")),
+    path("lists/", include("lists.urls")),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
     # path('api/auth/token/', obtain_jwt_token),
-    path('api/social/', include("social.api.urls"), name='social-api'),
-    path('api/users/', include("members.api.urls"), name='users-api'),
-    path('__debug__/', include(debug_toolbar.urls)),
-
+    path("api/social/", include("social.api.urls"), name="social-api"),
+    path("api/users/", include("members.api.urls"), name="users-api"),
+    path("__debug__/", include(debug_toolbar.urls)),
     # path(r'^api/social/', include("social.api.urls")),
-
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)            # added too access our media folder       
+] + static(
+    settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+)  

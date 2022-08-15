@@ -3,13 +3,11 @@
 # from members.models import User
 
 
-
 # @pytest.fixture
 # def user_data():
 # 	# return {'email': 'user_email', 'name': 'user_name', 'password': 'user_pass543'}
 # 	return {'username':'username', 'email': 'test@gmail.com', 'first_name': 'first_name', 'last_name':'last_name', 'state':'New York', 'city':'South Richmond Hill',
 # 	 'password': 'user_pass543'}
-
 
 
 # @pytest.fixture

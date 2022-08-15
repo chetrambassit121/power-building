@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('social', '0014_comment_content_type'),
+        ("social", "0014_comment_content_type"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='comment',
-            name='object_id',
+            model_name="comment",
+            name="object_id",
             field=models.PositiveIntegerField(default=False),
         ),
     ]

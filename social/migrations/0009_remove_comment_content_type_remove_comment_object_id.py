@@ -6,16 +6,10 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('social', '0008_comment_content_type_comment_object_id'),
+        ("social", "0008_comment_content_type_comment_object_id"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='comment',
-            name='content_type',
-        ),
-        migrations.RemoveField(
-            model_name='comment',
-            name='object_id',
-        ),
+        migrations.RemoveField(model_name="comment", name="content_type",),
+        migrations.RemoveField(model_name="comment", name="object_id",),
     ]
