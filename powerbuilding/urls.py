@@ -31,6 +31,7 @@ urlpatterns = [
     path("members/", include("members.urls")),
     path("social/", include("social.urls")),
     path("lists/", include("lists.urls")),
+    # path("fitness/", include("fitness.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     # path('api/auth/token/', obtain_jwt_token),
     path("api/social/", include("social.api.urls"), name="social-api"),

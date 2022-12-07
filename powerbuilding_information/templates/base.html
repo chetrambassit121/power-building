@@ -18,17 +18,39 @@
 
     <!-- my static/style.css -->
     <link rel="stylesheet" href="/static/powerbuilding/images">
+    {% comment %} <link rel="stylesheet" href="/static/powerbuilding/images/fitness"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="/static/powerbuilding/css/style.css"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="/static/powerbuilding_information/css/style.css"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="/static/powerbuilding_information/css/animate.css"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="/static/powerbuilding_information/css/superfish.css"> {% endcomment %}
+
+    <link rel="stylesheet" href="/static/powerbuilding/sass">
+    <link rel="stylesheet" href="/static/powerbuilding/sass/bootstrap">
+    {% comment %} <link rel="stylesheet" href="/static/powerbuilding/images/boots"> {% endcomment %}
+    <link rel="stylesheet" href="/static/powerbuilding/fonts/bootstrap">
+    <link rel="stylesheet" href="/static/powerbuilding/fonts/icomoon">
+
+    <link rel="stylesheet" href="/static/powerbuilding/css/fitness/animate.css">
+    <link rel="stylesheet" href="/static/powerbuilding/css/fitness/bootstrap.css">
+    <link rel="stylesheet" href="/static/powerbuilding/css/fitness/bootstrap.css.map">
+    <link rel="stylesheet" href="/static/powerbuilding/css/fitness/icomoon.css">
+    <link rel="stylesheet" href="/static/powerbuilding/css/fitness/style.css">
+    <link rel="stylesheet" href="/static/powerbuilding/css/fitness/style.css.map">
+    <link rel="stylesheet" href="/static/powerbuilding/css/fitness/superfish.css">
+
     <link rel="stylesheet" href="/static/powerbuilding/css/style.css">
-    <link rel="stylesheet" href="/static/powerbuilding_information/css/style.css">
-    <link rel="stylesheet" href="/static/powerbuilding_information/css/animate.css">
-    <link rel="stylesheet" href="/static/powerbuilding_information/css/superfish.css">
+    {% comment %} <link rel="stylesheet" href="/static/powerbuilding_information/css/style.css"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="/static/powerbuilding_information/css/animate.css"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="/static/powerbuilding_information/css/superfish.css"> {% endcomment %}
 
     <!-- cdnjs used for footer -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 
     <title>Power-Building</title>
   </head>
-  <body style="background-image: url(/static/powerbuilding/images/home-image-5.jpg);">
+  
+  <body>
+  
     <!-- bootstrap container -->
     <div class="container">
       {% include 'navbar.html' %}
@@ -57,10 +79,23 @@
     <!-- Main JS from template we downloaded (Do not remove) -->
     <script src="/static/powerbuilding_information/js/main.js"></script>
     <!-- my js -->
-    <script type="text/javascript" src="{% static 'powerbuilding/js/survey.js' %}"></script>
+    {% comment %} <script type="text/javascript" src="{% static 'powerbuilding/js/survey.js' %}"></script>
     <script type="text/javascript" src="{% static 'powerbuilding/js/social.js' %}"></script>
     <script type="text/javascript" src="{% static 'powerbuilding/js/post.js' %}"></script>
     <script type="text/javascript" src="{% static 'powerbuilding/js/jquery.waypoints.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'powerbuilding/js/infinite.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'powerbuilding/js/infinite.min.js' %}"></script> {% endcomment %}
+
+    <script type="text/javascript" src="{% static 'powerbuilding/js/fitness/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'powerbuilding/js/fitness/js/google_map.js' %}"></script>
+    <script type="text/javascript" src="{% static 'powerbuilding/js/fitness/js/hoverintent.js' %}"></script>
+    <script type="text/javascript" src="{% static 'powerbuilding/js/fitness/js/jquery.easing.1.3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'powerbuilding/js/fitness/js/jquerymin.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'powerbuilding/js/fitness/js/jquery_stellar.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'powerbuilding/js/fitness/js/jquery_waypoints.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'powerbuilding/js/fitness/js/main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'powerbuilding/js/fitness/js/modernizr-2.6.2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'powerbuilding/js/fitness/js/respond.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'powerbuilding/js/fitness/js/superfish.js' %}"></script>
+    
   </body>
 </html>

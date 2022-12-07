@@ -19,13 +19,13 @@ from social.models import Comment, Post
 class StateSerializer(ModelSerializer):
     class Meta:
         model = State
-        fields = {"name"}
+        fields = ["name"]
 
 
 class CitySerializer(ModelSerializer):
     class Meta:
         model = City
-        fields = {"state", "name"}
+        fields = ["state", "name"]
 
 
 class UserDetailSerializer(ModelSerializer):

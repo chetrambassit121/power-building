@@ -3,9 +3,9 @@ from pathlib import Path
 
 import dj_database_url  
 import django_on_heroku  
-from decouple import (
-    config,
-)  
+# from decouple import (
+#     config,
+# )  
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "members",
     "social",
     "lists",
+    # "fitness",
 
     # third party 
     "django_extensions",

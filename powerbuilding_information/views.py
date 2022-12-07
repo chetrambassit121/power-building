@@ -25,6 +25,16 @@ class HomeView(View):
         )  
 
 
+class HomeTwoView(View):
+    def get(
+        self, request
+    ):  
+        
+        return render(
+            request, "index.html"
+        )  
+
+
 def SurveyView(request):
     survey = Survey.objects.all()
     return render(request, "surveys.html", {"survey": survey})

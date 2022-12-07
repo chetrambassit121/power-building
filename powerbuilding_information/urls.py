@@ -6,11 +6,13 @@ from .views import (
     AboutView,
     Bodybuilding,
     HomeView,
+    # IndexView,
     Powerbuilding,
     Powerlifting,
     SurveyView,
     dislike,
     like,
+    HomeTwoView
 )
 
 # https://www.fullstackpython.com/django-urls-path-examples.html
@@ -19,6 +21,9 @@ from .views import (
 urlpatterns = [
     path(
         "", HomeView.as_view(), name="home"
+    ),  
+    path(
+        "hometwo/", HomeTwoView.as_view(), name="index"
     ),  
     path("like/<int:id>/", like, name="likes"),
     path("dislike/<int:id>/", dislike, name="dislikes"),

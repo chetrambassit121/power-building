@@ -143,7 +143,7 @@ class PostDetailSerializer(ModelSerializer):
         fields = [
             "url",
             "id",
-            "slug",
+            # "slug",
             "author",
             "shared_user",
             "body",
@@ -220,7 +220,7 @@ class PostListSerializer(ModelSerializer):
             "url",
             "id",
             "author",
-            "slug",
+            # "slug",
             "shared_user",
             "body",
             "shared_body",
