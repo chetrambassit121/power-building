@@ -84,7 +84,7 @@ class UserCreateSerializer(ModelSerializer):
     first_name = CharField(label="First Name")
     last_name = CharField(label="Last Name")
     state = State.objects.all()
-    city = City.objects.filter(state=state)
+    # city = City.objects.filter(state=state)
     password = CharField(write_only=True)
     password2 = CharField(label="Re-enter Password", write_only=True)
     # email2 = EmailField(label='Confirm Email')
@@ -96,7 +96,7 @@ class UserCreateSerializer(ModelSerializer):
             "first_name",
             "last_name",
             "state",
-            "city",
+            # "city",
             "password",
             "password2",
         ]
@@ -130,7 +130,7 @@ class UserCreateSerializer(ModelSerializer):
         first_name = validated_data["first_name"]
         last_name = validated_data["last_name"]
         state = validated_data["state"]
-        city = validated_data["city"]
+        # city = validated_data["city"]
         email = validated_data["email"]
         password = validated_data["password"]
         user_obj = User(
